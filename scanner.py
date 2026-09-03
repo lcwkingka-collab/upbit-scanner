@@ -79,3 +79,5 @@ def main():
     print(json.dumps({k:out[k] for k in ('kst','market_count','complete_indicators','short_history','evaluated')},ensure_ascii=False))
 
 if __name__=='__main__': main()
+
+# Workflow bootstrap trigger
