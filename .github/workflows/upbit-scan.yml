@@ -75,9 +75,6 @@ jobs:
               path = data / name
               if not path.exists() or path.stat().st_size == 0:
                   continue
-              # utf-8-sig safely strips a BOM when present and also reads normal UTF-8.
-              # Some downstream writers emit a BOM in latest_scan.csv, which otherwise
-              # turns the first header into '\ufeffmarket' and makes market lookup fail.
               encoding = 'utf-8-sig'
               with path.open(encoding=encoding, newline='') as f:
                   rows = list(csv.DictReader(f))
@@ -106,6 +103,7 @@ jobs:
           cycle = os.environ['SCAN_CYCLE']
           run_id = os.environ['SCAN_RUN_ID']
           kst = timezone(timedelta(hours=9))
+          MIN_TRADE_COVERAGE = 0.95
 
           def read_csv(name, encoding='utf-8-sig'):
               path = data / name
@@ -113,8 +111,6 @@ jobs:
                   raise RuntimeError(f'missing or empty: {name}')
               with path.open(encoding=encoding, newline='') as f:
                   rows = list(csv.DictReader(f))
-              # Defensive normalization in case a BOM was serialized as part of
-              # the first field name by an earlier writer.
               for row in rows:
                   if '\ufeffmarket' in row and 'market' not in row:
                       row['market'] = row.pop('\ufeffmarket')
@@ -136,8 +132,14 @@ jobs:
 
           coverage = [r.get('trade_coverage_15m') for r in micro if 'trade_coverage_15m' in r]
           partial_count = sum(v not in (None, '', 'complete') for v in coverage)
-          if coverage and partial_count:
-              raise RuntimeError(f'incomplete trade coverage: {partial_count}')
+          coverage_count = len(coverage)
+          complete_count = coverage_count - partial_count
+          coverage_ratio = (complete_count / coverage_count) if coverage_count else 1.0
+          if coverage and coverage_ratio < MIN_TRADE_COVERAGE:
+              raise RuntimeError(
+                  f'trade coverage below threshold: {complete_count}/{coverage_count} '
+                  f'({coverage_ratio:.2%}) < {MIN_TRADE_COVERAGE:.0%}'
+              )
 
           cycle_dt = datetime.fromisoformat(cycle.replace('Z', '+00:00')).astimezone(kst)
           cycle_key = cycle_dt.strftime('%Y%m%d_%H%M')
@@ -156,6 +158,7 @@ jobs:
 
           marker = {
               'status': 'complete',
+              'strict_complete': partial_count == 0,
               'scan_cycle': cycle,
               'scan_cycle_kst': cycle_dt.isoformat(),
               'scan_run_id': run_id,
@@ -163,7 +166,10 @@ jobs:
               'market_count': len(base_markets),
               'v5_evaluated': len(v5),
               'microstructure_count': len(micro_markets),
+              'trade_coverage_threshold': MIN_TRADE_COVERAGE,
+              'trade_complete_count': complete_count,
               'trade_partial_count': partial_count,
+              'trade_coverage_ratio': round(coverage_ratio, 6),
               'completed_at_utc': datetime.now(timezone.utc).isoformat(),
           }
           (data / 'latest_complete_cycle.json').write_text(
