@@ -75,7 +75,10 @@ jobs:
               path = data / name
               if not path.exists() or path.stat().st_size == 0:
                   continue
-              encoding = 'utf-8-sig' if name != 'latest_scan.csv' else 'utf-8'
+              # utf-8-sig safely strips a BOM when present and also reads normal UTF-8.
+              # Some downstream writers emit a BOM in latest_scan.csv, which otherwise
+              # turns the first header into '\ufeffmarket' and makes market lookup fail.
+              encoding = 'utf-8-sig'
               with path.open(encoding=encoding, newline='') as f:
                   rows = list(csv.DictReader(f))
               if not rows:
@@ -104,16 +107,22 @@ jobs:
           run_id = os.environ['SCAN_RUN_ID']
           kst = timezone(timedelta(hours=9))
 
-          def read_csv(name, encoding):
+          def read_csv(name, encoding='utf-8-sig'):
               path = data / name
               if not path.exists() or path.stat().st_size == 0:
                   raise RuntimeError(f'missing or empty: {name}')
               with path.open(encoding=encoding, newline='') as f:
-                  return list(csv.DictReader(f))
+                  rows = list(csv.DictReader(f))
+              # Defensive normalization in case a BOM was serialized as part of
+              # the first field name by an earlier writer.
+              for row in rows:
+                  if '\ufeffmarket' in row and 'market' not in row:
+                      row['market'] = row.pop('\ufeffmarket')
+              return rows
 
-          base = read_csv('latest_scan.csv', 'utf-8')
-          v5 = read_csv('latest_dual_scan_v5.csv', 'utf-8-sig')
-          micro = read_csv('latest_microstructure.csv', 'utf-8-sig')
+          base = read_csv('latest_scan.csv')
+          v5 = read_csv('latest_dual_scan_v5.csv')
+          micro = read_csv('latest_microstructure.csv')
 
           base_markets = {r.get('market') for r in base if r.get('market')}
           micro_markets = {r.get('market') for r in micro if r.get('market')}
