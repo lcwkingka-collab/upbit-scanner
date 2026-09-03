@@ -1,10 +1,10 @@
 {
   "status": "complete",
   "strict_complete": true,
-  "scan_cycle": "2026-09-03T16:20:00Z",
-  "scan_cycle_kst": "2026-09-04T01:20:00+09:00",
-  "scan_run_id": "33778956599-1",
-  "snapshot_path": "data/snapshots/20260904_0120",
+  "scan_cycle": "2026-09-03T17:00:00Z",
+  "scan_cycle_kst": "2026-09-04T02:00:00+09:00",
+  "scan_run_id": "33782622122-1",
+  "snapshot_path": "data/snapshots/20260904_0200",
   "market_count": 287,
   "v5_evaluated": 250,
   "microstructure_count": 287,
@@ -12,5 +12,5 @@
   "trade_complete_count": 287,
   "trade_partial_count": 0,
   "trade_coverage_ratio": 1.0,
-  "completed_at_utc": "2026-09-03T16:50:21.708211+00:00"
+  "completed_at_utc": "2026-09-03T17:30:45.615586+00:00"
 }
