@@ -13,6 +13,7 @@ OUT = Path("data")
 KST = timezone(timedelta(hours=9))
 WINDOW_MINUTES = 15
 HISTORY_POINTS = 192  # 48 hours at 15-minute cadence
+FIVE_DAY_HOURS = 120
 MAX_TRADE_PAGES = int(os.getenv("UPBIT_MAX_TRADE_PAGES", "12"))
 PAGE_SIZE = 500
 
@@ -157,6 +158,55 @@ def day_path(ticker):
     }
 
 
+def five_day_path(market, now):
+    """Compute a time-ordered five-day rally path from Upbit hourly candles.
+
+    A candle low is considered only after that candle's high is evaluated, so
+    an unknown intrabar high->low sequence is never misread as low->high.
+    """
+    candles = sorted(
+        get("/candles/minutes/60", {"market": market, "count": FIVE_DAY_HOURS}),
+        key=lambda item: item.get("timestamp", 0),
+    )
+    if len(candles) < 24:
+        return {"path_5d_status": "5D 경로데이터 부족", "path_5d_points": len(candles), "stage_provisional": True}
+
+    minimum_price = minimum_time = None
+    best = None
+    for candle in candles:
+        opening = safe_float(candle.get("opening_price"))
+        high = safe_float(candle.get("high_price"))
+        low = safe_float(candle.get("low_price"))
+        timestamp = candle.get("candle_date_time_kst")
+        for base_price, base_time in ((minimum_price, minimum_time), (opening, timestamp)):
+            rally = pct_change(high, base_price)
+            if rally is not None and (best is None or rally > best["return_pct"]):
+                best = {"return_pct": rally, "base_price": base_price, "base_time_kst": base_time,
+                        "high_price": high, "high_time_kst": timestamp}
+        if low is not None and (minimum_price is None or low < minimum_price):
+            minimum_price, minimum_time = low, timestamp
+
+    current = safe_float(candles[-1].get("trade_price"))
+    if not best or current is None:
+        return {"path_5d_status": "5D 경로데이터 부족", "path_5d_points": len(candles), "stage_provisional": True}
+    current_gain = pct_change(current, best["base_price"])
+    retrace = max(0.0, (best["return_pct"] - current_gain) / best["return_pct"] * 100) if best["return_pct"] > 0 else None
+    peak_date = datetime.fromisoformat(best["high_time_kst"]).date()
+    day_offset = max(0, min(4, (now.date() - peak_date).days))
+    after_peak = [c for c in candles if c.get("candle_date_time_kst", "") > best["high_time_kst"]]
+    lows = [safe_float(c.get("low_price")) for c in after_peak]
+    pivots = [lows[i] for i in range(1, len(lows) - 1) if None not in (lows[i-1], lows[i], lows[i+1]) and lows[i] <= lows[i-1] and lows[i] <= lows[i+1]]
+    return {
+        "path_5d_status": "complete_hourly_ordered", "path_5d_source": "/v1/candles/minutes/60",
+        "path_5d_points": len(candles), "stage_provisional": False,
+        "max_rally_5d_pct": best["return_pct"], "max_rally_5d_base_price": best["base_price"],
+        "max_rally_5d_base_time_kst": best["base_time_kst"], "high_5d": best["high_price"],
+        "high_5d_time_kst": best["high_time_kst"], "max_rally_day": f"D-{day_offset}" if day_offset else "D0",
+        "drawdown_from_5d_high_pct": max(0.0, -pct_change(current, best["high_price"])),
+        "gain_retrace_5d_pct": retrace, "post_surge_higher_low": len(pivots) >= 2 and pivots[-1] > pivots[-2],
+    }
+
+
 def load_json(path, default):
     try:
         return json.loads(path.read_text(encoding="utf-8"))
@@ -233,7 +283,9 @@ def apply_gates(row, base_row, prior_points=None):
     day_high = safe_float(row.get("day_high"))
     higher_low = bool(base_row.get("higher_low"))
 
-    completed = high_return >= 15 and retrace >= 60 and current_return <= 6
+    rally_5d = safe_float(row.get("max_rally_5d_pct")) or 0
+    retrace_5d = safe_float(row.get("gain_retrace_5d_pct")) or 0
+    completed = (high_return >= 15 and retrace >= 60 and current_return <= 6) or (rally_5d >= 15 and retrace_5d >= 60)
     had_completed = any(point.get("candidate_gate", "").startswith("🔴 1차 급등 완료") for point in (prior_points or []))
     reignition = bool(
         had_completed and higher_low and ratio is not None and ratio >= 1.05 and (ratio_delta or 0) > 0
@@ -251,6 +303,61 @@ def apply_gates(row, base_row, prior_points=None):
         row["candidate_gate"] = "pass"
 
 
+def improvement_count(row):
+    return sum((
+        (safe_float(row.get("delta_launch_score")) or 0) > 0,
+        (safe_float(row.get("delta_slope15")) or 0) > 0,
+        (safe_float(row.get("delta_gap120")) or 0) < 0,
+        (safe_float(row.get("delta_value_accel_pct")) or 0) > 0,
+        (safe_float(row.get("delta_bid_trade_value_15m")) or 0) > 0,
+        (safe_float(row.get("delta_ask_trade_value_15m")) or 0) < 0,
+        (safe_float(row.get("delta_buy_sell_ratio")) or 0) > 0,
+        bool(row.get("higher_low")),
+    ))
+
+
+def classify_stage(row, prior_points):
+    score = safe_float(row.get("launch_score")) or 0
+    ratio = safe_float(row.get("buy_sell_ratio_15m"))
+    ratio_delta = safe_float(row.get("delta_buy_sell_ratio")) or 0
+    bid_delta = safe_float(row.get("delta_bid_trade_value_15m")) or 0
+    ask_delta = safe_float(row.get("delta_ask_trade_value_15m")) or 0
+    value_delta = safe_float(row.get("delta_value_accel_pct")) or 0
+    current_day = safe_float(row.get("current_day_return_pct")) or 0
+    day_high = safe_float(row.get("day_high_return_pct")) or 0
+    day_retrace = safe_float(row.get("gain_retrace_pct")) or 0
+    rally_5d = safe_float(row.get("max_rally_5d_pct"))
+    retrace_5d = safe_float(row.get("gain_retrace_5d_pct"))
+    improvements = improvement_count(row)
+    prior_stage = prior_points[-1].get("stage") if prior_points else None
+    had_s3 = prior_stage == "S3" or any(point.get("stage") == "S3" for point in prior_points[-8:])
+    completed = (day_high >= 15 and day_retrace >= 60 and current_day <= 6) or (rally_5d is not None and retrace_5d is not None and rally_5d >= 15 and retrace_5d >= 60)
+    weakened = ratio is not None and ratio < 1 and (ratio_delta < 0 or ask_delta > bid_delta)
+    reignition = [bool(row.get("post_surge_higher_low")) and bool(row.get("higher_low")), bid_delta > 0,
+                  ask_delta < 0, ratio is not None and ratio >= 1.05 and ratio_delta > 0,
+                  value_delta > 0, (safe_float(row.get("delta_price_pct_15m")) or 0) >= 0]
+    if had_s3 and sum(reignition) >= 4:
+        stage, reason = "S4", "급등 후 재점화 조건 4개 이상 개선"
+    elif completed and (weakened or day_retrace >= 75 or (retrace_5d or 0) >= 75):
+        stage, reason = "S3", "당일/5D 급등 후 상승분 상당 부분 반납"
+    elif 2 <= current_day <= 8 and ratio is not None and ratio >= 1 and value_delta >= 0 and score >= 10:
+        stage, reason = "S2", "가격 상승 초입과 실제 매수수급·구조 동반"
+    elif abs(current_day) <= 3 and improvements >= 3 and score >= 10:
+        stage, reason = "S1", f"가격 미급등 상태에서 선행조건 {improvements}개 개선"
+    else:
+        stage, reason = "S0", "발사 구조 관찰 또는 초기 준비"
+    if row.get("stage_provisional"):
+        reason += "; 5D 경로데이터 부족으로 Stage 잠정"
+    row.update({
+        "stage": stage,
+        "stage_label": {"S0":"🌱 초발사 준비","S1":"⚡ 선행 시동","S2":"🚀 발사 진행","S3":"🔴 1차 급등 완료·반납","S4":"⚡ 2차 시동·재점화"}[stage],
+        "stage_reason": reason, "stage_previous": prior_stage,
+        "stage_changed": prior_stage is not None and prior_stage != stage,
+        "stage_change_reason": reason if prior_stage is not None and prior_stage != stage else None,
+        "stage_change_kst": row.get("snapshot_kst") if prior_stage is not None and prior_stage != stage else None,
+    })
+
+
 def compact_point(row):
     fields = [
         "snapshot_kst", "snapshot_epoch", "price", "value_accel_pct",
@@ -258,7 +365,11 @@ def compact_point(row):
         "total_bid_size", "total_ask_size", "orderbook_imbalance",
         "day_high_return_pct", "current_day_return_pct", "drawdown_from_day_high_pct",
         "gain_retrace_pct", "launch_score", "trade_count_15m", "trade_coverage_15m",
-        "candidate_gate", "flow_signal",
+        "candidate_gate", "flow_signal", "slope15", "gap120", "f120up", "higher_low",
+        "max_rally_5d_pct", "high_5d", "high_5d_time_kst", "max_rally_day",
+        "drawdown_from_5d_high_pct", "gain_retrace_5d_pct", "post_surge_higher_low",
+        "path_5d_status", "stage_provisional", "stage", "stage_label", "stage_reason",
+        "stage_previous", "stage_changed", "stage_change_reason", "stage_change_kst",
     ]
     return {field: row.get(field) for field in fields}
 
@@ -311,7 +422,7 @@ def append_event_archive(rows, snapshot_epoch):
     for row in rows:
         score = safe_float(row.get("launch_score")) or 0
         value = safe_float(row.get("value_accel_pct")) or 0
-        if score >= 14 or value >= 300 or row.get("candidate_gate") != "pass" or row.get("flow_signal") != "neutral":
+        if score >= 14 or value >= 300 or row.get("candidate_gate") != "pass" or row.get("flow_signal") != "neutral" or row.get("stage_changed") or row.get("stage") in ("S1", "S2", "S4"):
             retained.append({"market": row["market"], **compact_point(row)})
     path.write_text("\n".join(json.dumps(item, ensure_ascii=False, separators=(",", ":")) for item in retained) + ("\n" if retained else ""), encoding="utf-8")
 
@@ -348,7 +459,12 @@ def main():
                 **trade,
                 **orderbook_values(orderbooks.get(market, {})),
                 **day_path(ticker.get(market, {})),
+                **five_day_path(market, now),
             }
+            row["slope15"] = safe_float(v5.get(market, {}).get("slope15"))
+            row["gap120"] = safe_float(v5.get(market, {}).get("gap120"))
+            row["f120up"] = safe_float(v5.get(market, {}).get("f120up"))
+            row["higher_low"] = bool(base.get(market, {}).get("higher_low"))
             points = history_markets.get(market, [])
             for minutes in (15, 30, 45, 60):
                 old = point_before(points, now_epoch, minutes)
@@ -363,8 +479,12 @@ def main():
             row["delta_ask_trade_value_15m"] = delta(row, previous, "ask_trade_value_15m")
             row["delta_value_accel_pct"] = delta(row, previous, "value_accel_pct")
             row["delta_price_pct_15m"] = pct_change(row.get("price"), safe_float(previous.get("price")) if previous else None)
+            row["delta_launch_score"] = delta(row, previous, "launch_score")
+            row["delta_slope15"] = delta(row, previous, "slope15")
+            row["delta_gap120"] = delta(row, previous, "gap120")
             classify_direction(row)
             apply_gates(row, base.get(market, {}), points)
+            classify_stage(row, points)
             rows.append(row)
             points.append(compact_point(row))
             history_markets[market] = points[-HISTORY_POINTS:]
@@ -397,6 +517,7 @@ def main():
             "complete_15m": sum(row["trade_coverage_15m"] == "complete" for row in rows),
             "partial_15m": sum(row["trade_coverage_15m"] == "partial" for row in rows),
         },
+        "stage_counts": {stage: sum(row.get("stage") == stage for row in rows) for stage in ("S0", "S1", "S2", "S3", "S4")},
         "rows": rows,
     }
     (OUT / "latest_microstructure.json").write_text(json.dumps(latest, ensure_ascii=False, indent=2), encoding="utf-8")
