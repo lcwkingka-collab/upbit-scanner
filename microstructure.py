@@ -164,10 +164,14 @@ def five_day_path(market, now):
     A candle low is considered only after that candle's high is evaluated, so
     an unknown intrabar high->low sequence is never misread as low->high.
     """
-    candles = sorted(
-        get("/candles/minutes/60", {"market": market, "count": FIVE_DAY_HOURS}),
-        key=lambda item: item.get("timestamp", 0),
-    )
+    try:
+        candles = sorted(
+            get("/candles/minutes/60", {"market": market, "count": FIVE_DAY_HOURS}),
+            key=lambda item: item.get("timestamp", 0),
+        )
+    except Exception as exc:
+        return {"path_5d_status": "5D 경로데이터 부족", "path_5d_error": str(exc),
+                "path_5d_points": 0, "stage_provisional": True}
     if len(candles) < 24:
         return {"path_5d_status": "5D 경로데이터 부족", "path_5d_points": len(candles), "stage_provisional": True}
 
@@ -509,6 +513,7 @@ def main():
             "trades": "/v1/trades/ticks ask_bid (BID/ASK)",
             "orderbook": "/v1/orderbook total_bid_size/total_ask_size",
             "ticker": "/v1/ticker opening_price/high_price/trade_price",
+            "five_day_path": "/v1/candles/minutes/60 (time-ordered, 120 candles)",
             "trade_window_minutes": WINDOW_MINUTES,
             "max_trade_pages": MAX_TRADE_PAGES,
             "estimation_used": False,
