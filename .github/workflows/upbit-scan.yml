@@ -15,7 +15,7 @@ permissions:
   contents: write
 concurrency:
   group: upbit-full-scan
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   scan:
     runs-on: ubuntu-latest
