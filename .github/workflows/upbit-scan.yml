@@ -9,7 +9,7 @@ on:
       - microstructure.py
       - .github/workflows/upbit-scan.yml
   schedule:
-    - cron: '0,20,40 * * * *'
+    - cron: '10,40 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -21,6 +21,8 @@ jobs:
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -30,11 +32,13 @@ jobs:
           NOW_EPOCH=$(date -u +%s)
           HOUR_EPOCH=$(( (NOW_EPOCH / 3600) * 3600 ))
           MINUTE_IN_HOUR=$(( (NOW_EPOCH - HOUR_EPOCH) / 60 ))
-          if [ "$MINUTE_IN_HOUR" -ge 40 ]; then CYCLE_MINUTE=40
-          elif [ "$MINUTE_IN_HOUR" -ge 20 ]; then CYCLE_MINUTE=20
-          else CYCLE_MINUTE=0
+          if [ "$MINUTE_IN_HOUR" -ge 40 ]; then
+            CYCLE_EPOCH=$(( HOUR_EPOCH + 40 * 60 ))
+          elif [ "$MINUTE_IN_HOUR" -ge 10 ]; then
+            CYCLE_EPOCH=$(( HOUR_EPOCH + 10 * 60 ))
+          else
+            CYCLE_EPOCH=$(( HOUR_EPOCH - 20 * 60 ))
           fi
-          CYCLE_EPOCH=$(( HOUR_EPOCH + CYCLE_MINUTE * 60 ))
           SCAN_CYCLE=$(date -u -d "@$CYCLE_EPOCH" '+%Y-%m-%dT%H:%M:00Z')
           echo "SCAN_CYCLE=$SCAN_CYCLE" >> "$GITHUB_ENV"
           echo "SCAN_RUN_ID=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_ENV"
@@ -191,5 +195,4 @@ jobs:
           git add data/microstructure_history.json data/signal_event_history.jsonl
           git add data/latest_complete_cycle.json data/snapshots
           git diff --cached --quiet || git commit -m "Update Upbit scan with completed cycle snapshot"
-          git pull --rebase
           git push
