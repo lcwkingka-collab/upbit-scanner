@@ -9,8 +9,7 @@ on:
       - microstructure.py
       - .github/workflows/upbit-scan.yml
   schedule:
-    - cron: '0,30 * * * *'
-    - cron: '15,45 * * * *'
+    - cron: '0,20,40 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -28,8 +27,14 @@ jobs:
       - name: Set shared scan cycle
         shell: bash
         run: |
-          CYCLE_EPOCH=$(date -u +%s)
-          CYCLE_EPOCH=$(( (CYCLE_EPOCH / 900) * 900 ))
+          NOW_EPOCH=$(date -u +%s)
+          HOUR_EPOCH=$(( (NOW_EPOCH / 3600) * 3600 ))
+          MINUTE_IN_HOUR=$(( (NOW_EPOCH - HOUR_EPOCH) / 60 ))
+          if [ "$MINUTE_IN_HOUR" -ge 40 ]; then CYCLE_MINUTE=40
+          elif [ "$MINUTE_IN_HOUR" -ge 20 ]; then CYCLE_MINUTE=20
+          else CYCLE_MINUTE=0
+          fi
+          CYCLE_EPOCH=$(( HOUR_EPOCH + CYCLE_MINUTE * 60 ))
           SCAN_CYCLE=$(date -u -d "@$CYCLE_EPOCH" '+%Y-%m-%dT%H:%M:00Z')
           echo "SCAN_CYCLE=$SCAN_CYCLE" >> "$GITHUB_ENV"
           echo "SCAN_RUN_ID=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_ENV"
