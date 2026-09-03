@@ -1,5 +1,5 @@
 {
-  "kst": "2026-09-03T14:26:59.476103+09:00",
+  "kst": "2026-09-03T14:42:28.272168+09:00",
   "market_count": 287,
   "v5_evaluated": 250,
   "v4_events": 68,
@@ -8,6 +8,6 @@
     "score14": 3,
     "value300": 37,
     "ankr_like": 0,
-    "early_ignition": 33
+    "early_ignition": 35
   }
 }
