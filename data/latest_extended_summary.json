@@ -1,13 +1,13 @@
 {
-  "kst": "2026-09-03T14:42:28.272168+09:00",
+  "kst": "2026-09-03T15:08:27.888833+09:00",
   "market_count": 287,
   "v5_evaluated": 250,
   "v4_events": 68,
   "errors": [],
   "signal_counts": {
-    "score14": 3,
-    "value300": 37,
+    "score14": 4,
+    "value300": 38,
     "ankr_like": 0,
-    "early_ignition": 35
+    "early_ignition": 39
   }
 }
