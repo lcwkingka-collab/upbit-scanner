@@ -58,7 +58,8 @@ def calc(mkt, raw):
     mac_up=len(hist)>1 and hist[-1]>hist[-2] and mac[-1]>mac[-2]; cross=len(mac)>1 and mac[-1]>sig[-1] and mac[-2]<=sig[-2]
     excluded=bool((d5 or 0)>.18 or (d20 or 0)>.35 or (rr or 0)>68 or px/o[-1]-1>.09 or (0<near_res<.018 and (d5 or 0)>.06))
     score=(2 if near_sup<=.05 else 1 if near_sup<=.10 else 0)+(2 if rr and 45<=rr<=60 else 1 if rr and 40<=rr<=64 else 0)+(2 if cross else 1 if mac_up and mac[-1]<0 else 0)+(2 if aa and aa>=25 else 1 if aa and aa>=20 else 0)+(2 if vr and tvr and vr>=1.35 and tvr>=1.35 else 1 if (vr or 0)>=1.1 or (tvr or 0)>=1.1 else 0)+(2 if hl else 0)+(2 if m15 and m50 and m15<m50 and 0<=(m50-m15)/m50<=.035 and m15p and m15>m15p else 1 if m15 and m15p and m15>m15p else 0)-(5 if excluded else 0)
-    return dict(market=mkt,days=len(c),price=px,ma15=m15,ma50=m50,ma120=m120,rsi=rr,adx=aa,macd=mac[-1],signal=sig[-1],hist=hist[-1],hist_prev=hist[-2],mac_up=mac_up,mac_cross=cross,higher_low=hl,support=sup,resistance=res,near_support=near_sup,near_resistance=near_res,volume_accel=vr,value_accel=tvr,d1=d1,d5=d5,d20=d20,candle=px/o[-1]-1,excluded=excluded,score=score)
+    path15=[{"date":x.get("candle_date_time_kst","")[:10],"open":x.get("opening_price"),"high":x.get("high_price"),"low":x.get("low_price"),"close":x.get("trade_price"),"trade_value":x.get("candle_acc_trade_price")} for x in a[-16:]]
+    return dict(market=mkt,days=len(c),price=px,ma15=m15,ma50=m50,ma120=m120,rsi=rr,adx=aa,macd=mac[-1],signal=sig[-1],hist=hist[-1],hist_prev=hist[-2],mac_up=mac_up,mac_cross=cross,higher_low=hl,support=sup,resistance=res,near_support=near_sup,near_resistance=near_res,volume_accel=vr,value_accel=tvr,d1=d1,d5=d5,d20=d20,candle=px/o[-1]-1,excluded=excluded,score=score,path_15d=path15,path_15d_status="complete" if len(path15)>=16 else "이력 데이터 부족")
 
 def main():
     markets=[x for x in get('/market/all',{'is_details':'true'}) if x['market'].startswith('KRW-')]
