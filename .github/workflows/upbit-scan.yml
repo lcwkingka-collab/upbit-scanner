@@ -6,6 +6,7 @@ on:
     paths:
       - scanner.py
       - extended_scans.py
+      - microstructure.py
       - .github/workflows/upbit-scan.yml
   schedule:
     - cron: '0,30 * * * *'
@@ -18,7 +19,7 @@ concurrency:
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -29,11 +30,16 @@ jobs:
         run: python scanner.py
       - name: Run v4 and v5 extended scans
         run: python extended_scans.py
+      - name: Collect trades, orderbooks, and intraday path
+        run: python microstructure.py
       - name: Commit latest results
         run: |
           git config user.name github-actions[bot]
           git config user.email 41898282+github-actions[bot]@users.noreply.github.com
           git add data/latest_scan.json data/latest_scan.csv
           git add data/latest_dual_scan_v5.csv data/latest_ma120_backtest_v4.csv data/latest_extended_summary.json
-          git diff --cached --quiet || git commit -m "Update Upbit scan"
+          git add data/latest_microstructure.json data/latest_microstructure.csv
+          git add data/microstructure_history.json data/signal_event_history.jsonl
+          git diff --cached --quiet || git commit -m "Update Upbit scan with trade-side flow"
+          git pull --rebase
           git push
