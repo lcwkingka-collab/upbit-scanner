@@ -8,7 +8,8 @@ on:
       - extended_scans.py
       - .github/workflows/upbit-scan.yml
   schedule:
-    - cron: '10,30 * * * *'
+    - cron: '0,30 * * * *'
+    - cron: '15,45 * * * *'
 permissions:
   contents: write
 concurrency:
@@ -24,6 +25,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Fetch and analyze all KRW markets
+        if: github.event_name != 'schedule' || github.event.schedule == '15,45 * * * *'
         run: python scanner.py
       - name: Run v4 and v5 extended scans
         run: python extended_scans.py
