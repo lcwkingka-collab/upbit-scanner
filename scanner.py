@@ -75,8 +75,12 @@ def main():
     os.makedirs('data',exist_ok=True)
     json.dump(out,open('data/latest_scan.json','w'),ensure_ascii=False,indent=2)
     if rows:
+        # Keep the CSV compact/readable for Work/GitHub connectors. The full
+        # D-15 path remains in latest_scan.json and is intentionally omitted
+        # here because serializing it into every CSV row made the file too large.
+        csv_fields=[k for k in rows[0].keys() if k!='path_15d']
         with open('data/latest_scan.csv','w',newline='') as f:
-            w=csv.DictWriter(f,fieldnames=rows[0].keys()); w.writeheader(); w.writerows(rows)
+            w=csv.DictWriter(f,fieldnames=csv_fields,extrasaction='ignore'); w.writeheader(); w.writerows(rows)
     print(json.dumps({k:out[k] for k in ('kst','market_count','complete_indicators','short_history','evaluated')},ensure_ascii=False))
 
 if __name__=='__main__': main()
