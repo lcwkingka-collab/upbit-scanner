@@ -25,12 +25,67 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Set shared scan cycle
+        shell: bash
+        run: |
+          CYCLE_EPOCH=$(date -u +%s)
+          CYCLE_EPOCH=$(( (CYCLE_EPOCH / 900) * 900 ))
+          SCAN_CYCLE=$(date -u -d "@$CYCLE_EPOCH" '+%Y-%m-%dT%H:%M:00Z')
+          echo "SCAN_CYCLE=$SCAN_CYCLE" >> "$GITHUB_ENV"
+          echo "SCAN_RUN_ID=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_ENV"
       - name: Fetch and analyze all KRW markets
         run: python scanner.py
       - name: Run v4 and v5 extended scans
         run: python extended_scans.py
       - name: Collect trades, orderbooks, and intraday path
         run: python microstructure.py
+      - name: Stamp shared cycle metadata
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv, json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          data = Path('data')
+          cycle = os.environ['SCAN_CYCLE']
+          run_id = os.environ['SCAN_RUN_ID']
+          stamped_at = datetime.now(timezone.utc).isoformat()
+
+          for name in ('latest_scan.json', 'latest_extended_summary.json', 'latest_microstructure.json'):
+              path = data / name
+              if not path.exists():
+                  continue
+              try:
+                  obj = json.loads(path.read_text(encoding='utf-8'))
+              except Exception:
+                  continue
+              if isinstance(obj, dict):
+                  obj['scan_cycle'] = cycle
+                  obj['scan_run_id'] = run_id
+                  obj['cycle_stamped_at_utc'] = stamped_at
+                  path.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding='utf-8')
+
+          for name in ('latest_scan.csv', 'latest_dual_scan_v5.csv', 'latest_microstructure.csv'):
+              path = data / name
+              if not path.exists() or path.stat().st_size == 0:
+                  continue
+              encoding = 'utf-8-sig' if name != 'latest_scan.csv' else 'utf-8'
+              with path.open(encoding=encoding, newline='') as f:
+                  rows = list(csv.DictReader(f))
+              if not rows:
+                  continue
+              fields = list(rows[0].keys())
+              for field in ('scan_cycle', 'scan_run_id'):
+                  if field not in fields:
+                      fields.append(field)
+              for row in rows:
+                  row['scan_cycle'] = cycle
+                  row['scan_run_id'] = run_id
+              with path.open('w', encoding=encoding, newline='') as f:
+                  w = csv.DictWriter(f, fieldnames=fields)
+                  w.writeheader(); w.writerows(rows)
+          PY
       - name: Commit latest results
         run: |
           git config user.name github-actions[bot]
