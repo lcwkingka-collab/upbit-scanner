@@ -7,6 +7,7 @@ on:
       - scanner.py
       - extended_scans.py
       - microstructure.py
+      - surge_learning.py
       - .github/workflows/upbit-scan.yml
   schedule:
     - cron: '10,40 * * * *'
@@ -95,6 +96,8 @@ jobs:
                   w = csv.DictWriter(f, fieldnames=fields)
                   w.writeheader(); w.writerows(rows)
           PY
+      - name: Record new +10% surge learning cases
+        run: python surge_learning.py
       - name: Save completed cycle snapshot
         shell: bash
         run: |
@@ -193,6 +196,7 @@ jobs:
           git add data/latest_dual_scan_v5.csv data/latest_ma120_backtest_v4.csv data/latest_extended_summary.json
           git add data/latest_microstructure.json data/latest_microstructure.csv
           git add data/microstructure_history.json data/signal_event_history.jsonl
+          git add data/surge_case_db.json
           git add data/latest_complete_cycle.json data/snapshots
           git diff --cached --quiet || git commit -m "Update Upbit scan with completed cycle snapshot"
           git push
