@@ -1,0 +1,33 @@
+name: Upbit full scan
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scanner.py
+      - .github/workflows/upbit-scan.yml
+  schedule:
+    - cron: '45 * * * *'
+permissions:
+  contents: write
+concurrency:
+  group: upbit-full-scan
+  cancel-in-progress: true
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch and analyze all KRW markets
+        run: python scanner.py
+      - name: Commit latest results
+        run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add data/latest_scan.json data/latest_scan.csv
+          git diff --cached --quiet || git commit -m "Update Upbit scan"
+          git push
