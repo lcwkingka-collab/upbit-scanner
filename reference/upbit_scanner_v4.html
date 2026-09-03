@@ -1,0 +1,32 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Upbit MA120 Backtest Scanner v4</title><style>body{font-family:system-ui,sans-serif;margin:16px;line-height:1.45}button{font-size:18px;padding:14px 18px;border-radius:10px}#s{white-space:pre-wrap;margin-top:14px}.note{font-size:13px;color:#555}.box{padding:12px;border:1px solid #bbb;border-radius:10px;margin:12px 0}table{border-collapse:collapse;width:100%;font-size:12px;margin:10px 0 22px}th,td{border:1px solid #ccc;padding:5px;text-align:right}th:first-child,td:first-child{text-align:left}</style></head><body>
+<h2>업비트 KRW MA120 백테스트 스캐너 v4</h2>
+<p><b>MA15가 MA120을 아래→위로 돌파한 뒤 실제로 얼마나 상승했는지</b> 전 종목 과거 사례를 계산합니다.</p>
+<p class="note">최근 약 200일 일봉 기준. 돌파일 종가 대비 이후 3/7/14/30일 내 최고 상승률과 최대 하락폭, 돌파 당시 MA50 구조와 거래대금 증가율을 저장합니다. 미래 수익을 보장하는 지표가 아니라 과거 통계입니다.</p>
+<button id="run">MA120 전수 백테스트 + CSV 저장</button><div id="s">대기 중</div><div id="out"></div>
+<script>
+const API='https://api.upbit.com/v1'; const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function getJson(url){const r=await fetch(url);if(!r.ok)throw new Error(r.status+' '+url);return r.json()}
+function avg(a,n,end){const x=a.slice(end-n,end);return x.reduce((s,v)=>s+v,0)/n}
+function esc(v){return '"'+String(v??'').replaceAll('"','""')+'"'}
+function pct(a,b){return b?((a/b)-1)*100:null}
+function stats(events,key){const v=events.map(x=>x[key]).filter(Number.isFinite);if(!v.length)return {n:0,avg:null,med:null,p10:null};v.sort((a,b)=>a-b);const mean=v.reduce((a,b)=>a+b,0)/v.length;const med=v[Math.floor(v.length/2)];return {n:v.length,avg:mean,med,p10:v.filter(x=>x>=10).length/v.length*100}}
+async function run(){const s=document.querySelector('#s'),out=document.querySelector('#out'),btn=document.querySelector('#run');btn.disabled=true;out.innerHTML='';try{
+ s.textContent='KRW 종목 목록 수집 중...';const markets=(await getJson(API+'/market/all?isDetails=false')).filter(x=>x.market.startsWith('KRW-'));let ev=[];let ok=0;
+ for(let mi=0;mi<markets.length;mi++){const m=markets[mi];s.textContent=`과거 일봉/MA120 백테스트 ${mi+1}/${markets.length} : ${m.market}`;try{let c=await getJson(API+'/candles/days?market='+encodeURIComponent(m.market)+'&count=200');c=c.reverse();if(c.length<125){await sleep(115);continue}ok++;const close=c.map(x=>x.trade_price),value=c.map(x=>x.candle_acc_trade_price),dates=c.map(x=>x.candle_date_time_kst.slice(0,10));
+  for(let i=120;i<c.length;i++){const ma15=avg(close,15,i+1),ma120=avg(close,120,i+1),p15=avg(close,15,i),p120=avg(close,120,i);if(!(p15<=p120&&ma15>ma120))continue;const ma50=avg(close,50,i+1);const entry=close[i];const prev5=value.slice(Math.max(0,i-5),i),cur5=value.slice(Math.max(0,i-4),i+1);const pv=prev5.length?prev5.reduce((a,b)=>a+b,0)/prev5.length:null,cv=cur5.length?cur5.reduce((a,b)=>a+b,0)/cur5.length:null;const volAccel=pv?pct(cv,pv):null;
+   const e={market:m.market,name:m.korean_name,date:dates[i],entry,ma15,ma50,ma120,ma15Above50:ma15>ma50,ma50Above120:ma50>ma120,volAccel};
+   for(const d of [3,7,14,30]){const future=close.slice(i+1,Math.min(c.length,i+d+1));e['ret'+d]=future.length?pct(Math.max(...future),entry):null;e['dd'+d]=future.length?pct(Math.min(...future),entry):null}
+   ev.push(e);
+  }
+ }catch(e){console.log(m.market,e)}await sleep(115)}
+ const s3=stats(ev,'ret3'),s7=stats(ev,'ret7'),s14=stats(ev,'ret14'),s30=stats(ev,'ret30');
+ const both=ev.filter(x=>x.ma15Above50),below=ev.filter(x=>!x.ma15Above50),volup=ev.filter(x=>Number.isFinite(x.volAccel)&&x.volAccel>20);
+ const lines=['마켓,한글명,MA120상향돌파일,돌파일종가,MA15,MA50,MA120,돌파시MA15>MA50,돌파시MA50>MA120,5일거래대금증감%,3일내최고상승%,3일최대하락%,7일내최고상승%,7일최대하락%,14일내최고상승%,14일최대하락%,30일내최고상승%,30일최대하락%'];
+ for(const x of ev)lines.push([x.market,x.name,x.date,x.entry,x.ma15,x.ma50,x.ma120,x.ma15Above50,x.ma50Above120,x.volAccel,x.ret3,x.dd3,x.ret7,x.dd7,x.ret14,x.dd14,x.ret30,x.dd30].map(esc).join(','));
+ const blob=new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);const d=new Date(),local=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;a.download='upbit_ma120_backtest_v4_'+local+'.csv';a.click();
+ function f(x){return x==null?'자료부족':x.toFixed(2)+'%'}function row(label,z){return `<tr><td>${label}</td><td>${z.n}</td><td>${f(z.avg)}</td><td>${f(z.med)}</td><td>${f(z.p10)}</td></tr>`}
+ out.innerHTML=`<div class="box"><b>완료: ${ok}/${markets.length} 종목 · MA120 상향돌파 ${ev.length}건</b><br>CSV에는 각 돌파 사례별 3/7/14/30일 최고상승률·최대하락률이 들어 있습니다.</div><table><tr><th>기간</th><th>사례수</th><th>평균 최고상승</th><th>중앙값 최고상승</th><th>+10% 도달률</th></tr>${row('3일',s3)}${row('7일',s7)}${row('14일',s14)}${row('30일',s30)}</table><div class="box">MA120 돌파 당시 MA15&gt;MA50 동시 구조: <b>${both.length}</b>건 / MA15&lt;=MA50: <b>${below.length}</b>건<br>거래대금 20% 이상 증가 동반: <b>${volup.length}</b>건</div>`;
+ s.textContent='v4 백테스트 완료. CSV 저장됨.';
+ }catch(e){s.textContent='오류: '+e.message}finally{btn.disabled=false}}
+document.querySelector('#run').onclick=run;
+</script></body></html>
