@@ -341,8 +341,8 @@ def classify_stage(row, prior_points):
     reignition = [bool(row.get("post_surge_higher_low")) and bool(row.get("higher_low")), bid_delta > 0,
                   ask_delta < 0, ratio is not None and ratio >= 1.05 and ratio_delta > 0,
                   value_delta > 0, (safe_float(row.get("delta_price_pct_15m")) or 0) >= 0]
-    if had_s3 and sum(reignition) >= 4:
-        stage, reason = "S4", "급등 후 재점화 조건 4개 이상 개선"
+    if had_s3 and row.get("second_ignition_reentry"):
+        stage, reason = "S4", "Higher Low·BID 증가·ASK 감소·ratio 및 거래대금 재가속 확인"
     elif completed and (weakened or day_retrace >= 75 or (retrace_5d or 0) >= 75):
         stage, reason = "S3", "당일/5D 급등 후 상승분 상당 부분 반납"
     elif 2 <= current_day <= 8 and ratio is not None and ratio >= 1 and value_delta >= 0 and score >= 10:
