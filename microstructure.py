@@ -5,6 +5,7 @@ import os
 import time
 import urllib.parse
 import urllib.request
+import statistics
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -342,9 +343,9 @@ def classify_stage(row, prior_points):
                   value_delta > 0, (safe_float(row.get("delta_price_pct_15m")) or 0) >= 0]
     if had_s3 and sum(reignition) >= 4:
         stage, reason = "S4", "급등 후 재점화 조건 4개 이상 개선"
-    elif completed:
+    elif completed and (weakened or day_retrace >= 75 or (retrace_5d or 0) >= 75):
         stage, reason = "S3", "당일/5D 급등 후 상승분 상당 부분 반납"
-    elif current_day >= 2 and day_retrace < 60 and ratio is not None and ratio >= 1 and value_delta >= 0 and score >= 10:
+    elif 2 <= current_day <= 8 and ratio is not None and ratio >= 1 and value_delta >= 0 and score >= 10:
         stage, reason = "S2", "가격 상승 초입과 실제 매수수급·구조 동반"
     elif abs(current_day) <= 3 and improvements >= 3 and score >= 10:
         stage, reason = "S1", f"가격 미급등 상태에서 선행조건 {improvements}개 개선"
@@ -370,6 +371,8 @@ def compact_point(row):
         "day_high_return_pct", "current_day_return_pct", "drawdown_from_day_high_pct",
         "gain_retrace_pct", "launch_score", "trade_count_15m", "trade_coverage_15m",
         "candidate_gate", "flow_signal", "slope15", "gap120", "f120up", "higher_low",
+        "trade_value_15m", "normal_trade_value_15m_median", "trade_value_anomaly_ratio",
+        "surge_return_from_120m", "surge_success_15_120m", "signal_failure_120m",
         "max_rally_5d_pct", "high_5d", "high_5d_time_kst", "max_rally_day",
         "drawdown_from_5d_high_pct", "gain_retrace_5d_pct", "post_surge_higher_low",
         "path_5d_status", "stage_provisional", "stage", "stage_label", "stage_reason",
@@ -470,13 +473,17 @@ def main():
             row["f120up"] = safe_float(v5.get(market, {}).get("f120up"))
             row["higher_low"] = bool(base.get(market, {}).get("higher_low"))
             points = history_markets.get(market, [])
-            for minutes in (15, 30, 45, 60):
+            for minutes in (15, 30, 45, 60, 90, 120):
                 old = point_before(points, now_epoch, minutes)
                 row[f"buy_sell_ratio_change_{minutes}m"] = delta(row, old, "buy_sell_ratio_15m")
                 row[f"bid_trade_value_change_{minutes}m"] = pct_change(row.get("bid_trade_value_15m"), safe_float(old.get("bid_trade_value_15m")) if old else None)
                 row[f"ask_trade_value_change_{minutes}m"] = pct_change(row.get("ask_trade_value_15m"), safe_float(old.get("ask_trade_value_15m")) if old else None)
                 row[f"value_accel_change_{minutes}m"] = delta(row, old, "value_accel_pct")
                 row[f"price_change_{minutes}m"] = pct_change(row.get("price"), safe_float(old.get("price")) if old else None)
+                row[f"launch_score_change_{minutes}m"] = delta(row, old, "launch_score")
+                row[f"slope15_change_{minutes}m"] = delta(row, old, "slope15")
+                row[f"gap120_change_{minutes}m"] = delta(row, old, "gap120")
+                row[f"f120up_change_{minutes}m"] = delta(row, old, "f120up")
             previous = max(points, key=lambda point: safe_float(point.get("snapshot_epoch")) or 0, default=None)
             row["delta_buy_sell_ratio"] = delta(row, previous, "buy_sell_ratio_15m")
             row["delta_bid_trade_value_15m"] = delta(row, previous, "bid_trade_value_15m")
@@ -486,6 +493,22 @@ def main():
             row["delta_launch_score"] = delta(row, previous, "launch_score")
             row["delta_slope15"] = delta(row, previous, "slope15")
             row["delta_gap120"] = delta(row, previous, "gap120")
+            row["trade_value_15m"] = (safe_float(row.get("bid_trade_value_15m")) or 0) + (safe_float(row.get("ask_trade_value_15m")) or 0)
+            historical_values = [
+                (safe_float(point.get("bid_trade_value_15m")) or 0) + (safe_float(point.get("ask_trade_value_15m")) or 0)
+                for point in points[-96:]
+                if (safe_float(point.get("bid_trade_value_15m")) or 0) + (safe_float(point.get("ask_trade_value_15m")) or 0) > 0
+            ]
+            row["normal_trade_value_15m_median"] = statistics.median(historical_values) if historical_values else None
+            row["trade_value_anomaly_ratio"] = (
+                row["trade_value_15m"] / row["normal_trade_value_15m_median"]
+                if row["normal_trade_value_15m_median"] else None
+            )
+            old120 = point_before(points, now_epoch, 120)
+            row["surge_return_from_120m"] = pct_change(row.get("price"), safe_float(old120.get("price")) if old120 else None)
+            row["surge_success_15_120m"] = bool(row["surge_return_from_120m"] is not None and row["surge_return_from_120m"] >= 15)
+            prior_signal = bool(old120 and ((safe_float(old120.get("launch_score")) or 0) >= 14 or (safe_float(old120.get("value_accel_pct")) or 0) >= 300 or old120.get("stage") in ("S1", "S2", "S4")))
+            row["signal_failure_120m"] = bool(prior_signal and row["surge_return_from_120m"] is not None and row["surge_return_from_120m"] < 3)
             classify_direction(row)
             apply_gates(row, base.get(market, {}), points)
             classify_stage(row, points)
