@@ -7,7 +7,7 @@ on:
       - scanner.py
       - .github/workflows/upbit-scan.yml
   schedule:
-    - cron: '45 * * * *'
+    - cron: '10,35 * * * *'
 permissions:
   contents: write
 concurrency:
