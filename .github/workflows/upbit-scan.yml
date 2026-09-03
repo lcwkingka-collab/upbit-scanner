@@ -86,6 +86,81 @@ jobs:
                   w = csv.DictWriter(f, fieldnames=fields)
                   w.writeheader(); w.writerows(rows)
           PY
+      - name: Save completed cycle snapshot
+        shell: bash
+        run: |
+          python - <<'PY'
+          import csv, json, os, shutil
+          from datetime import datetime, timezone, timedelta
+          from pathlib import Path
+
+          data = Path('data')
+          cycle = os.environ['SCAN_CYCLE']
+          run_id = os.environ['SCAN_RUN_ID']
+          kst = timezone(timedelta(hours=9))
+
+          def read_csv(name, encoding):
+              path = data / name
+              if not path.exists() or path.stat().st_size == 0:
+                  raise RuntimeError(f'missing or empty: {name}')
+              with path.open(encoding=encoding, newline='') as f:
+                  return list(csv.DictReader(f))
+
+          base = read_csv('latest_scan.csv', 'utf-8')
+          v5 = read_csv('latest_dual_scan_v5.csv', 'utf-8-sig')
+          micro = read_csv('latest_microstructure.csv', 'utf-8-sig')
+
+          base_markets = {r.get('market') for r in base if r.get('market')}
+          micro_markets = {r.get('market') for r in micro if r.get('market')}
+          if not base_markets or base_markets != micro_markets:
+              raise RuntimeError(f'incomplete cycle: base={len(base_markets)} micro={len(micro_markets)}')
+
+          for rows, label in ((base, 'base'), (v5, 'v5'), (micro, 'micro')):
+              bad = [r for r in rows if r.get('scan_cycle') != cycle or r.get('scan_run_id') != run_id]
+              if bad:
+                  raise RuntimeError(f'{label} metadata mismatch: {len(bad)} rows')
+
+          coverage = [r.get('trade_coverage_15m') for r in micro if 'trade_coverage_15m' in r]
+          partial_count = sum(v not in (None, '', 'complete') for v in coverage)
+          if coverage and partial_count:
+              raise RuntimeError(f'incomplete trade coverage: {partial_count}')
+
+          cycle_dt = datetime.fromisoformat(cycle.replace('Z', '+00:00')).astimezone(kst)
+          cycle_key = cycle_dt.strftime('%Y%m%d_%H%M')
+          snapshot_dir = data / 'snapshots' / cycle_key
+          snapshot_dir.mkdir(parents=True, exist_ok=True)
+
+          for name in (
+              'latest_scan.csv',
+              'latest_dual_scan_v5.csv',
+              'latest_microstructure.csv',
+              'latest_extended_summary.json',
+          ):
+              src = data / name
+              if src.exists():
+                  shutil.copy2(src, snapshot_dir / name)
+
+          marker = {
+              'status': 'complete',
+              'scan_cycle': cycle,
+              'scan_cycle_kst': cycle_dt.isoformat(),
+              'scan_run_id': run_id,
+              'snapshot_path': str(snapshot_dir).replace('\\', '/'),
+              'market_count': len(base_markets),
+              'v5_evaluated': len(v5),
+              'microstructure_count': len(micro_markets),
+              'trade_partial_count': partial_count,
+              'completed_at_utc': datetime.now(timezone.utc).isoformat(),
+          }
+          (data / 'latest_complete_cycle.json').write_text(
+              json.dumps(marker, ensure_ascii=False, indent=2), encoding='utf-8'
+          )
+
+          root = data / 'snapshots'
+          dirs = sorted([p for p in root.iterdir() if p.is_dir()], key=lambda p: p.name, reverse=True)
+          for old in dirs[12:]:
+              shutil.rmtree(old)
+          PY
       - name: Commit latest results
         run: |
           git config user.name github-actions[bot]
@@ -94,6 +169,7 @@ jobs:
           git add data/latest_dual_scan_v5.csv data/latest_ma120_backtest_v4.csv data/latest_extended_summary.json
           git add data/latest_microstructure.json data/latest_microstructure.csv
           git add data/microstructure_history.json data/signal_event_history.jsonl
-          git diff --cached --quiet || git commit -m "Update Upbit scan with trade-side flow"
+          git add data/latest_complete_cycle.json data/snapshots
+          git diff --cached --quiet || git commit -m "Update Upbit scan with completed cycle snapshot"
           git pull --rebase
           git push
