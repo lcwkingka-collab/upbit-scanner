@@ -186,6 +186,8 @@ def delta(current, previous, field):
 
 def classify_direction(row):
     ratio = safe_float(row.get("buy_sell_ratio_15m"))
+    bid_value = safe_float(row.get("bid_trade_value_15m")) or 0
+    ask_value = safe_float(row.get("ask_trade_value_15m")) or 0
     ratio_delta = safe_float(row.get("delta_buy_sell_ratio"))
     bid_delta = safe_float(row.get("delta_bid_trade_value_15m"))
     ask_delta = safe_float(row.get("delta_ask_trade_value_15m"))
@@ -194,7 +196,11 @@ def classify_direction(row):
 
     row["buy_pressure_trend"] = "rising" if (bid_delta or 0) > 0 else "falling" if (bid_delta or 0) < 0 else "flat_or_na"
     row["sell_pressure_trend"] = "rising" if (ask_delta or 0) > 0 else "falling" if (ask_delta or 0) < 0 else "flat_or_na"
-    if ratio is None:
+    if bid_value > 0 and ask_value == 0:
+        row["buy_sell_state"] = "buy_only"
+    elif ask_value > 0 and bid_value == 0:
+        row["buy_sell_state"] = "sell_only"
+    elif ratio is None:
         row["buy_sell_state"] = "unavailable"
     elif ratio >= 1 and (ratio_delta or 0) > 0:
         row["buy_sell_state"] = "buy_advantage_accelerating"
