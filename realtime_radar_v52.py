@@ -1,75 +1,73 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Upbit Radar V5.2 safety wrapper over V5.1.
+"""Upbit Radar V5.2: silent internal Stage 0 -> Telegram Stages 1..3.
 
-Purpose: stop the V5.1 alert loop where a stopped cycle immediately resets to
-stage=0 and re-enters Stage 1 while the SAME Stage-1 condition is still alive.
+Agreed state machine:
+0) INTERNAL ONLY: original first acceleration gate (baseline >=2.0x, prev >=2.5x).
+   No Telegram. If it dies, reset silently and immediately allow a fresh Stage 0.
+1) First Telegram: later NEW data improves/broadens the Stage-0 acceleration.
+   If it dies, reset silently. No stop Telegram.
+2) Second Telegram: later NEW data strengthens/re-accelerates again.
+   From here, a real deterioration sends a stop/cancel Telegram.
+3) Final Telegram: later NEW data remains strong and price is >= +1.0% from
+   the original Stage-0 price.
 
-Changes only the state/re-arm behavior. Core V5.1 thresholds and calculations
-remain unchanged:
-- Stage1: baseline >= 2.0x and previous same-window >= 2.5x
-- downside noise tolerance: -8%
-- Stage4: stage1 price +1.0%
+No fixed cooldown/re-arm timer. Every new cycle must always begin again at
+internal Stage 0. -8% remains downside noise tolerance only.
 
-V5.2 re-arm rule:
-- after any stopped/failed cycle, that market is DISARMED;
-- it cannot send a new Stage 1 while the old acceleration regime remains;
-- it re-arms only after the Stage-1 gate has genuinely cleared/normalized:
-  active windows == 0, best baseline ratio < 1.50x, best previous-window ratio < 1.50x;
-- only a later NEW Stage-1 edge can alert again.
-
-Noise control:
-- a Stage-1-only failure is reset silently (no Telegram stop message);
-- stop/cancel Telegram is sent only after Stage 2 or higher, where the user may
-  actually be preparing to enter.
-
-This file is isolated from live_api.py / archiver / GitHub publisher.
+This file wraps realtime_radar_v51 calculations and is isolated from the Live
+API, archiver and GitHub publisher.
 """
 from __future__ import annotations
 
 import signal
 import threading
-from dataclasses import dataclass
-from typing import Dict
 
 import realtime_radar_v51 as r
 
-REARM_BASELINE_X = 1.50
-REARM_PREV_X = 1.50
+
+def user_price_from_stage0(st: r.CoinState, m: dict):
+    return r.price_from_stage1(st, m)  # V5.1 field stores the Stage-0 anchor price.
 
 
-@dataclass
-class ReArmState:
-    armed: bool = True
-    last_stop_cycle: int = -1
-
-
-REARM: Dict[str, ReArmState] = {}
-
-
-def meta(market: str) -> ReArmState:
-    state = REARM.get(market)
-    if state is None:
-        state = ReArmState()
-        REARM[market] = state
-    return state
-
-
-def disarm_and_reset(market: str, st: r.CoinState) -> None:
-    m = meta(market)
-    m.armed = False
-    m.last_stop_cycle = st.cycle_id
-    r.reset(st)
-
-
-def rearm_cleared(metrics: dict) -> bool:
-    """State-based normalization, not a fixed cooldown timer."""
-    best = metrics["best"]
+def alert_text(m: dict, stage: int, st: r.CoinState) -> str:
+    b = m["best"]
+    pr = user_price_from_stage0(st, m)
+    heads = {
+        1: "⚠️ 1차 유의",
+        2: "🔥 2차 발사준비",
+        3: "🚀 3차 최종 매수확인",
+    }
+    why = {
+        1: "0차 내부탐색 이후 새 데이터에서 추가 가속/품질 개선",
+        2: "1차 이후 새 데이터에서 재가속/강화",
+        3: "2차 이후 가속 지속 + 실제 가격반응 확인",
+    }
     return (
-        metrics["count"] == 0
-        and best["base_x"] < REARM_BASELINE_X
-        and best["prev_x"] < REARM_PREV_X
+        f"{r.title(m['market'])}\n"
+        f"{heads[stage]}\n"
+        f"{why[stage]}\n"
+        f"감지창: {b['w']}초 | 활성창: {m['count']}개\n"
+        f"평시 대비: {b['base_x']:.2f}x\n"
+        f"직전 동일창 대비: {b['prev_x']:.2f}x\n"
+        f"BID 10초: {m['share'] * 100:.1f}% | 순매수: {r.fmt_money(m['net'])}\n"
+        f"0차 대비 가격: {(f'{pr:+.2f}%' if pr is not None else 'N/A')}"
     )
+
+
+def stop_text(m: dict, st: r.CoinState, reason: str) -> str:
+    pr = user_price_from_stage0(st, m)
+    return (
+        f"{r.title(m['market'])}\n"
+        f"⛔ 발사 중단\n"
+        f"{reason}\n"
+        f"0차 대비 가격: {(f'{pr:+.2f}%' if pr is not None else 'N/A')}\n"
+        f"새 급가속 발생 시 0차부터 다시 실시간 탐색"
+    )
+
+
+def silent_reset(st: r.CoinState) -> None:
+    r.reset(st)
 
 
 def evaluate_once() -> None:
@@ -85,93 +83,85 @@ def evaluate_once() -> None:
             continue
 
         st = r.STATES[market]
-        arm = meta(market)
 
-        # A stopped cycle MUST first return to a genuinely normal regime.
-        # The same still-active acceleration cannot create a fresh Stage 1.
-        if st.stage == 0 and not arm.armed:
-            if rearm_cleared(m):
-                arm.armed = True
-                print(
-                    f"[rearm] {market} gate cleared "
-                    f"base={m['best']['base_x']:.2f}x prev={m['best']['prev_x']:.2f}x",
-                    flush=True,
-                )
-            continue
-
-        # Existing-cycle deterioration.
-        if st.stage > 0 and (m["dead"] or r.stage_deteriorated(m, st.last_snap)):
+        # Any stage can die. Stage 0/1 are silent; only Stage 2+ warrants a stop alert.
+        if st.stage >= 0 and st.last_snap.sec > 0 and (
+            m["dead"] or r.stage_deteriorated(m, st.last_snap)
+        ):
             reason = (
                 "거래대금 가속 소멸/다중창 감속"
                 if m["dead"]
                 else "직전 단계 대비 -8% 허용범위를 넘어선 실질 감속"
             )
-
-            # Stage 1 is only an observation alert. Avoid 1차→중지 Telegram spam.
             if st.stage >= 2:
-                r.telegram(r.stop_text(m, st, reason))
+                r.telegram(stop_text(m, st, reason))
                 print("[stop-alert]", market, f"stage={st.stage}", reason, flush=True)
             else:
-                print("[stop-silent]", market, "stage=1", reason, flush=True)
-
-            disarm_and_reset(market, st)
+                print("[stop-silent]", market, f"stage={st.stage}", reason, flush=True)
+            silent_reset(st)
             continue
 
-        # Fresh Stage 1 is allowed only on an ARMED market.
-        if st.stage == 0:
-            if arm.armed and m["count"] >= 1 and m["price"] is not None:
+        # Internal Stage 0. Original V5.1 Stage-1 gate; NEVER Telegram.
+        # CoinState stage=0 is also idle, so last_snap.sec distinguishes idle from active Stage 0.
+        if st.stage == 0 and st.last_snap.sec == 0:
+            if m["count"] >= 1 and m["price"] is not None:
                 st.cycle_id += 1
-                st.stage = 1
-                st.stage1_price = m["price"]
+                st.stage = 0
+                st.stage1_price = m["price"]  # anchor = Stage-0 price
                 st.last_snap = r.snap(m, sec)
-                r.telegram(r.alert(m, 1, st))
-                print("[alert]", market, "stage=1", flush=True)
+                print("[stage0]", market, "internal candidate", flush=True)
             continue
 
-        # Same-second snapshot can never promote again.
+        # Every promotion must consume a later snapshot.
         if sec <= st.last_snap.sec:
             continue
 
-        if st.stage == 1:
+        # Internal Stage 0 -> Telegram Stage 1.
+        if st.stage == 0:
             if (
                 m["count"] >= 2
                 and m["improving"]
                 and r.genuinely_better(m, st.last_snap, 1, sec)
             ):
-                st.stage = 2
+                st.stage = 1
                 st.last_snap = r.snap(m, sec)
-                r.telegram(r.alert(m, 2, st))
-                print("[alert]", market, "stage=2", flush=True)
+                r.telegram(alert_text(m, 1, st))
+                print("[alert]", market, "stage=1", flush=True)
 
-        elif st.stage == 2:
+        # Telegram Stage 1 -> Telegram Stage 2.
+        elif st.stage == 1:
             if (
                 m["count"] >= 3
                 and m["confirmed"]
                 and r.genuinely_better(m, st.last_snap, 2, sec)
             ):
-                st.stage = 3
+                st.stage = 2
                 st.last_snap = r.snap(m, sec)
-                r.telegram(r.alert(m, 3, st))
-                print("[alert]", market, "stage=3", flush=True)
+                r.telegram(alert_text(m, 2, st))
+                print("[alert]", market, "stage=2", flush=True)
 
-        elif st.stage == 3:
-            pr = r.price_from_stage1(st, m)
+        # Telegram Stage 2 -> final Stage 3.
+        elif st.stage == 2:
+            pr = user_price_from_stage0(st, m)
             if m["confirmed"] and r.genuinely_better(m, st.last_snap, 3, sec):
                 if pr is not None and pr >= r.FINAL_PRICE_RETURN:
-                    st.stage = 4
+                    st.stage = 3
                     st.last_snap = r.snap(m, sec)
-                    r.telegram(r.alert(m, 4, st))
-                    print("[alert]", market, "stage=4", flush=True)
+                    r.telegram(alert_text(m, 3, st))
+                    print("[alert]", market, "stage=3 final", flush=True)
                 else:
+                    # Stage 2 was already actionable, so failure of final price confirmation is useful.
                     r.telegram(
-                        r.stop_text(
+                        stop_text(
                             m,
                             st,
-                            f"최종 확인 실패: 1차 대비 +{r.FINAL_PRICE_RETURN:.1f}% 가격반응 미달",
+                            f"최종 확인 실패: 0차 대비 +{r.FINAL_PRICE_RETURN:.1f}% 가격반응 미달",
                         )
                     )
-                    print("[stop-alert]", market, "stage=3 price reaction fail", flush=True)
-                    disarm_and_reset(market, st)
+                    print("[stop-alert]", market, "stage=2 final-price-fail", flush=True)
+                    silent_reset(st)
+
+        # Final Stage 3 remains active until it deteriorates; deterioration is handled above.
 
 
 def main() -> None:
@@ -179,17 +169,13 @@ def main() -> None:
     signal.signal(signal.SIGTERM, r.shutdown)
 
     r.fetch_markets()
-    for market in r.MARKETS:
-        REARM[market] = ReArmState()
-
-    # Make V5.1 evaluator loop call the V5.2 evaluator above.
     r.evaluate_once = evaluate_once
 
     print(
-        f"[V5.2] warmup={r.WARMUP_SEC}s windows=1~10s "
-        f"stage1 baseline>={r.STAGE1_BASELINE_X:.1f}x prev>={r.STAGE1_PREV_X:.1f}x "
-        f"rearm<{REARM_BASELINE_X:.2f}x/{REARM_PREV_X:.2f}x "
-        f"final_price=+{r.FINAL_PRICE_RETURN:.1f}%",
+        f"[V5.2] silent-stage0 baseline>={r.STAGE1_BASELINE_X:.1f}x "
+        f"prev>={r.STAGE1_PREV_X:.1f}x windows=1~10s "
+        f"downside_tolerance=-{r.DOWNSIDE_TOLERANCE*100:.0f}% "
+        f"final=stage0+{r.FINAL_PRICE_RETURN:.1f}%",
         flush=True,
     )
 
@@ -198,11 +184,12 @@ def main() -> None:
 
     r.telegram(
         "✅ Upbit Radar V5.2 시작\n"
-        "재진입 잠금 적용: 중단 후 동일 가속상태 재알림 금지\n"
-        "재무장: 활성창 0 + 평시/직전창 모두 1.5x 미만으로 정상화 후\n"
-        "새 급가속이 다시 발생할 때만 1차 재탐지\n"
-        "1차 단독 실패의 중지 Telegram은 발송하지 않음\n"
-        "기존 2.0x/2.5x · -8% 오차 · 4차 +1.0% 기준 유지"
+        "0차: 내부 탐색 전용 · Telegram 없음\n"
+        "1차: 첫 Telegram · 0차 이후 새 가속 확인\n"
+        "2차: 발사준비 · 재가속/강화 확인\n"
+        "3차: 최종 · 0차 대비 가격 +1.0% 확인\n"
+        "0/1차 실패는 무음 · 2차 이후 실패만 중단 알림\n"
+        "시간 재진입 잠금 없음 · 새 사이클은 항상 0차부터 재탐색"
     )
 
     r.websocket_loop()
