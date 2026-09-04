@@ -1,0 +1,67 @@
+name: Upbit second scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      markets:
+        description: 'KRW tickers (comma separated). Leave default for success9.'
+        required: true
+        default: 'KRW-ENA,KRW-XPL,KRW-PEPE,KRW-ZRO,KRW-LIT,KRW-BIO,KRW-ARB,KRW-AZTEC,KRW-DRV'
+      lookback_days:
+        description: 'Recent days to search for strongest surge day/window (max 90 recommended)'
+        required: true
+        default: '90'
+      raw_trades:
+        description: 'Try BID/ASK raw trade enrichment when window is within Upbit trade-history range'
+        required: true
+        type: choice
+        options:
+          - 'yes'
+          - 'no'
+        default: 'yes'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: upbit-second-scan-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run success-case second scan
+        shell: bash
+        run: |
+          EXTRA=''
+          if [ '${{ inputs.raw_trades }}' = 'no' ]; then
+            EXTRA='--no-trades'
+          fi
+          python second_scan_batch.py \
+            --markets '${{ inputs.markets }}' \
+            --days '${{ inputs.lookback_days }}' \
+            $EXTRA
+
+      - name: Show output files
+        if: always()
+        run: |
+          find second_scan_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
+
+      - name: Upload second-scan result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: success9-second-scan-${{ github.run_number }}
+          path: second_scan_output/
+          if-no-files-found: warn
+          retention-days: 14
