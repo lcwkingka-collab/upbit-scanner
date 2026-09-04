@@ -1,0 +1,34 @@
+{
+  "version": 1,
+  "shared_learning_engine": "30-minute closed-loop review",
+  "roles": {
+    "morning_0840": {
+      "purpose": "daily D-15 baseline and actionable candidates",
+      "primary": ["v5_launch_score", "ma15_50_120", "cross_approach", "slope", "gap_convergence", "price_structure"],
+      "secondary": ["accumulation", "trade_flow", "learned_combinations", "empirical_p5_p10"],
+      "must_output_actionable_candidates": true
+    },
+    "intraday_25_50": {
+      "purpose": "track development since the previous full scan",
+      "states": ["신규 포착", "강화", "유지", "후퇴", "제외"],
+      "primary": ["score_velocity", "slope_velocity", "gap_shrink_velocity", "price_structure_progress", "accumulation_persistence", "trade_activity"],
+      "reject_ma_only_without_trades": true,
+      "no_bonus_for_flat_price": true
+    },
+    "telegram_radar": {
+      "purpose": "Oracle second-level confirmation of a launch happening now",
+      "primary": ["second_level_value_acceleration", "live_bid_ask", "live_net_buy", "live_trade_count"],
+      "exclude": ["long_horizon_lead_recommendations", "d15_watchlist"]
+    }
+  },
+  "scoring": {
+    "formula": "condition_score + change_score + validated_combination_bonus",
+    "combination_bonus_requires_control_group_lift": true,
+    "price_flatness_bonus": false
+  },
+  "data_ownership": {
+    "oracle": ["short_term_trade_value", "bid_ask", "net_buy", "trade_count", "one_minute_persistence"],
+    "github_actions": ["daily_candles", "ma15_50_120", "gap", "slope", "cross_state", "long_term_price_structure"],
+    "removal_policy": "remove duplicate collection only after the production feature contract and Oracle handoff are verified"
+  }
+}

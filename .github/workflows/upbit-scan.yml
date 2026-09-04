@@ -8,6 +8,9 @@ on:
       - extended_scans.py
       - microstructure.py
       - surge_learning.py
+      - learning_engine.py
+      - scan_roles.json
+      - tests/test_learning_engine.py
       - .github/workflows/upbit-scan.yml
   schedule:
     - cron: '10,40 * * * *'
@@ -43,6 +46,8 @@ jobs:
           SCAN_CYCLE=$(date -u -d "@$CYCLE_EPOCH" '+%Y-%m-%dT%H:%M:00Z')
           echo "SCAN_CYCLE=$SCAN_CYCLE" >> "$GITHUB_ENV"
           echo "SCAN_RUN_ID=${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_ENV"
+      - name: Verify learning engine invariants
+        run: python -m unittest discover -s tests -v
       - name: Fetch and analyze all KRW markets
         run: python scanner.py
       - name: Run v4 and v5 extended scans
@@ -98,6 +103,8 @@ jobs:
           PY
       - name: Record new +10% surge learning cases
         run: python surge_learning.py
+      - name: Update closed-loop learning and intraday transitions
+        run: python learning_engine.py
       - name: Save completed cycle snapshot
         shell: bash
         run: |
@@ -197,6 +204,7 @@ jobs:
           git add data/latest_microstructure.json data/latest_microstructure.csv
           git add data/microstructure_history.json data/signal_event_history.jsonl
           git add data/surge_case_db.json
+          git add data/latest_learning_model.json data/latest_learning_predictions.json data/latest_intraday_transitions.json
           git add data/latest_complete_cycle.json data/snapshots
           git diff --cached --quiet || git commit -m "Update Upbit scan with completed cycle snapshot"
           git push
