@@ -3,7 +3,7 @@
   "strict_complete": true,
   "scan_cycle": "2026-09-03T23:40:00Z",
   "scan_cycle_kst": "2026-09-04T08:40:00+09:00",
-  "scan_run_id": "33818391073-1",
+  "scan_run_id": "33819124851-1",
   "snapshot_path": "data/snapshots/20260904_0840",
   "market_count": 287,
   "v5_evaluated": 250,
@@ -12,5 +12,5 @@
   "trade_complete_count": 287,
   "trade_partial_count": 0,
   "trade_coverage_ratio": 1.0,
-  "completed_at_utc": "2026-09-03T23:56:52.176055+00:00"
+  "completed_at_utc": "2026-09-04T00:15:04.390250+00:00"
 }

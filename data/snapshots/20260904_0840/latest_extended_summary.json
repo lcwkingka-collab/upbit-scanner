@@ -1,16 +1,16 @@
 {
-  "kst": "2026-09-04T08:49:09.170201+09:00",
+  "kst": "2026-09-04T09:06:35.894510+09:00",
   "market_count": 287,
   "v5_evaluated": 250,
-  "v4_events": 68,
+  "v4_events": 71,
   "errors": [],
   "signal_counts": {
-    "score14": 7,
-    "value300": 41,
-    "ankr_like": 1,
-    "early_ignition": 45
+    "score14": 5,
+    "value300": 27,
+    "ankr_like": 0,
+    "early_ignition": 21
   },
   "scan_cycle": "2026-09-03T23:40:00Z",
-  "scan_run_id": "33818391073-1",
-  "cycle_stamped_at_utc": "2026-09-03T23:56:51.846674+00:00"
+  "scan_run_id": "33819124851-1",
+  "cycle_stamped_at_utc": "2026-09-04T00:15:03.981539+00:00"
 }
