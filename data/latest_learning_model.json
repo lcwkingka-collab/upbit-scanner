@@ -1,0 +1,807 @@
+{
+  "generated_kst": "2026-09-05T04:10:14.099223+09:00",
+  "horizon_minutes": 360,
+  "targets_pct": [
+    5,
+    10,
+    25
+  ],
+  "minimum_samples": 30,
+  "mature_examples": 14637,
+  "pending_examples": 2583,
+  "class_balance": {
+    "hit_5": 535,
+    "hit_10": 117,
+    "hit_25": 3
+  },
+  "combinations": [
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "d15_cross_approach",
+        "volume_expanding"
+      ],
+      "samples": 197,
+      "rates": {
+        "hit_5": 0.05583756345177665,
+        "lift_5": 1.5276531144741212,
+        "hit_10": 0.030456852791878174,
+        "lift_10": 3.810230378758298,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "higher_low",
+        "volume_expanding"
+      ],
+      "samples": 354,
+      "rates": {
+        "hit_5": 0.05084745762711865,
+        "lift_5": 1.3911294154918423,
+        "hit_10": 0.022598870056497175,
+        "lift_10": 2.827176589888454,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "price_structure_improving",
+        "volume_expanding"
+      ],
+      "samples": 357,
+      "rates": {
+        "hit_5": 0.056022408963585436,
+        "lift_5": 1.5327102803738317,
+        "hit_10": 0.022408963585434174,
+        "lift_10": 2.8034188034188037,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "bid_persistent",
+        "d15_cross_approach"
+      ],
+      "samples": 472,
+      "rates": {
+        "hit_5": 0.04449152542372881,
+        "lift_5": 1.217238238555362,
+        "hit_10": 0.019067796610169493,
+        "lift_10": 2.3854302477183835,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "d15_cross_approach",
+        "volume_expanding"
+      ],
+      "samples": 332,
+      "rates": {
+        "hit_5": 0.03313253012048193,
+        "lift_5": 0.9064688661186804,
+        "hit_10": 0.018072289156626505,
+        "lift_10": 2.2608897126969416,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "price_structure_improving",
+        "trades_rising"
+      ],
+      "samples": 683,
+      "rates": {
+        "hit_5": 0.04685212298682284,
+        "lift_5": 1.2818215404824784,
+        "hit_10": 0.017569546120058566,
+        "lift_10": 2.197995269737583,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "price_structure_improving",
+        "volume_expanding"
+      ],
+      "samples": 515,
+      "rates": {
+        "hit_5": 0.036893203883495145,
+        "lift_5": 1.00935668269667,
+        "hit_10": 0.017475728155339806,
+        "lift_10": 2.1862584017923825,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "d15_cross_approach",
+        "trades_rising"
+      ],
+      "samples": 461,
+      "rates": {
+        "hit_5": 0.04121475054229935,
+        "lift_5": 1.1275893526871694,
+        "hit_10": 0.01735357917570499,
+        "lift_10": 2.170977251237555,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "d15_cross_approach",
+        "price_structure_improving"
+      ],
+      "samples": 405,
+      "rates": {
+        "hit_5": 0.04197530864197531,
+        "lift_5": 1.1483973693319487,
+        "hit_10": 0.01728395061728395,
+        "lift_10": 2.1622665400443175,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "d15_cross_approach",
+        "higher_low"
+      ],
+      "samples": 410,
+      "rates": {
+        "hit_5": 0.036585365853658534,
+        "lift_5": 1.0009345794392523,
+        "hit_10": 0.01707317073170732,
+        "lift_10": 2.1358974358974363,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "d15_cross_approach",
+        "higher_low"
+      ],
+      "samples": 645,
+      "rates": {
+        "hit_5": 0.031007751937984496,
+        "lift_5": 0.8483373179743534,
+        "hit_10": 0.017054263565891473,
+        "lift_10": 2.1335321009739614,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "trades_rising",
+        "volume_expanding"
+      ],
+      "samples": 772,
+      "rates": {
+        "hit_5": 0.034974093264248704,
+        "lift_5": 0.9568519684276791,
+        "hit_10": 0.01683937823834197,
+        "lift_10": 2.1066493955094994,
+        "hit_25": 0.0012953367875647669,
+        "lift_25": 6.319948186528498
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "bid_persistent",
+        "volume_expanding"
+      ],
+      "samples": 484,
+      "rates": {
+        "hit_5": 0.045454545454545456,
+        "lift_5": 1.243585386576041,
+        "hit_10": 0.01652892561983471,
+        "lift_10": 2.067810976901886,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "higher_low",
+        "volume_expanding"
+      ],
+      "samples": 679,
+      "rates": {
+        "hit_5": 0.029455081001472753,
+        "lift_5": 0.805857982464592,
+        "hit_10": 0.016200294550810016,
+        "lift_10": 2.02669838752313,
+        "hit_25": 0.0014727540500736377,
+        "lift_25": 7.185567010309278
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "volume_expanding"
+      ],
+      "samples": 621,
+      "rates": {
+        "hit_5": 0.043478260869565216,
+        "lift_5": 1.1895164567249086,
+        "hit_10": 0.01610305958132045,
+        "lift_10": 2.0145340435195505,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "d15_cross_approach",
+        "trades_rising"
+      ],
+      "samples": 251,
+      "rates": {
+        "hit_5": 0.04780876494023904,
+        "lift_5": 1.3079941914584652,
+        "hit_10": 0.01593625498007968,
+        "lift_10": 1.9936663602002247,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "higher_low"
+      ],
+      "samples": 1338,
+      "rates": {
+        "hit_5": 0.0343796711509716,
+        "lift_5": 0.9405892460500398,
+        "hit_10": 0.01569506726457399,
+        "lift_10": 1.9634931585604232,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "trades_rising"
+      ],
+      "samples": 1415,
+      "rates": {
+        "hit_5": 0.04169611307420495,
+        "lift_5": 1.1407588917142764,
+        "hit_10": 0.015547703180212015,
+        "lift_10": 1.9450575337501135,
+        "hit_25": 0.0007067137809187279,
+        "lift_25": 3.4480565371024734
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "trades_rising",
+        "volume_expanding"
+      ],
+      "samples": 454,
+      "rates": {
+        "hit_5": 0.046255506607929514,
+        "lift_5": 1.2654987854584379,
+        "hit_10": 0.015418502202643172,
+        "lift_10": 1.9288941601716934,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "higher_low",
+        "trades_rising"
+      ],
+      "samples": 871,
+      "rates": {
+        "hit_5": 0.03673938002296211,
+        "lift_5": 1.005148234385227,
+        "hit_10": 0.014925373134328358,
+        "lift_10": 1.8672024492920016,
+        "hit_25": 0.001148105625717566,
+        "lift_25": 5.601607347876005
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "d15_cross_approach"
+      ],
+      "samples": 692,
+      "rates": {
+        "hit_5": 0.03757225433526012,
+        "lift_5": 1.027934741505051,
+        "hit_10": 0.014450867052023121,
+        "lift_10": 1.8078405217133542,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "d15_cross_approach"
+      ],
+      "samples": 1040,
+      "rates": {
+        "hit_5": 0.03365384615384615,
+        "lift_5": 0.9207314881380302,
+        "hit_10": 0.014423076923076924,
+        "lift_10": 1.8043639053254439,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "d15_cross_approach",
+        "price_structure_improving"
+      ],
+      "samples": 633,
+      "rates": {
+        "hit_5": 0.03317535545023697,
+        "lift_5": 0.9076405191123711,
+        "hit_10": 0.014218009478672985,
+        "lift_10": 1.7787094422165513,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "price_structure_improving",
+        "trades_rising"
+      ],
+      "samples": 514,
+      "rates": {
+        "hit_5": 0.04085603112840467,
+        "lift_5": 1.1177751918251573,
+        "hit_10": 0.013618677042801557,
+        "lift_10": 1.7037314177392,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "volume_expanding"
+      ],
+      "samples": 1104,
+      "rates": {
+        "hit_5": 0.03260869565217391,
+        "lift_5": 0.8921373425436814,
+        "hit_10": 0.01358695652173913,
+        "lift_10": 1.6997630992196209,
+        "hit_25": 0.0009057971014492754,
+        "lift_25": 4.419384057971015
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "price_structure_improving",
+        "volume_expanding"
+      ],
+      "samples": 605,
+      "rates": {
+        "hit_5": 0.04628099173553719,
+        "lift_5": 1.2661960299683324,
+        "hit_10": 0.013223140495867768,
+        "lift_10": 1.6542487815215088,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "higher_low",
+        "price_structure_improving"
+      ],
+      "samples": 984,
+      "rates": {
+        "hit_5": 0.034552845528455285,
+        "lift_5": 0.9453271028037383,
+        "hit_10": 0.013211382113821139,
+        "lift_10": 1.652777777777778,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "higher_low",
+        "volume_expanding"
+      ],
+      "samples": 621,
+      "rates": {
+        "hit_5": 0.04508856682769726,
+        "lift_5": 1.2335726217887941,
+        "hit_10": 0.01288244766505636,
+        "lift_10": 1.6116272348156406,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "higher_low",
+        "price_structure_improving",
+        "volume_expanding"
+      ],
+      "samples": 1207,
+      "rates": {
+        "hit_5": 0.056338028169014086,
+        "lift_5": 1.5413452678688957,
+        "hit_10": 0.012427506213753107,
+        "lift_10": 1.5547128927410618,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "bid_persistent",
+        "higher_low"
+      ],
+      "samples": 895,
+      "rates": {
+        "hit_5": 0.030167597765363128,
+        "lift_5": 0.8253516420404114,
+        "hit_10": 0.012290502793296089,
+        "lift_10": 1.537573413551067,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "price_structure_improving",
+        "trades_rising",
+        "volume_expanding"
+      ],
+      "samples": 1144,
+      "rates": {
+        "hit_5": 0.05332167832167832,
+        "lift_5": 1.458821318868048,
+        "hit_10": 0.012237762237762238,
+        "lift_10": 1.5309754348215887,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "higher_low",
+        "trades_rising",
+        "volume_expanding"
+      ],
+      "samples": 1601,
+      "rates": {
+        "hit_5": 0.04996876951905059,
+        "lift_5": 1.3670894942997074,
+        "hit_10": 0.011867582760774516,
+        "lift_10": 1.4846650330722786,
+        "hit_25": 0.0006246096189881324,
+        "lift_25": 3.047470331043098
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "higher_low",
+        "trades_rising"
+      ],
+      "samples": 506,
+      "rates": {
+        "hit_5": 0.037549407114624504,
+        "lift_5": 1.0273096671715118,
+        "hit_10": 0.011857707509881422,
+        "lift_10": 1.4834296138643963,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "price_structure_improving"
+      ],
+      "samples": 1281,
+      "rates": {
+        "hit_5": 0.03356752537080406,
+        "lift_5": 0.9183698483223534,
+        "hit_10": 0.0117096018735363,
+        "lift_10": 1.4649012189995798,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "bid_persistent",
+        "price_structure_improving"
+      ],
+      "samples": 855,
+      "rates": {
+        "hit_5": 0.03391812865497076,
+        "lift_5": 0.9279619609772093,
+        "hit_10": 0.011695906432748537,
+        "lift_10": 1.4631878842405157,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "higher_low",
+        "volume_expanding"
+      ],
+      "samples": 2161,
+      "rates": {
+        "hit_5": 0.04766311892642295,
+        "lift_5": 1.3040094798617807,
+        "hit_10": 0.01156871818602499,
+        "lift_10": 1.4472763084516904,
+        "hit_25": 0.0009254974548819991,
+        "lift_25": 4.515502082369274
+      }
+    },
+    {
+      "conditions": [
+        "price_structure_improving",
+        "volume_expanding"
+      ],
+      "samples": 1583,
+      "rates": {
+        "hit_5": 0.04990524320909665,
+        "lift_5": 1.3653514857038274,
+        "hit_10": 0.011370814908401769,
+        "lift_10": 1.4225181009767238,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent"
+      ],
+      "samples": 2530,
+      "rates": {
+        "hit_5": 0.032806324110671935,
+        "lift_5": 0.8975442355287946,
+        "hit_10": 0.011067193675889328,
+        "lift_10": 1.3845343062734368,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "bid_persistent",
+        "trades_rising"
+      ],
+      "samples": 831,
+      "rates": {
+        "hit_5": 0.03730445246690734,
+        "lift_5": 1.020607982725463,
+        "hit_10": 0.010830324909747292,
+        "lift_10": 1.3549014162732573,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach"
+      ],
+      "samples": 3986,
+      "rates": {
+        "hit_5": 0.032865027596588055,
+        "lift_5": 0.8991502970677745,
+        "hit_10": 0.010787757150025088,
+        "lift_10": 1.3495760803839079,
+        "hit_25": 0.0005017561465127947,
+        "lift_25": 2.4480682388359254
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "higher_low"
+      ],
+      "samples": 2489,
+      "rates": {
+        "hit_5": 0.02892728003214142,
+        "lift_5": 0.7914179398700074,
+        "hit_10": 0.010445962233828847,
+        "lift_10": 1.306816659970537,
+        "hit_25": 0.0008035355564483728,
+        "lift_25": 3.920449979911611
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "volume_expanding"
+      ],
+      "samples": 1055,
+      "rates": {
+        "hit_5": 0.03981042654028436,
+        "lift_5": 1.0891686229348452,
+        "hit_10": 0.01042654028436019,
+        "lift_10": 1.3043869242921375,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "higher_low"
+      ],
+      "samples": 2087,
+      "rates": {
+        "hit_5": 0.03641590800191662,
+        "lift_5": 0.9962984026617825,
+        "hit_10": 0.010062290368950648,
+        "lift_10": 1.2588183259002619,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "accumulation_persistent",
+        "trades_rising"
+      ],
+      "samples": 994,
+      "rates": {
+        "hit_5": 0.03621730382293763,
+        "lift_5": 0.9908648150585758,
+        "hit_10": 0.01006036217303823,
+        "lift_10": 1.2585771036475262,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "price_structure_improving",
+        "trades_rising"
+      ],
+      "samples": 2200,
+      "rates": {
+        "hit_5": 0.046363636363636364,
+        "lift_5": 1.2684570943075617,
+        "hit_10": 0.01,
+        "lift_10": 1.251025641025641,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "trades_rising",
+        "volume_expanding"
+      ],
+      "samples": 807,
+      "rates": {
+        "hit_5": 0.04460966542750929,
+        "lift_5": 1.2204704165653337,
+        "hit_10": 0.009913258983890954,
+        "lift_10": 1.2401741174975376,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "d15_cross_approach",
+        "price_structure_improving"
+      ],
+      "samples": 2038,
+      "rates": {
+        "hit_5": 0.028949950932286556,
+        "lift_5": 0.7920381902726698,
+        "hit_10": 0.009813542688910697,
+        "lift_10": 1.2276993533126999,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "higher_low",
+        "price_structure_improving",
+        "trades_rising"
+      ],
+      "samples": 1656,
+      "rates": {
+        "hit_5": 0.050120772946859904,
+        "lift_5": 1.3712481376134362,
+        "hit_10": 0.00966183574879227,
+        "lift_10": 1.2087204261117304,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "bid_persistent",
+        "price_structure_improving",
+        "trades_rising"
+      ],
+      "samples": 940,
+      "rates": {
+        "hit_5": 0.03829787234042553,
+        "lift_5": 1.0477868363491747,
+        "hit_10": 0.009574468085106383,
+        "lift_10": 1.1977905073649755,
+        "hit_25": 0.0,
+        "lift_25": 0.0
+      }
+    },
+    {
+      "conditions": [
+        "trades_rising",
+        "volume_expanding"
+      ],
+      "samples": 2618,
+      "rates": {
+        "hit_5": 0.04201680672268908,
+        "lift_5": 1.1495327102803738,
+        "hit_10": 0.009549274255156608,
+        "lift_10": 1.1946386946386947,
+        "hit_25": 0.0003819709702062643,
+        "lift_25": 1.8636363636363635
+      }
+    }
+  ],
+  "calibration_p10": {
+    "00-10%": {
+      "predictions": 14154,
+      "hits": 115,
+      "actual_rate": 0.008124911685742546
+    }
+  },
+  "probability_policy": "historical similar-condition hit rate; never launch_score/total_score"
+}

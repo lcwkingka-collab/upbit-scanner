@@ -1,0 +1,16 @@
+{
+  "kst": "2026-09-04T22:32:02.488873+09:00",
+  "market_count": 287,
+  "v5_evaluated": 250,
+  "v4_events": 72,
+  "errors": [],
+  "signal_counts": {
+    "score14": 5,
+    "value300": 36,
+    "ankr_like": 1,
+    "early_ignition": 17
+  },
+  "scan_cycle": "2026-09-04T13:10:00Z",
+  "scan_run_id": "33877865770-1",
+  "cycle_stamped_at_utc": "2026-09-04T13:40:07.006413+00:00"
+}
