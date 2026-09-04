@@ -1,0 +1,40 @@
+name: Sep1-3 25pct second scan
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scan_sep1_3_25.py'
+      - '.github/workflows/sep1-3-25-second-scan.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sep1-3-25-second-scan
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run Sep 1-3 KRW 25pct surge second scan
+        run: python scan_sep1_3_25.py
+      - name: Show outputs
+        if: always()
+        run: find sep1_3_25_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sep1-3-25-second-scan-${{ github.run_number }}
+          path: sep1_3_25_output/
+          if-no-files-found: warn
+          retention-days: 14
