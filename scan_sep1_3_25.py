@@ -4,36 +4,48 @@ import csv,json,time
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 import second_scan_api as ss
-KST=timezone(timedelta(hours=9)); UTC=timezone.utc; OUT=Path('sep1_3_25_output')
-ANCHORS=[
-('2026-09-01','KRW-CRV','20:54'),('2026-09-01','KRW-SC','08:58'),('2026-09-01','KRW-BONK','00:16'),('2026-09-01','KRW-ICX','09:22'),('2026-09-01','KRW-IQ','09:03'),('2026-09-01','KRW-AHT','17:20'),('2026-09-01','KRW-ONG','15:24'),
-('2026-09-02','KRW-T','09:01'),('2026-09-02','KRW-SOPH','08:59'),('2026-09-02','KRW-MOC','09:07'),('2026-09-02','KRW-EGLD','13:19'),('2026-09-02','KRW-INJ','16:13'),
-('2026-09-03','KRW-CHIP','06:40'),('2026-09-03','KRW-SNT','09:03'),('2026-09-03','KRW-ANKR','08:58'),('2026-09-03','KRW-HIVE','09:00')]
+KST=timezone(timedelta(hours=9)); OUT=Path('sep1_3_25_output')
+CASES=[('2026-09-01','KRW-AHT','17:20'),('2026-09-01','KRW-ONG','15:24'),('2026-09-02','KRW-MOC','09:07'),('2026-09-02','KRW-EGLD','13:19')]
+def get(p,q=None): return ss.http_json(p,q)
+def minute_rows(m,day):
+ st=datetime.fromisoformat(day).replace(tzinfo=KST); en=st+timedelta(days=1); out={};cur=en
+ for _ in range(20):
+  a=get('/candles/minutes/1',{'market':m,'to':ss.iso_z(cur),'count':200})
+  if not a:break
+  old=None
+  for r in a:
+   d=datetime.fromisoformat(r['candle_date_time_kst']).replace(tzinfo=KST);old=d if old is None or d<old else old
+   if st<=d<en:out[int(d.timestamp())]=r
+  if old is None or old<=st:break
+  cur=old;time.sleep(ss.RATE_SLEEP)
+ return [out[k] for k in sorted(out)]
 def main():
- OUT.mkdir(exist_ok=True); allrows=[]; summary=[]
- for i,(day,m,hm) in enumerate(ANCHORS,1):
-  T=datetime.fromisoformat(f'{day}T{hm}:00').replace(tzinfo=KST); st=T-timedelta(minutes=10); en=T+timedelta(minutes=10)
-  try:
-   s=ss.analyze_market(m,st,en,enrich_trades=True); rows=s.get('rows') or []; te=int(T.timestamp()); tick=s.get('tick_size')
-   for r in rows:
-    q=dict(r); q.update({'day':day,'market':m,'T_kst':T.isoformat(),'t_from_T_sec':int(r['epoch_sec']-te),'tick_size':tick}); allrows.append(q)
-   summary.append({'day':day,'market':m,'T_kst':T.isoformat(),'from_kst':st.isoformat(),'to_kst':en.isoformat(),'tick_size':tick,'seconds_with_trades':len(rows)})
-   print(f'[{i}/16] {m} T={T.isoformat()} secs={len(rows)} tick={tick}',flush=True)
-  except Exception as e:
-   summary.append({'day':day,'market':m,'T_kst':T.isoformat(),'error':str(e)}); print('ERR',m,e,flush=True)
-  time.sleep(.15)
+ OUT.mkdir(exist_ok=True); allrows=[]; manifest=[]
+ for i,(day,m,hm) in enumerate(CASES,1):
+  T=datetime.fromisoformat(f'{day}T{hm}:00').replace(tzinfo=KST); mins=minute_rows(m,day)
+  after=[r for r in mins if datetime.fromisoformat(r['candle_date_time_kst']).replace(tzinfo=KST)>=T]
+  if not after:continue
+  hi=max(float(r['high_price']) for r in after); hr=next(r for r in after if float(r['high_price'])==hi); H=datetime.fromisoformat(hr['candle_date_time_kst']).replace(tzinfo=KST)
+  # Scan from T+10 through the minute after the day high, in <=20m chunks so second/trade enrichment stays manageable.
+  cur=T+timedelta(minutes=10); end=min(H+timedelta(minutes=2),T+timedelta(hours=12)); chunks=0
+  while cur<end:
+   ce=min(cur+timedelta(minutes=20),end)
+   try:
+    s=ss.analyze_market(m,cur,ce,enrich_trades=True);tick=s.get('tick_size')
+    for r in s.get('rows') or []:
+     q=dict(r);q.update({'day':day,'market':m,'T_kst':T.isoformat(),'t_from_T_sec':int(r['epoch_sec']-T.timestamp()),'tick_size':tick,'day_high':hi,'day_high_minute_kst':H.isoformat()});allrows.append(q)
+    chunks+=1
+   except Exception as e:print('chunk err',m,cur,e,flush=True)
+   cur=ce;time.sleep(.1)
+  manifest.append({'day':day,'market':m,'T_kst':T.isoformat(),'day_high':hi,'day_high_minute_kst':H.isoformat(),'scan_end_kst':end.isoformat(),'chunks':chunks})
+  print(f'[{i}/4] {m} T={T.isoformat()} high={hi} at {H.isoformat()} chunks={chunks}',flush=True)
  if allrows:
-  fields=[];seen=set()
+  fs=[];seen=set()
   for r in allrows:
    for k in r:
-    if k not in seen:seen.add(k);fields.append(k)
-  with (OUT/'ANCHOR_2P8X_Tminus10_Tplus10_SECONDS.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fields,extrasaction='ignore');w.writeheader();w.writerows(allrows)
- if summary:
-  fields=[];seen=set()
-  for r in summary:
-   for k in r:
-    if k not in seen:seen.add(k);fields.append(k)
-  with (OUT/'ANCHOR_2P8X_summary.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fields,extrasaction='ignore');w.writeheader();w.writerows(summary)
- (OUT/'ANCHOR_2P8X_manifest.json').write_text(json.dumps({'definition':'T = selected first valid 1m value ratio >= 2.8x near first launch','range':'T-10m..T+10m','anchors':[{'day':d,'market':m,'time':h} for d,m,h in ANCHORS]},ensure_ascii=False,indent=2),encoding='utf-8')
- print(json.dumps({'anchors':16,'rows':len(allrows),'range':'T-10m..T+10m'},ensure_ascii=False),flush=True)
+    if k not in seen:seen.add(k);fs.append(k)
+  with (OUT/'WAIT4_AFTER_TPLUS10_TO_HIGH_SECONDS.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fs,extrasaction='ignore');w.writeheader();w.writerows(allrows)
+ with (OUT/'WAIT4_manifest.csv').open('w',newline='',encoding='utf-8-sig') as f:
+  if manifest:w=csv.DictWriter(f,fieldnames=list(manifest[0]));w.writeheader();w.writerows(manifest)
+ print(json.dumps({'cases':len(manifest),'rows':len(allrows)},ensure_ascii=False),flush=True)
 if __name__=='__main__':main()
