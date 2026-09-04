@@ -1,98 +1,39 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 from __future__ import annotations
 import csv,json,time
 from datetime import datetime,timedelta,timezone
 from pathlib import Path
 import second_scan_api as ss
-KST=timezone(timedelta(hours=9)); UTC=timezone.utc; OUT=Path('sep1_3_25_output'); DAYS={'2026-09-01','2026-09-02','2026-09-03'}; TH=25.0
-
-def get(p,q=None): return ss.http_json(p,q)
-def kd(r):
- raw=r.get('candle_date_time_kst'); return (datetime.fromisoformat(raw).replace(tzinfo=KST) if raw else datetime.fromisoformat(r['candle_date_time_utc']).replace(tzinfo=UTC).astimezone(KST)).date().isoformat()
-def markets(): return sorted(r['market'] for r in get('/market/all',{'is_details':'false'}) if str(r.get('market','')).startswith('KRW-') and r['market'] not in {'KRW-USDT','KRW-USDC','KRW-DAI','KRW-USDE'})
-def hits(m):
- rows=get('/candles/days',{'market':m,'count':8}); by={kd(r):r for r in rows}; z=[]
- for d in sorted(DAYS):
-  r=by.get(d); p=by.get((datetime.fromisoformat(d)-timedelta(days=1)).date().isoformat())
-  if not r or not p: continue
-  pc=float(p['trade_price']); hi=float(r['high_price']); op=float(r['opening_price']); cl=float(r['trade_price']); hr=(hi/pc-1)*100 if pc else 0
-  if hr>=TH: z.append({'market':m,'day':d,'prev_close':pc,'open':op,'high':hi,'close':cl,'high_ret_pct':hr,'close_ret_pct':(cl/pc-1)*100})
- return z
-def mins(m,d):
- st=datetime.fromisoformat(d).replace(tzinfo=KST); en=st+timedelta(days=1); out={}; cur=en
- for _ in range(20):
-  a=get('/candles/minutes/1',{'market':m,'to':ss.iso_z(cur),'count':200})
-  if not a: break
-  old=None
-  for r in a:
-   x=datetime.fromisoformat(r['candle_date_time_utc']).replace(tzinfo=UTC); old=x if old is None or x<old else old
-   if st.astimezone(UTC)<=x<en.astimezone(UTC): out[int(x.timestamp())]=r
-  if old is None or old<=st.astimezone(UTC): break
-  cur=old; time.sleep(ss.RATE_SLEEP)
- return [out[k] for k in sorted(out)]
-def trade_metrics(m,st,en):
- try: tr=ss.fetch_raw_trades(m,st,en)
- except Exception: tr=[]
- bv=av=0.; n=0
- for r in tr:
-  x=float(r.get('trade_price') or 0)*float(r.get('trade_volume') or 0); n+=1
-  if r.get('ask_bid')=='BID': bv+=x
-  elif r.get('ask_bid')=='ASK': av+=x
- tot=bv+av
- return {'bid_value_krw':bv,'ask_value_krw':av,'bid_ratio':bv/tot if tot else None,'net_buy_krw':bv-av,'trade_count':n}
-def first_price_launch(a,m):
- pts=[]
- for r in a:
-  dt=datetime.fromisoformat(r['candle_date_time_utc']).replace(tzinfo=UTC).astimezone(KST); pts.append({'dt':dt,'o':float(r['opening_price']),'h':float(r['high_price']),'l':float(r['low_price']),'c':float(r['trade_price']),'v':float(r.get('candle_acc_trade_price') or 0)})
- if len(pts)<20: raise RuntimeError('not enough minute data')
- for i,p in enumerate(pts):
-  if i<10 or p['o']<=0: continue
-  pre=pts[i-5:i]; pre_low=min(x['l'] for x in pre); pre_high=max(x['h'] for x in pre); pre_range=(pre_high/pre_low-1)*100 if pre_low>0 else 999
-  base=sum(x['v'] for x in pts[i-10:i])/10; vx=p['v']/base if base>0 else 0
-  f2=pts[i:i+2]; f5=pts[i:i+5]; f10=pts[i:i+10]
-  r2=(max(x['h'] for x in f2)/p['o']-1)*100 if f2 else 0; r5=(max(x['h'] for x in f5)/p['o']-1)*100 if f5 else 0; r10=(max(x['h'] for x in f10)/p['o']-1)*100 if f10 else 0
-  cr=(p['h']/p['l']-1)*100 if p['l']>0 else 0
-  price=(r2>=1 or r5>=2 or r10>=3 or cr>=1); flow=vx>=1.8
-  if not price and not flow: continue
-  tm=trade_metrics(m,p['dt']-timedelta(seconds=30),p['dt']+timedelta(minutes=2)); buy=((tm.get('bid_ratio') or 0)>=.55 and (tm.get('net_buy_krw') or 0)>0) or (tm.get('trade_count') or 0)>=10
-  if not(flow or buy): continue
-  if pre_range>8 and r2<2 and r5<4: continue
-  return p['dt'],{'pre5_range_pct':pre_range,'minute_value_x':vx,'ret2_pct':r2,'ret5_pct':r5,'ret10_pct':r10,'minute_range_pct':cr,**tm,'anchor_price':p['o']}
- raise RuntimeError('no first valid price launch')
+KST=timezone(timedelta(hours=9)); UTC=timezone.utc; OUT=Path('sep1_3_25_output')
+ANCHORS=[
+('2026-09-01','KRW-CRV','20:54'),('2026-09-01','KRW-SC','08:58'),('2026-09-01','KRW-BONK','00:16'),('2026-09-01','KRW-ICX','09:22'),('2026-09-01','KRW-IQ','09:03'),('2026-09-01','KRW-AHT','17:20'),('2026-09-01','KRW-ONG','15:24'),
+('2026-09-02','KRW-T','09:01'),('2026-09-02','KRW-SOPH','08:59'),('2026-09-02','KRW-MOC','09:07'),('2026-09-02','KRW-EGLD','13:19'),('2026-09-02','KRW-INJ','16:13'),
+('2026-09-03','KRW-CHIP','06:40'),('2026-09-03','KRW-SNT','09:03'),('2026-09-03','KRW-ANKR','08:58'),('2026-09-03','KRW-HIVE','09:00')]
 def main():
- OUT.mkdir(exist_ok=True); hs=[]; ms=markets()
- for i,m in enumerate(ms,1):
-  try: hs.extend(hits(m))
-  except Exception as e: print('daily error',m,e)
-  if i%25==0: print('daily',i,len(ms),'hits',len(hs),flush=True)
-  time.sleep(.05)
- hs.sort(key=lambda x:(x['day'],-x['high_ret_pct'])); res=[]; sec=[]; allmins=[]
- for j,h in enumerate(hs,1):
+ OUT.mkdir(exist_ok=True); allrows=[]; summary=[]
+ for i,(day,m,hm) in enumerate(ANCHORS,1):
+  T=datetime.fromisoformat(f'{day}T{hm}:00').replace(tzinfo=KST); st=T-timedelta(minutes=10); en=T+timedelta(minutes=10)
   try:
-   a=mins(h['market'],h['day'])
-   for r in a:
-    allmins.append({'day':h['day'],'market':h['market'],'timestamp_kst':r.get('candle_date_time_kst'),'opening_price':r.get('opening_price'),'high_price':r.get('high_price'),'low_price':r.get('low_price'),'trade_price':r.get('trade_price'),'value_1m_krw':r.get('candle_acc_trade_price'),'volume_1m':r.get('candle_acc_trade_volume')})
-   T,meta=first_price_launch(a,h['market']); st=T-timedelta(minutes=10); en=T+timedelta(minutes=10); s=ss.analyze_market(h['market'],st,en,enrich_trades=True); te=int(T.timestamp())
-   for r in s.get('rows',[]): q=dict(r); q.update({'surge_day':h['day'],'day_high_ret_pct':h['high_ret_pct'],'first_launch_T_kst':T.isoformat(),'t_from_first_launch_sec':int(r['epoch_sec']-te)}); sec.append(q)
-   res.append({'hit':h,'first_launch_T_kst':T.isoformat(),'first_launch_meta':meta,'scan_from_kst':st.isoformat(),'scan_to_kst':en.isoformat(),'tick_size':s.get('tick_size'),'seconds_with_trades':len(s.get('rows',[]))})
-   print(f'[{j}/{len(hs)}] {h["market"]} T={T.isoformat()} r2={meta["ret2_pct"]:.2f} r5={meta["ret5_pct"]:.2f} r10={meta["ret10_pct"]:.2f}',flush=True)
-  except Exception as e: res.append({'hit':h,'error':str(e)}); print('ERR',h['market'],e,flush=True)
- if allmins:
-  with (OUT/'ALL_16_FULL_DAY_1MIN.csv').open('w',newline='',encoding='utf-8-sig') as f: w=csv.DictWriter(f,fieldnames=list(allmins[0])); w.writeheader(); w.writerows(allmins)
- (OUT/'first_launch_Tminus10_Tplus10.json').write_text(json.dumps({'generated_at_kst':datetime.now(KST).isoformat(),'anchor':'first valid price launch before breakout','hits':len(hs),'results':res},ensure_ascii=False,indent=2),encoding='utf-8')
- if hs:
-  with (OUT/'first_launch_hits.csv').open('w',newline='',encoding='utf-8-sig') as f: w=csv.DictWriter(f,fieldnames=list(hs[0]));w.writeheader();w.writerows(hs)
- if sec:
-  fs=[];seen=set()
-  for r in sec:
+   s=ss.analyze_market(m,st,en,enrich_trades=True); rows=s.get('rows') or []; te=int(T.timestamp()); tick=s.get('tick_size')
+   for r in rows:
+    q=dict(r); q.update({'day':day,'market':m,'T_kst':T.isoformat(),'t_from_T_sec':int(r['epoch_sec']-te),'tick_size':tick}); allrows.append(q)
+   summary.append({'day':day,'market':m,'T_kst':T.isoformat(),'from_kst':st.isoformat(),'to_kst':en.isoformat(),'tick_size':tick,'seconds_with_trades':len(rows)})
+   print(f'[{i}/16] {m} T={T.isoformat()} secs={len(rows)} tick={tick}',flush=True)
+  except Exception as e:
+   summary.append({'day':day,'market':m,'T_kst':T.isoformat(),'error':str(e)}); print('ERR',m,e,flush=True)
+  time.sleep(.15)
+ if allrows:
+  fields=[];seen=set()
+  for r in allrows:
    for k in r:
-    if k not in seen:seen.add(k);fs.append(k)
-  with (OUT/'first_launch_Tminus10_Tplus10_seconds.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fs,extrasaction='ignore');w.writeheader();w.writerows(sec)
- summ=[]
- for x in res:
-  h=x['hit'];m=x.get('first_launch_meta') or {};summ.append({'day':h['day'],'market':h['market'],'prev_close':h['prev_close'],'day_high':h['high'],'day_high_ret_pct':h['high_ret_pct'],'first_launch_T_kst':x.get('first_launch_T_kst'),'launch_anchor_price':m.get('anchor_price'),'pre5_range_pct':m.get('pre5_range_pct'),'minute_value_x':m.get('minute_value_x'),'ret2_pct':m.get('ret2_pct'),'ret5_pct':m.get('ret5_pct'),'ret10_pct':m.get('ret10_pct'),'bid_ratio':m.get('bid_ratio'),'net_buy_krw':m.get('net_buy_krw'),'trade_count':m.get('trade_count'),'tick_size':x.get('tick_size'),'seconds_with_trades':x.get('seconds_with_trades'),'error':x.get('error')})
- if summ:
-  with (OUT/'first_launch_summary.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=list(summ[0]));w.writeheader();w.writerows(summ)
- print(json.dumps({'hits':len(hs),'full_day_minutes':len(allmins),'out':str(OUT)},ensure_ascii=False),flush=True)
+    if k not in seen:seen.add(k);fields.append(k)
+  with (OUT/'ANCHOR_2P8X_Tminus10_Tplus10_SECONDS.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fields,extrasaction='ignore');w.writeheader();w.writerows(allrows)
+ if summary:
+  fields=[];seen=set()
+  for r in summary:
+   for k in r:
+    if k not in seen:seen.add(k);fields.append(k)
+  with (OUT/'ANCHOR_2P8X_summary.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fields,extrasaction='ignore');w.writeheader();w.writerows(summary)
+ (OUT/'ANCHOR_2P8X_manifest.json').write_text(json.dumps({'definition':'T = selected first valid 1m value ratio >= 2.8x near first launch','range':'T-10m..T+10m','anchors':[{'day':d,'market':m,'time':h} for d,m,h in ANCHORS]},ensure_ascii=False,indent=2),encoding='utf-8')
+ print(json.dumps({'anchors':16,'rows':len(allrows),'range':'T-10m..T+10m'},ensure_ascii=False),flush=True)
 if __name__=='__main__':main()
