@@ -34,53 +34,31 @@ def mins(m,d):
 def trade_metrics(m,st,en):
  try: tr=ss.fetch_raw_trades(m,st,en)
  except Exception: tr=[]
- bv=av=0.0; n=0
+ bv=av=0.; n=0
  for r in tr:
-  p=float(r.get('trade_price') or 0); v=float(r.get('trade_volume') or 0); x=p*v; n+=1
+  x=float(r.get('trade_price') or 0)*float(r.get('trade_volume') or 0); n+=1
   if r.get('ask_bid')=='BID': bv+=x
   elif r.get('ask_bid')=='ASK': av+=x
  tot=bv+av
- return {'bid_value_krw':bv,'ask_value_krw':av,'bid_ratio':(bv/tot if tot else None),'net_buy_krw':bv-av,'trade_count':n}
+ return {'bid_value_krw':bv,'ask_value_krw':av,'bid_ratio':bv/tot if tot else None,'net_buy_krw':bv-av,'trade_count':n}
 def first_price_launch(a,m):
- # T = the minute immediately before the first *meaningful* price launch of the day.
- # Search chronologically. A candidate must show a transition from quiet/local balance into
- # fast upside expansion, with at least one confirming flow signal (value or buy-side trades).
  pts=[]
  for r in a:
-  dt=datetime.fromisoformat(r['candle_date_time_utc']).replace(tzinfo=UTC).astimezone(KST)
-  pts.append({'dt':dt,'o':float(r['opening_price']),'h':float(r['high_price']),'l':float(r['low_price']),'c':float(r['trade_price']),'v':float(r.get('candle_acc_trade_price') or 0)})
+  dt=datetime.fromisoformat(r['candle_date_time_utc']).replace(tzinfo=UTC).astimezone(KST); pts.append({'dt':dt,'o':float(r['opening_price']),'h':float(r['high_price']),'l':float(r['low_price']),'c':float(r['trade_price']),'v':float(r.get('candle_acc_trade_price') or 0)})
  if len(pts)<20: raise RuntimeError('not enough minute data')
- vals=[]
  for i,p in enumerate(pts):
-  vals.append(p['v'])
   if i<10 or p['o']<=0: continue
-  pre=pts[max(0,i-5):i]
-  if not pre: continue
-  pre_low=min(x['l'] for x in pre); pre_high=max(x['h'] for x in pre)
-  pre_range=(pre_high/pre_low-1)*100 if pre_low>0 else 999
-  base_v=sum(x['v'] for x in pts[max(0,i-10):i])/max(1,len(pts[max(0,i-10):i]))
-  value_x=p['v']/base_v if base_v>0 else 0
-  # forward local price expansion from this minute's open
-  fwd2=pts[i:min(len(pts),i+2)]; fwd5=pts[i:min(len(pts),i+5)]; fwd10=pts[i:min(len(pts),i+10)]
-  ret2=(max(x['h'] for x in fwd2)/p['o']-1)*100 if fwd2 else 0
-  ret5=(max(x['h'] for x in fwd5)/p['o']-1)*100 if fwd5 else 0
-  ret10=(max(x['h'] for x in fwd10)/p['o']-1)*100 if fwd10 else 0
-  cur_range=(p['h']/p['l']-1)*100 if p['l']>0 else 0
-  # Require the first real local acceleration, not a later strongest leg.
-  price_trigger=(ret2>=1.0 or ret5>=2.0 or ret10>=3.0 or cur_range>=1.0)
-  flow_trigger=(value_x>=1.8)
-  if not price_trigger and not flow_trigger: continue
-  # Enrich only shortlisted chronological candidates with actual BID/ASK flow.
-  st=p['dt']-timedelta(seconds=30); en=p['dt']+timedelta(minutes=2)
-  tm=trade_metrics(m,st,en)
-  buy_trigger=((tm.get('bid_ratio') or 0)>=0.55 and (tm.get('net_buy_krw') or 0)>0) or (tm.get('trade_count') or 0)>=10
-  if not (flow_trigger or buy_trigger): continue
-  # Avoid calling already-expanded continuation legs 'T' when the local 5m structure was already vertical.
-  # We still allow volatile coins, but prefer a genuine transition from a relatively quieter base.
-  if pre_range>8.0 and ret2<2.0 and ret5<4.0: continue
-  T=p['dt']
-  meta={'pre5_range_pct':pre_range,'minute_value_x':value_x,'ret2_pct':ret2,'ret5_pct':ret5,'ret10_pct':ret10,'minute_range_pct':cur_range,**tm,'anchor_price':p['o']}
-  return T,meta
+  pre=pts[i-5:i]; pre_low=min(x['l'] for x in pre); pre_high=max(x['h'] for x in pre); pre_range=(pre_high/pre_low-1)*100 if pre_low>0 else 999
+  base=sum(x['v'] for x in pts[i-10:i])/10; vx=p['v']/base if base>0 else 0
+  f2=pts[i:i+2]; f5=pts[i:i+5]; f10=pts[i:i+10]
+  r2=(max(x['h'] for x in f2)/p['o']-1)*100 if f2 else 0; r5=(max(x['h'] for x in f5)/p['o']-1)*100 if f5 else 0; r10=(max(x['h'] for x in f10)/p['o']-1)*100 if f10 else 0
+  cr=(p['h']/p['l']-1)*100 if p['l']>0 else 0
+  price=(r2>=1 or r5>=2 or r10>=3 or cr>=1); flow=vx>=1.8
+  if not price and not flow: continue
+  tm=trade_metrics(m,p['dt']-timedelta(seconds=30),p['dt']+timedelta(minutes=2)); buy=((tm.get('bid_ratio') or 0)>=.55 and (tm.get('net_buy_krw') or 0)>0) or (tm.get('trade_count') or 0)>=10
+  if not(flow or buy): continue
+  if pre_range>8 and r2<2 and r5<4: continue
+  return p['dt'],{'pre5_range_pct':pre_range,'minute_value_x':vx,'ret2_pct':r2,'ret5_pct':r5,'ret10_pct':r10,'minute_range_pct':cr,**tm,'anchor_price':p['o']}
  raise RuntimeError('no first valid price launch')
 def main():
  OUT.mkdir(exist_ok=True); hs=[]; ms=markets()
@@ -89,30 +67,32 @@ def main():
   except Exception as e: print('daily error',m,e)
   if i%25==0: print('daily',i,len(ms),'hits',len(hs),flush=True)
   time.sleep(.05)
- hs.sort(key=lambda x:(x['day'],-x['high_ret_pct'])); res=[]; sec=[]
+ hs.sort(key=lambda x:(x['day'],-x['high_ret_pct'])); res=[]; sec=[]; allmins=[]
  for j,h in enumerate(hs,1):
   try:
-   a=mins(h['market'],h['day']); T,meta=first_price_launch(a,h['market']); st=T-timedelta(minutes=10); en=T+timedelta(minutes=10)
-   s=ss.analyze_market(h['market'],st,en,enrich_trades=True); te=int(T.timestamp())
-   for r in s.get('rows',[]):
-    q=dict(r); q.update({'surge_day':h['day'],'day_high_ret_pct':h['high_ret_pct'],'first_launch_T_kst':T.isoformat(),'t_from_first_launch_sec':int(r['epoch_sec']-te)}); sec.append(q)
+   a=mins(h['market'],h['day'])
+   for r in a:
+    allmins.append({'day':h['day'],'market':h['market'],'timestamp_kst':r.get('candle_date_time_kst'),'opening_price':r.get('opening_price'),'high_price':r.get('high_price'),'low_price':r.get('low_price'),'trade_price':r.get('trade_price'),'value_1m_krw':r.get('candle_acc_trade_price'),'volume_1m':r.get('candle_acc_trade_volume')})
+   T,meta=first_price_launch(a,h['market']); st=T-timedelta(minutes=10); en=T+timedelta(minutes=10); s=ss.analyze_market(h['market'],st,en,enrich_trades=True); te=int(T.timestamp())
+   for r in s.get('rows',[]): q=dict(r); q.update({'surge_day':h['day'],'day_high_ret_pct':h['high_ret_pct'],'first_launch_T_kst':T.isoformat(),'t_from_first_launch_sec':int(r['epoch_sec']-te)}); sec.append(q)
    res.append({'hit':h,'first_launch_T_kst':T.isoformat(),'first_launch_meta':meta,'scan_from_kst':st.isoformat(),'scan_to_kst':en.isoformat(),'tick_size':s.get('tick_size'),'seconds_with_trades':len(s.get('rows',[]))})
-   print(f'[{j}/{len(hs)}] {h["market"]} {h["day"]} T={T.isoformat()} ret2={meta["ret2_pct"]:.2f}% ret5={meta["ret5_pct"]:.2f}% ret10={meta["ret10_pct"]:.2f}% vx={meta["minute_value_x"]:.2f} bid={meta.get("bid_ratio")}',flush=True)
+   print(f'[{j}/{len(hs)}] {h["market"]} T={T.isoformat()} r2={meta["ret2_pct"]:.2f} r5={meta["ret5_pct"]:.2f} r10={meta["ret10_pct"]:.2f}',flush=True)
   except Exception as e: res.append({'hit':h,'error':str(e)}); print('ERR',h['market'],e,flush=True)
-  time.sleep(.2)
+ if allmins:
+  with (OUT/'ALL_16_FULL_DAY_1MIN.csv').open('w',newline='',encoding='utf-8-sig') as f: w=csv.DictWriter(f,fieldnames=list(allmins[0])); w.writeheader(); w.writerows(allmins)
  (OUT/'first_launch_Tminus10_Tplus10.json').write_text(json.dumps({'generated_at_kst':datetime.now(KST).isoformat(),'anchor':'first valid price launch before breakout','hits':len(hs),'results':res},ensure_ascii=False,indent=2),encoding='utf-8')
  if hs:
   with (OUT/'first_launch_hits.csv').open('w',newline='',encoding='utf-8-sig') as f: w=csv.DictWriter(f,fieldnames=list(hs[0]));w.writeheader();w.writerows(hs)
  if sec:
-  fs=[]; seen=set()
+  fs=[];seen=set()
   for r in sec:
    for k in r:
-    if k not in seen: seen.add(k);fs.append(k)
-  with (OUT/'first_launch_Tminus10_Tplus10_seconds.csv').open('w',newline='',encoding='utf-8-sig') as f: w=csv.DictWriter(f,fieldnames=fs,extrasaction='ignore');w.writeheader();w.writerows(sec)
+    if k not in seen:seen.add(k);fs.append(k)
+  with (OUT/'first_launch_Tminus10_Tplus10_seconds.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=fs,extrasaction='ignore');w.writeheader();w.writerows(sec)
  summ=[]
  for x in res:
-  h=x['hit']; m=x.get('first_launch_meta') or {}; summ.append({'day':h['day'],'market':h['market'],'prev_close':h['prev_close'],'day_high':h['high'],'day_high_ret_pct':h['high_ret_pct'],'first_launch_T_kst':x.get('first_launch_T_kst'),'launch_anchor_price':m.get('anchor_price'),'pre5_range_pct':m.get('pre5_range_pct'),'minute_value_x':m.get('minute_value_x'),'ret2_pct':m.get('ret2_pct'),'ret5_pct':m.get('ret5_pct'),'ret10_pct':m.get('ret10_pct'),'bid_ratio':m.get('bid_ratio'),'net_buy_krw':m.get('net_buy_krw'),'trade_count':m.get('trade_count'),'tick_size':x.get('tick_size'),'seconds_with_trades':x.get('seconds_with_trades'),'error':x.get('error')})
+  h=x['hit'];m=x.get('first_launch_meta') or {};summ.append({'day':h['day'],'market':h['market'],'prev_close':h['prev_close'],'day_high':h['high'],'day_high_ret_pct':h['high_ret_pct'],'first_launch_T_kst':x.get('first_launch_T_kst'),'launch_anchor_price':m.get('anchor_price'),'pre5_range_pct':m.get('pre5_range_pct'),'minute_value_x':m.get('minute_value_x'),'ret2_pct':m.get('ret2_pct'),'ret5_pct':m.get('ret5_pct'),'ret10_pct':m.get('ret10_pct'),'bid_ratio':m.get('bid_ratio'),'net_buy_krw':m.get('net_buy_krw'),'trade_count':m.get('trade_count'),'tick_size':x.get('tick_size'),'seconds_with_trades':x.get('seconds_with_trades'),'error':x.get('error')})
  if summ:
-  with (OUT/'first_launch_summary.csv').open('w',newline='',encoding='utf-8-sig') as f: w=csv.DictWriter(f,fieldnames=list(summ[0]));w.writeheader();w.writerows(summ)
- print(json.dumps({'hits':len(hs),'anchor':'first valid price launch before breakout','out':str(OUT)},ensure_ascii=False),flush=True)
-if __name__=='__main__': main()
+  with (OUT/'first_launch_summary.csv').open('w',newline='',encoding='utf-8-sig') as f:w=csv.DictWriter(f,fieldnames=list(summ[0]));w.writeheader();w.writerows(summ)
+ print(json.dumps({'hits':len(hs),'full_day_minutes':len(allmins),'out':str(OUT)},ensure_ascii=False),flush=True)
+if __name__=='__main__':main()
