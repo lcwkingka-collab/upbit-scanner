@@ -67,7 +67,8 @@ def main() -> None:
         day_high = max(float(r["high_price"]) for r in after)
         high_minute_row = next(r for r in after if float(r["high_price"]) == day_high)
         high_minute = datetime.fromisoformat(high_minute_row["candle_date_time_kst"]).replace(tzinfo=KST)
-        end = min(high_minute + timedelta(minutes=2), stage6.replace(hour=23, minute=59, second=59))
+        # Continue well beyond the first daily high so trailing exits are observable.
+        end = min(high_minute + timedelta(hours=2), stage6.replace(hour=23, minute=59, second=59))
         seconds = ss.fetch_second_candles(market, stage6, end)
         for row in seconds:
             epoch_sec = int(row["timestamp"]) // 1000
