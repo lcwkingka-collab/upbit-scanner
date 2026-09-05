@@ -1,6 +1,6 @@
 {
-  "request_id":"soph_full_day_20260904",
+  "request_id":"soph_full_day_raw_20260904",
   "cases":[
-    {"label":"SOPH_FULL_DAY_0904","market":"KRW-SOPH","date":"2026-09-04","from":"00:00:00","to":"23:59:59","raw_trades":false}
+    {"label":"SOPH_FULL_DAY_RAW_0904","market":"KRW-SOPH","date":"2026-09-04","from":"00:00:00","to":"23:59:59","raw_trades":true}
   ]
 }
