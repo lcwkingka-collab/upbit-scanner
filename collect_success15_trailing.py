@@ -10,7 +10,7 @@ from pathlib import Path
 import second_scan_api as ss
 
 KST = timezone(timedelta(hours=9))
-OUT = Path("success15_trailing_output")
+OUT = Path("success16_trailing_output")
 
 CASES = [
     ("ANKR", "KRW-ANKR", "2026-09-03T09:00:03+09:00", 5.60),
@@ -28,6 +28,7 @@ CASES = [
     ("SNT", "KRW-SNT", "2026-09-03T09:06:50+09:00", 9.17),
     ("SOPH", "KRW-SOPH", "2026-09-02T09:00:06+09:00", 5.73),
     ("T", "KRW-T", "2026-09-02T09:05:11+09:00", 5.24),
+    ("SOPH_NEW", "KRW-SOPH", "2026-09-05T21:05:27+09:00", 6.22),
 ]
 
 
@@ -95,10 +96,10 @@ def main() -> None:
         print(f"[{index}/{len(CASES)}] {label} {stage6.isoformat()} -> {end.isoformat()} rows={len(seconds)}", flush=True)
 
     if all_rows:
-        with (OUT / "success15_stage6_to_high_seconds.csv").open("w", newline="", encoding="utf-8-sig") as handle:
+        with (OUT / "success16_stage6_to_high_seconds.csv").open("w", newline="", encoding="utf-8-sig") as handle:
             writer = csv.DictWriter(handle, fieldnames=list(all_rows[0]))
             writer.writeheader(); writer.writerows(all_rows)
-    (OUT / "success15_stage6_to_high_manifest.json").write_text(
+    (OUT / "success16_stage6_to_high_manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     print(json.dumps({"cases": len(manifest), "rows": len(all_rows)}, ensure_ascii=False), flush=True)
