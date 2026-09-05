@@ -1,6 +1,9 @@
 {
-  "request_id":"soph_actual_30pct_launch_20260906",
-  "cases":[
-    {"label":"SOPH_ACTUAL_LAUNCH_0906","market":"KRW-SOPH","date":"2026-09-06","from":"00:00:00","to":"08:59:59","raw_trades":true}
+  "request_id": "v55_flock_zro_repeat_replay_20260906",
+  "cases": [
+    {"label":"FLOCK_PRE_FIRST","market":"KRW-FLOCK","date":"2026-09-06","from":"05:10:00","to":"06:09:59","raw_trades":true},
+    {"label":"FLOCK_FIRST_6","market":"KRW-FLOCK","date":"2026-09-06","from":"06:10:00","to":"06:29:59","raw_trades":true},
+    {"label":"ZRO_TWO_6","market":"KRW-ZRO","date":"2026-09-06","from":"06:20:00","to":"07:19:59","raw_trades":true},
+    {"label":"FLOCK_REPEAT_6","market":"KRW-FLOCK","date":"2026-09-06","from":"07:00:00","to":"07:49:59","raw_trades":true}
   ]
 }
