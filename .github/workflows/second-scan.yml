@@ -19,6 +19,9 @@ on:
           - 'yes'
           - 'no'
         default: 'yes'
+  push:
+    paths:
+      - 'scan_request.json'
 
 permissions:
   contents: read
@@ -35,33 +38,39 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: main
-
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-
-      - name: Run success-case second scan
+      - name: Run second scan
         shell: bash
         run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+            MARKETS="$(python -c 'import json; print(json.load(open("scan_request.json", encoding="utf-8"))["markets"])')"
+            DAYS="$(python -c 'import json; print(json.load(open("scan_request.json", encoding="utf-8")).get("lookback_days", 1))')"
+            RAW="$(python -c 'import json; print(json.load(open("scan_request.json", encoding="utf-8")).get("raw_trades", "yes"))')"
+          else
+            MARKETS='${{ inputs.markets }}'
+            DAYS='${{ inputs.lookback_days }}'
+            RAW='${{ inputs.raw_trades }}'
+          fi
           EXTRA=''
-          if [ '${{ inputs.raw_trades }}' = 'no' ]; then
+          if [ "$RAW" = 'no' ]; then
             EXTRA='--no-trades'
           fi
+          echo "markets=$MARKETS days=$DAYS raw_trades=$RAW"
           python second_scan_batch.py \
-            --markets '${{ inputs.markets }}' \
-            --days '${{ inputs.lookback_days }}' \
+            --markets "$MARKETS" \
+            --days "$DAYS" \
             $EXTRA
-
       - name: Show output files
         if: always()
         run: |
           find second_scan_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
-
       - name: Upload second-scan result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: success9-second-scan-${{ github.run_number }}
+          name: second-scan-${{ github.run_number }}
           path: second_scan_output/
           if-no-files-found: warn
           retention-days: 14
