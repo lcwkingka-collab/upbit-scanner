@@ -1,0 +1,40 @@
+name: Success15 trailing second scan
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'collect_success15_trailing.py'
+      - '.github/workflows/success15-trailing-scan.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: success15-trailing-second-scan
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect complete post-stage6 paths
+        run: python collect_success15_trailing.py
+      - name: Show outputs
+        if: always()
+        run: find success15_trailing_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
+      - name: Upload result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: success15-trailing-second-scan-${{ github.run_number }}
+          path: success15_trailing_output/
+          if-no-files-found: warn
+          retention-days: 14
