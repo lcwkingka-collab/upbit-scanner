@@ -22,12 +22,16 @@ If Stage 4 fails Stage 5, it returns to Stage 3 and re-arms after the
 from __future__ import annotations
 
 import collections
+import json
+import os
 import signal
 import statistics
 import threading
 import time
 import urllib.parse
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from datetime import datetime, timedelta, timezone
+from pathlib import Path
 from typing import Deque, Dict, Optional, Tuple
 
 import realtime_radar_v51 as r
@@ -41,6 +45,8 @@ LAUNCH_TICKS = 4
 DROP_HOLD_SEC = 20
 WARMUP_SEC = 11 * 60
 EVENT_KEEP_MS = 15 * 60 * 1000
+KST = timezone(timedelta(hours=9))
+EVENT_LOG_DIR = Path(os.getenv("RADAR_EVENT_DIR", "/home/ubuntu/upbit-scanner/data/live/radar_events"))
 
 ORIG_ADD_TRADE = r.add_trade
 TRADE_EVENTS: Dict[str, Deque[Tuple[int, float, str, float]]] = {}
@@ -57,15 +63,47 @@ class V54State:
     launch_armed: bool = True
     last_launch_sec: int = 0
     cycle_id: int = 0
+    last_bad_count: int = 0
 
 
 ST: Dict[str, V54State] = {}
+
+
+def log_event(market: str, event: str, sec: Optional[int] = None, st: Optional[V54State] = None, **fields) -> None:
+    """Append a durable, GitHub-published JSONL state-machine event."""
+    try:
+        event_sec = int(sec if sec is not None else time.time())
+        state = st or ST.get(market)
+        row = {
+            "version": VERSION,
+            "timestamp_kst": datetime.fromtimestamp(event_sec, KST).isoformat(),
+            "epoch_sec": event_sec,
+            "market": market,
+            "event": event,
+            "cycle_id": state.cycle_id if state else None,
+            "stage": state.stage if state else None,
+            "t_sec": state.t_sec if state else None,
+            "t_price": state.t_price if state else None,
+            "t_value_x": state.t_value_x if state else None,
+            **fields,
+        }
+        day_dir = EVENT_LOG_DIR / datetime.fromtimestamp(event_sec, KST).strftime("%Y%m%d")
+        day_dir.mkdir(parents=True, exist_ok=True)
+        line = json.dumps(row, ensure_ascii=False, separators=(",", ":"))
+        with (day_dir / "v54_events.jsonl").open("a", encoding="utf-8") as handle:
+            handle.write(line + "\\n")
+        latest_tmp = EVENT_LOG_DIR / "latest.tmp"
+        latest_tmp.write_text(line, encoding="utf-8")
+        os.replace(latest_tmp, EVENT_LOG_DIR / "latest.json")
+    except Exception as exc:
+        print(f"[event-log error] {market} {event}: {exc}", flush=True)
 
 
 def reset_state(market: str, why: str = "") -> None:
     old = ST.get(market, V54State())
     if why and old.stage:
         print(f"[reset] {market} stage={old.stage} {why}", flush=True)
+        log_event(market, "reset", st=old, reason=why)
     ST[market] = V54State(cycle_id=old.cycle_id)
 
 
@@ -254,6 +292,7 @@ def evaluate_once() -> None:
                 st.t_sec = sec
                 st.t_price = price
                 st.t_value_x = vx
+                log_event(market, "stage1", sec, st, price=price, current_value_x=vx)
                 print(f"[1차] {market} cycle={st.cycle_id} T={price} value={vx:.2f}x", flush=True)
             continue
 
@@ -266,6 +305,8 @@ def evaluate_once() -> None:
             flow_ok = cur["bid"] > cur["ask"] and cur["net"] > 0 and cur["bid"] > prev["bid"]
             if flow_ok:
                 st.stage = 3
+                log_event(market, "stage2", sec, st, price=price, current_value_x=vx, bid=cur["bid"], ask=cur["ask"], net=cur["net"], bid_count=cur["bid_count"], ask_count=cur["ask_count"], prev_bid=prev["bid"], prev_bid_count=prev["bid_count"])
+                log_event(market, "stage3", sec, st, reason="stage2_pass")
                 print(
                     f"[2차->3차] {market} bid={cur['share']*100:.1f}% "
                     f"net={cur['net']:.0f} bidcnt={cur['bid_count']}",
@@ -281,11 +322,16 @@ def evaluate_once() -> None:
             continue
 
         bad_count, bad_reason = drop_axes(market, sec, st, flow, price)
+        if bad_count != st.last_bad_count:
+            log_event(market, "drop_axes_change", sec, st, bad_count=bad_count, bad_reason=bad_reason, price=price, bid=flow["cur"]["bid"], ask=flow["cur"]["ask"], net=flow["cur"]["net"], bid_count=flow["cur"]["bid_count"], ask_count=flow["cur"]["ask_count"])
+            st.last_bad_count = bad_count
+
         if bad_count >= 2:
             if st.drop_since == 0:
                 st.drop_since = sec
             held = sec - st.drop_since + 1
             if held >= DROP_HOLD_SEC:
+                log_event(market, "drop", sec, st, held_sec=held, bad_count=bad_count, bad_reason=bad_reason, price=price)
                 print(f"[DROP] {market} held={held}s axes={bad_reason}", flush=True)
                 reset_state(market, f"DROP {held}s {bad_reason}")
                 continue
@@ -299,6 +345,7 @@ def evaluate_once() -> None:
             st.stage = 4
             st.launch_armed = False
             st.last_launch_sec = sec
+            log_event(market, "stage4", sec, st, price=price, current_value_x=vx, launch_ticks=launch["ticks"], launch_start=launch["start"], launch_high=launch["high"], bid=flow["cur"]["bid"], ask=flow["cur"]["ask"], net=flow["cur"]["net"], bid_share=flow["cur"]["share"], bid_count=flow["cur"]["bid_count"], ask_count=flow["cur"]["ask_count"])
             r.telegram(alert4(market, st, vx, flow, launch, price))
             print(f"[4차] {market} +{launch['ticks']:.1f}tick", flush=True)
 
@@ -306,6 +353,7 @@ def evaluate_once() -> None:
             final_ok = cur["bid"] > cur["ask"] and cur["net"] > 0
             if final_ok:
                 st.stage = 5
+                log_event(market, "stage5", sec, st, price=price, current_value_x=vx, launch_ticks=launch["ticks"], bid=cur["bid"], ask=cur["ask"], net=cur["net"], bid_share=cur["share"], bid_count=cur["bid_count"], ask_count=cur["ask_count"])
                 r.telegram(alert5(market, st, vx, flow, launch, price))
                 print(
                     f"[5차] {market} FINAL bid={cur['share']*100:.1f}% net={cur['net']:.0f}",
@@ -313,6 +361,7 @@ def evaluate_once() -> None:
                 )
             else:
                 st.stage = 3
+                log_event(market, "stage4_to_stage3", sec, st, reason="stage5_flow_fail", price=price, current_value_x=vx, bid=cur["bid"], ask=cur["ask"], net=cur["net"], bid_share=cur["share"], bid_count=cur["bid_count"], ask_count=cur["ask_count"])
                 print(
                     f"[4차->3차] {market} 5차미달 bid={cur['share']*100:.1f}% net={cur['net']:.0f}",
                     flush=True,
