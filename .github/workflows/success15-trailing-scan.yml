@@ -29,12 +29,12 @@ jobs:
         run: python collect_success15_trailing.py
       - name: Show outputs
         if: always()
-        run: find success15_trailing_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
+        run: find success16_trailing_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
       - name: Upload result
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: success15-trailing-second-scan-${{ github.run_number }}
-          path: success15_trailing_output/
+          name: success16-trailing-second-scan-${{ github.run_number }}
+          path: success16_trailing_output/
           if-no-files-found: warn
           retention-days: 14
