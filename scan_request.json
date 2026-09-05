@@ -1,6 +1,6 @@
 {
-  "request_id":"soph_actual_30pct_launch_20260905",
+  "request_id":"soph_actual_30pct_launch_20260906",
   "cases":[
-    {"label":"SOPH_ACTUAL_LAUNCH_0905","market":"KRW-SOPH","date":"2026-09-05","from":"09:00:00","to":"23:59:59","raw_trades":true}
+    {"label":"SOPH_ACTUAL_LAUNCH_0906","market":"KRW-SOPH","date":"2026-09-06","from":"00:00:00","to":"08:59:59","raw_trades":true}
   ]
 }
