@@ -360,7 +360,7 @@ def to_csv(payload: dict) -> bytes:
         "market","timestamp_kst","epoch_sec","open","high","low","close",
         "value_1s_krw","volume_1s","tick_size","tick_pct_at_close",
         "ticks_from_anchor","ticks_from_prev","pct_from_anchor","pct_from_prev",
-        "value_vs_prev10_active_sec_x","trade_count","bid_value_krw","ask_value_krw",
+        "value_vs_prev10_active_sec_x","trade_count","bid_count","ask_count","bid_value_krw","ask_value_krw",
         "bid_ratio","net_buy_krw",
     ]
     buf = io.StringIO()
