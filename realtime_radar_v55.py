@@ -401,7 +401,6 @@ def evaluate_market(market: str, sec: int) -> None:
         return
     st.stage = 4
     log_event(market, "stage4", sec, st, current_value_x=vx, **launch)
-    r.telegram(alert4(market, st, vx, flow, launch))
     print(f"[4차] {market} high={launch['high_ticks']:.1f}tick rise={launch['rise_pct']:.2f}%", flush=True)
     cur = flow["cur"]
     if cur["bid"] > cur["ask"] and cur["net"] > 0:
@@ -410,7 +409,6 @@ def evaluate_market(market: str, sec: int) -> None:
         log_event(market, "stage5", sec, st, price=launch["last"], current_value_x=vx,
                   bid=cur["bid"], ask=cur["ask"], net=cur["net"],
                   bid_share=cur["share"], **launch)
-        r.telegram(alert5(market, st, vx, flow, launch))
         print(f"[5차] {market} +3틱 대기", flush=True)
     else:
         st.stage = 3
@@ -442,7 +440,7 @@ def main() -> None:
           f"4차=3s high+4tick,rise>=0.40%,trades10>=7,T+8tick | "
           f"6차=+3tick (-4tick/idle recycle)", flush=True)
     r.telegram("✅ Upbit Radar V5.5 시작\nT 유효기간 240분 · 120분부터 예비 T · BTC/스테이블 제외\n"
-               "4차 강화 발사 → 5차 매수방향 → +3틱 6차 최종확정\n"
+               "1~5차는 내부 로그 전용 · +3틱 6차만 Telegram 최종확정\n"
                "5차는 TTL 예외(최대 12시간) · -4틱/5초 무체결 시 3차 복귀")
     th = threading.Thread(target=r.evaluator_loop, name="v55-evaluator", daemon=True)
     th.start()
