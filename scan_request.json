@@ -1,6 +1,61 @@
 {
-  "request_id": "failure_batch_01_20260905",
-  "markets": "KRW-QUID,KRW-RENDER,KRW-META2,KRW-TAO,KRW-EDGE,KRW-EURC,KRW-BTC,KRW-SOPH,KRW-SC,KRW-TRUMP",
-  "lookback_days": 1,
-  "raw_trades": "yes"
+  "request_id": "failure_exact_batch_01_20260905",
+  "cases": [
+    {
+      "label": "QUID_1014",
+      "market": "KRW-QUID",
+      "date": "2026-09-05",
+      "from": "10:09:00",
+      "to": "10:19:00",
+      "raw_trades": true
+    },
+    {
+      "label": "QUID_1159",
+      "market": "KRW-QUID",
+      "date": "2026-09-05",
+      "from": "11:54:00",
+      "to": "12:04:00",
+      "raw_trades": true
+    },
+    {
+      "label": "RENDER_1159",
+      "market": "KRW-RENDER",
+      "date": "2026-09-05",
+      "from": "11:54:00",
+      "to": "12:04:00",
+      "raw_trades": true
+    },
+    {
+      "label": "META2_1032",
+      "market": "KRW-META2",
+      "date": "2026-09-05",
+      "from": "10:08:00",
+      "to": "10:39:00",
+      "raw_trades": true
+    },
+    {
+      "label": "META2_1142_1153",
+      "market": "KRW-META2",
+      "date": "2026-09-05",
+      "from": "11:33:00",
+      "to": "11:58:00",
+      "raw_trades": true
+    },
+    {
+      "label": "EDGE_1029",
+      "market": "KRW-EDGE",
+      "date": "2026-09-05",
+      "from": "10:24:00",
+      "to": "10:34:00",
+      "raw_trades": true
+    },
+    {
+      "label": "EURC_1013",
+      "market": "KRW-EURC",
+      "date": "2026-09-05",
+      "from": "10:08:00",
+      "to": "10:18:00",
+      "raw_trades": true
+    }
+  ]
 }
