@@ -1,5 +1,5 @@
 {
-  "generated_kst": "2026-09-06T01:40:26.253247+09:00",
+  "generated_kst": "2026-09-06T02:06:16.262727+09:00",
   "states": [
     "신규 포착",
     "강화",
@@ -10,20 +10,20 @@
   "rows": [
     {
       "market": "KRW-GEOD",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
+        "p5": 0.032,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WAXP",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -35,19 +35,19 @@
     {
       "market": "KRW-CARV",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-LSK",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -59,71 +59,71 @@
     {
       "market": "KRW-0G",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
-        "p10": 0.016,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WIF",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
+        "p5": 0.064,
         "p10": 0.012,
-        "p25": 0.004
+        "p25": 0.0
       }
     },
     {
       "market": "KRW-TRAC",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
+        "p5": 0.032,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BORA",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PUNDIX",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
+        "samples": 173,
+        "p5": 0.028901734104046242,
+        "p10": 0.005780346820809248,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PROS",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
+        "p5": 0.072,
         "p10": 0.02,
         "p25": 0.0
       }
@@ -131,23 +131,23 @@
     {
       "market": "KRW-USD1",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PROM",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
+        "p5": 0.072,
         "p10": 0.02,
         "p25": 0.0
       }
@@ -155,91 +155,91 @@
     {
       "market": "KRW-BAT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HUNT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.008,
+        "p5": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PENGU",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.048,
-        "p10": 0.012,
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-FIL",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.024,
-        "p10": 0.008,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BEAM",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.008,
+        "p5": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-META2",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-DOOD",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
-        "p10": 0.0,
+        "p5": 0.016,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WAVES",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -250,44 +250,44 @@
     },
     {
       "market": "KRW-USDC",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MOVE",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.016,
-        "p10": 0.0,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-TREE",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-USDE",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -299,43 +299,19 @@
     {
       "market": "KRW-USDG",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WET",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-USDT",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-USDS",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -345,9 +321,21 @@
       }
     },
     {
-      "market": "KRW-2Z",
+      "market": "KRW-USDT",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.072,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-USDS",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -357,21 +345,57 @@
       }
     },
     {
-      "market": "KRW-BOUNTY",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-2Z",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.044,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-BOUNTY",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-KAITO",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-LPT",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-FOLD",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -381,33 +405,9 @@
       }
     },
     {
-      "market": "KRW-LPT",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.104,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-FOLD",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-BLAST",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -419,31 +419,31 @@
     {
       "market": "KRW-ETHFI",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.04,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-DKA",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ANKR",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -454,32 +454,32 @@
     },
     {
       "market": "KRW-ALGO",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.008,
+        "p5": 0.044,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SHIB",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.052,
-        "p10": 0.004,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-QUID",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -490,44 +490,44 @@
     },
     {
       "market": "KRW-UNI",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.052,
-        "p10": 0.004,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BIO",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 176,
-        "p5": 0.028409090909090908,
-        "p10": 0.005681818181818182,
+        "samples": 158,
+        "p5": 0.006329113924050633,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WLFI",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.044,
-        "p10": 0.008,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-UP2",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -538,24 +538,24 @@
     },
     {
       "market": "KRW-TOKAMAK",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SKY",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.008,
+        "p5": 0.02,
         "p10": 0.0,
         "p25": 0.0
       }
@@ -563,35 +563,35 @@
     {
       "market": "KRW-CYBER",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SKR",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.06,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-DOGE",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
+        "p5": 0.04,
         "p10": 0.016,
         "p25": 0.0
       }
@@ -599,67 +599,67 @@
     {
       "market": "KRW-WLD",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.024,
-        "p10": 0.008,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PEPE",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
-        "p10": 0.012,
+        "p5": 0.032,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HBAR",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.016,
+        "p5": 0.06,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-KMNO",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BCH",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
+        "p5": 0.028,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-NEWT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -670,20 +670,20 @@
     },
     {
       "market": "KRW-SEI",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
-        "p10": 0.004,
+        "p5": 0.02,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BONK",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -695,79 +695,91 @@
     {
       "market": "KRW-JST",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.016,
+        "p5": 0.044,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AAVE",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
+        "p5": 0.06,
+        "p10": 0.012,
+        "p25": 0.004
+      }
+    },
+    {
+      "market": "KRW-JTO",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
         "p10": 0.0,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-JTO",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.04,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-JUP",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.016,
+        "p5": 0.06,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-VVV",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.044,
-        "p10": 0.004,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AI",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.104,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PIEVERSE",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ALT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -777,153 +789,9 @@
       }
     },
     {
-      "market": "KRW-ALT",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.008,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-B3",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-LAYER",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-TRX",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.032,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-POWR",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.004,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-EUL",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ATOM",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.008,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ARKM",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-CRV",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.04,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-CRO",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-NXPC",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-A",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-TRUMP",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -933,21 +801,153 @@
       }
     },
     {
-      "market": "KRW-F",
+      "market": "KRW-LAYER",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
+        "p5": 0.036,
         "p10": 0.016,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-TRX",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-POWR",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.02,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-EUL",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ATOM",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ARKM",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.004,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-CRV",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-CRO",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.016,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-NXPC",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-A",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.072,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-TRUMP",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-F",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-G",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -958,68 +958,8 @@
     },
     {
       "market": "KRW-CELO",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-AERO",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.048,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-CTC",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.036,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ANIME",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.032,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-APT",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.012,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-MOCA",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1029,21 +969,81 @@
       }
     },
     {
-      "market": "KRW-API3",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-AERO",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-CTC",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.004,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ANIME",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-APT",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-MOCA",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-API3",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.052,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AHT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1055,43 +1055,43 @@
     {
       "market": "KRW-EGLD",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BLEND",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.016,
+        "p5": 0.06,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ERA",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-NCT",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1102,44 +1102,20 @@
     },
     {
       "market": "KRW-FF",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.052,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PLUME",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.024,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ESP",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-CC",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1149,9 +1125,33 @@
       }
     },
     {
+      "market": "KRW-ESP",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-CC",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.084,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
       "market": "KRW-NEO",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1162,12 +1162,12 @@
     },
     {
       "market": "KRW-ETC",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
+        "p5": 0.028,
         "p10": 0.004,
         "p25": 0.0
       }
@@ -1175,7 +1175,7 @@
     {
       "market": "KRW-IOTA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1187,55 +1187,55 @@
     {
       "market": "KRW-IOST",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.084,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AKT",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.016,
+        "p5": 0.04,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-COW",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-VIRTUAL",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.052,
-        "p10": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-RLUSD",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1247,11 +1247,11 @@
     {
       "market": "KRW-ETH",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
+        "p5": 0.028,
         "p10": 0.012,
         "p25": 0.0
       }
@@ -1259,71 +1259,71 @@
     {
       "market": "KRW-IQ",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-NEAR",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.024,
+        "p5": 0.064,
         "p10": 0.012,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-RVN",
+      "market": "KRW-NEAR",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.008,
+        "p5": 0.028,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-RVN",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PRL",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
-        "p10": 0.008,
+        "samples": 158,
+        "p5": 0.006329113924050633,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AGLD",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.04,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ID",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
+        "p5": 0.004,
         "p10": 0.0,
         "p25": 0.0
       }
@@ -1331,91 +1331,91 @@
     {
       "market": "KRW-IO",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-IN",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MANTRA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.06,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WAL",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
-        "p10": 0.008,
+        "p5": 0.052,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PENDLE",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
-        "p10": 0.004,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BLUR",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 169,
-        "p5": 0.029585798816568046,
-        "p10": 0.005917159763313609,
+        "samples": 250,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AWE",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.104,
-        "p10": 0.008,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-THETA",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1426,96 +1426,96 @@
     },
     {
       "market": "KRW-AXL",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
+        "p5": 0.004,
         "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HP",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SAND",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-WCT",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-YGG",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.104,
-        "p10": 0.008,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AXS",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 212,
-        "p5": 0.014150943396226415,
-        "p10": 0.009433962264150943,
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ARDR",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.016,
+        "p5": 0.032,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ME",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
+        "p5": 0.028,
         "p10": 0.012,
         "p25": 0.0
       }
@@ -1523,103 +1523,103 @@
     {
       "market": "KRW-TRUST",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SONIC",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ARB",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.048,
+        "p5": 0.064,
         "p10": 0.012,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-POL",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-SONIC",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.072,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ARB",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.076,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-POL",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-CVC",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.008,
+        "p5": 0.028,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-T",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.016,
+        "p5": 0.028,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ARX",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.032,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-W",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 169,
-        "p5": 0.029585798816568046,
-        "p10": 0.005917159763313609,
+        "samples": 250,
+        "p5": 0.024,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ARK",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1631,79 +1631,43 @@
     {
       "market": "KRW-AVNT",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.032,
-        "p10": 0.016,
+        "p5": 0.044,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-O",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.048,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-LA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HYPER",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.012,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ATH",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-LIT",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.032,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-TAIKO",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1713,9 +1677,45 @@
       }
     },
     {
+      "market": "KRW-ATH",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.028,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-LIT",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.02,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-TAIKO",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
       "market": "KRW-RE",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1726,12 +1726,12 @@
     },
     {
       "market": "KRW-AVAX",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
+        "p5": 0.052,
         "p10": 0.016,
         "p25": 0.0
       }
@@ -1739,7 +1739,7 @@
     {
       "market": "KRW-XAUT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1751,31 +1751,31 @@
     {
       "market": "KRW-CPOOL",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-CAP",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-IMX",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1787,91 +1787,91 @@
     {
       "market": "KRW-SC",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
+        "p5": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-INJ",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MVL",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HIVE",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-CBK",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-XLM",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
+        "p5": 0.016,
         "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-OP",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.104,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SAFE",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1882,20 +1882,20 @@
     },
     {
       "market": "KRW-GLM",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.032,
-        "p10": 0.012,
+        "p5": 0.016,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SUPER",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -1906,104 +1906,68 @@
     },
     {
       "market": "KRW-LINEA",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.004,
-        "p10": 0.0,
+        "p5": 0.028,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-DATA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.032,
+        "p5": 0.044,
         "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-KERNEL",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
+        "p5": 0.04,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-POKT",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.008,
+        "p5": 0.008,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SENT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ZKC",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-KNC",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ZKP",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-AUCTION",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2013,57 +1977,9 @@
       }
     },
     {
-      "market": "KRW-ORDER",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-FCT2",
+      "market": "KRW-KNC",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-MTL",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.004,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-VET",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-TAO",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2073,57 +1989,21 @@
       }
     },
     {
-      "market": "KRW-QTUM",
+      "market": "KRW-ZKP",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-LINK",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-XRP",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.044,
-        "p10": 0.004,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-CHZ",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.084,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ASTR",
+      "market": "KRW-AUCTION",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2133,9 +2013,33 @@
       }
     },
     {
-      "market": "KRW-ZK",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-ORDER",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-FCT2",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-MTL",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2145,33 +2049,129 @@
       }
     },
     {
-      "market": "KRW-STORJ",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-VET",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-TAO",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.016,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-QTUM",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-LINK",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.016,
         "p10": 0.004,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-ENA",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-XRP",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.048,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-CHZ",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.072,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ASTR",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.02,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ZK",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.068,
-        "p10": 0.016,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-STORJ",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ENA",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MANA",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2182,8 +2182,8 @@
     },
     {
       "market": "KRW-OPEN",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2194,44 +2194,56 @@
     },
     {
       "market": "KRW-PYTH",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
+        "p5": 0.032,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ENS",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
+        "p5": 0.008,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-GRT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PUMP",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.008,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-XTZ",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2241,45 +2253,33 @@
       }
     },
     {
-      "market": "KRW-XTZ",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-CKB",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.024,
-        "p10": 0.016,
+        "p5": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-KAVA",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.008,
+        "p5": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-TOSHI",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2290,32 +2290,32 @@
     },
     {
       "market": "KRW-BARD",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.012,
+        "p5": 0.044,
+        "p10": 0.032,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ZRO",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.012,
-        "p10": 0.0,
+        "p5": 0.044,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-RAY",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2326,120 +2326,120 @@
     },
     {
       "market": "KRW-ONDO",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ZRX",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-GMT",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-TFUEL",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-CFG",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.032,
-        "p10": 0.008,
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-AZTEC",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.024,
-        "p10": 0.008,
+        "p5": 0.06,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-CFX",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-XPL",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
+        "p5": 0.044,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ZAMA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.048,
-        "p10": 0.012,
+        "samples": 158,
+        "p5": 0.006329113924050633,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MASK",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
+        "p5": 0.072,
         "p10": 0.02,
         "p25": 0.0
       }
@@ -2447,7 +2447,7 @@
     {
       "market": "KRW-EURC",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2459,31 +2459,31 @@
     {
       "market": "KRW-COMP",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.008,
-        "p10": 0.0,
+        "p5": 0.044,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ZETA",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.052,
-        "p10": 0.024,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-RED",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2495,7 +2495,7 @@
     {
       "market": "KRW-TIA",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2507,31 +2507,31 @@
     {
       "market": "KRW-ADA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.032,
-        "p10": 0.004,
+        "p5": 0.04,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ELF",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.024,
-        "p10": 0.016,
+        "p5": 0.044,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SOON",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2542,32 +2542,32 @@
     },
     {
       "market": "KRW-STEEM",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
+        "p5": 0.02,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ELSA",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
-        "p10": 0.0,
-        "p25": 0.0
+        "p5": 0.06,
+        "p10": 0.012,
+        "p25": 0.004
       }
     },
     {
       "market": "KRW-SPK",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2579,163 +2579,55 @@
     {
       "market": "KRW-SOPH",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SPX",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.052,
+        "p5": 0.02,
         "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MED",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
+        "p5": 0.036,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-1INCH",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.02,
-        "p10": 0.0,
+        "p5": 0.032,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-KAT",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 155,
-        "p5": 0.0064516129032258064,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-MEW",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.04,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ORBS",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-RENDER",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.04,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ORCA",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-BERA",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SIGN",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-DOS",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SLX",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-VANA",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2745,9 +2637,117 @@
       }
     },
     {
-      "market": "KRW-DOT",
+      "market": "KRW-MEW",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ORBS",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.004,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-RENDER",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ORCA",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.036,
+        "p10": 0.016,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-BERA",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-SIGN",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.004,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-DOS",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-SLX",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-VANA",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-DOT",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2758,44 +2758,20 @@
     },
     {
       "market": "KRW-EDGE",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.008,
+        "p5": 0.024,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MET2",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 155,
-        "p5": 0.0064516129032258064,
-        "p10": 0.0,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-MBL",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.048,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-FLUID",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2805,21 +2781,45 @@
       }
     },
     {
-      "market": "KRW-BIGTIME",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-MBL",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
+        "p5": 0.072,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-FLUID",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
         "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-BIGTIME",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SNT",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2831,91 +2831,19 @@
     {
       "market": "KRW-SOL",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-QKC",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.024,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-DRV",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.076,
+        "p5": 0.068,
         "p10": 0.02,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-META",
+      "market": "KRW-QKC",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 212,
-        "p5": 0.014150943396226415,
-        "p10": 0.009433962264150943,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-IRYS",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SAHARA",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.036,
-        "p10": 0.012,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-MLK",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.036,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-VTHO",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2925,33 +2853,129 @@
       }
     },
     {
-      "market": "KRW-KITE",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-DRV",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.072,
+        "p10": 0.02,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-META",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-IRYS",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 215,
+        "p5": 0.013953488372093023,
+        "p10": 0.009302325581395349,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-SAHARA",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-MLK",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.024,
-        "p10": 0.008,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-VTHO",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.016,
+        "p10": 0.0,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-KITE",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.056,
+        "p10": 0.024,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MINA",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MMT",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.044,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-CHIP",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ZORA",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -2961,57 +2985,33 @@
       }
     },
     {
-      "market": "KRW-CHIP",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.036,
-        "p10": 0.012,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-ZORA",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.032,
-        "p10": 0.012,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-XCN",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
-        "p10": 0.016,
+        "p5": 0.016,
+        "p10": 0.008,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-GAS",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
+        "p5": 0.048,
         "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MEGA",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -3023,119 +3023,119 @@
     {
       "market": "KRW-MNT",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
-        "p10": 0.0,
+        "p5": 0.024,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MOC",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
+        "p5": 0.036,
         "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MOODENG",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.04,
+        "p5": 0.036,
         "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-XEC",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.044,
-        "p10": 0.008,
+        "p5": 0.008,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MON",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-MORPHO",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.06,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ZIL",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-GAME2",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-STX",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
-        "p10": 0.0,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-FLOCK",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.016,
+        "p5": 0.004,
         "p10": 0.0,
         "p25": 0.0
       }
@@ -3143,91 +3143,115 @@
     {
       "market": "KRW-BSB",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-PROVE",
       "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BSV",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-SUI",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.032,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SYRUP",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.044,
         "p10": 0.004,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-BTC",
+      "market": "KRW-SYRUP",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 177,
+        "p5": 0.02824858757062147,
+        "p10": 0.005649717514124294,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-BTC",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.012,
-        "p10": 0.0,
+        "p5": 0.048,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BABY",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.052,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HOLO",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.032,
+        "p10": 0.004,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-MIRA",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.064,
+        "p10": 0.012,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-SUN",
       "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -3237,141 +3261,153 @@
       }
     },
     {
-      "market": "KRW-MIRA",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SUN",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.036,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-ZBT",
-      "state": "제외",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.068,
-        "p10": 0.016,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ONG",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.052,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BTT",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.036,
-        "p10": 0.024,
+        "p5": 0.004,
+        "p10": 0.0,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ENSO",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.104,
-        "p10": 0.008,
+        "p5": 0.052,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-BIRB",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.06,
-        "p10": 0.004,
+        "p5": 0.072,
+        "p10": 0.02,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-ONT",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.044,
-        "p10": 0.012,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-SOMI",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.024,
         "p10": 0.004,
         "p25": 0.0
       }
     },
     {
+      "market": "KRW-SOMI",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.036,
+        "p10": 0.016,
+        "p25": 0.0
+      }
+    },
+    {
       "market": "KRW-GRVT",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
         "p5": 0.044,
-        "p10": 0.008,
+        "p10": 0.004,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-DEEP",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.024,
-        "p10": 0.008,
+        "p5": 0.036,
+        "p10": 0.016,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-HOME",
       "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.04,
+        "p10": 0.008,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-STRAX",
+      "state": "제외",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.036,
+        "p10": 0.016,
+        "p25": 0.0
+      }
+    },
+    {
+      "market": "KRW-ICP",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
+      "forecast": {
+        "status": "estimated_from_historical_controls",
+        "samples": 250,
+        "p5": 0.032,
+        "p10": 0.016,
+        "p25": 0.004
+      }
+    },
+    {
+      "market": "KRW-OPG",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
@@ -3381,74 +3417,38 @@
       }
     },
     {
-      "market": "KRW-STRAX",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "market": "KRW-BREV",
+      "state": "후퇴",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.048,
+        "p5": 0.036,
         "p10": 0.016,
         "p25": 0.0
       }
     },
     {
-      "market": "KRW-ICP",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.02,
-        "p10": 0.004,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-OPG",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.032,
-        "p10": 0.008,
-        "p25": 0.0
-      }
-    },
-    {
-      "market": "KRW-BREV",
-      "state": "강화",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
-      "forecast": {
-        "status": "estimated_from_historical_controls",
-        "samples": 250,
-        "p5": 0.068,
-        "p10": 0.02,
-        "p25": 0.0
-      }
-    },
-    {
       "market": "KRW-ICX",
-      "state": "후퇴",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "유지",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.064,
+        "p10": 0.012,
         "p25": 0.0
       }
     },
     {
       "market": "KRW-POLYX",
-      "state": "유지",
-      "snapshot_kst": "2026-09-06T01:31:49.483998+09:00",
+      "state": "강화",
+      "snapshot_kst": "2026-09-06T01:57:36.697394+09:00",
       "forecast": {
         "status": "estimated_from_historical_controls",
         "samples": 250,
-        "p5": 0.076,
-        "p10": 0.02,
+        "p5": 0.04,
+        "p10": 0.008,
         "p25": 0.0
       }
     }
