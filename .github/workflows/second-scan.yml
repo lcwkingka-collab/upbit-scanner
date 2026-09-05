@@ -44,6 +44,10 @@ jobs:
       - name: Run second scan
         shell: bash
         run: |
+          if [ "${{ github.event_name }}" = "push" ] && python -c 'import json,sys; sys.exit(0 if json.load(open("scan_request.json", encoding="utf-8")).get("cases") else 1)'; then
+            python second_scan_cases.py
+            exit $?
+          fi
           if [ "${{ github.event_name }}" = "push" ]; then
             MARKETS="$(python -c 'import json; print(json.load(open("scan_request.json", encoding="utf-8"))["markets"])')"
             DAYS="$(python -c 'import json; print(json.load(open("scan_request.json", encoding="utf-8")).get("lookback_days", 1))')"
