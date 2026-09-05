@@ -1,6 +1,6 @@
 {
-  "request_id":"chip_stage6_reentry_1641_20260903",
+  "request_id":"soph_full_day_20260904",
   "cases":[
-    {"label":"CHIP_STAGE6_REENTRY_1641","market":"KRW-CHIP","date":"2026-09-03","from":"15:50:00","to":"18:45:00","raw_trades":true}
+    {"label":"SOPH_FULL_DAY_0904","market":"KRW-SOPH","date":"2026-09-04","from":"00:00:00","to":"23:59:59","raw_trades":false}
   ]
 }
