@@ -1,13 +1,19 @@
 {
-  "request_id": "chip_stage6_1200s_20260903",
+  "request_id": "success14_stage6_1200s_20260905",
   "cases": [
-    {
-      "label": "CHIP_STAGE6_EXT",
-      "market": "KRW-CHIP",
-      "date": "2026-09-03",
-      "from": "06:20:00",
-      "to": "08:00:00",
-      "raw_trades": true
-    }
+    {"label":"ANKR_STAGE6_EXT","market":"KRW-ANKR","date":"2026-09-03","from":"08:40:00","to":"09:45:00","raw_trades":true},
+    {"label":"BONK_SUCCESS_STAGE6_EXT","market":"KRW-BONK","date":"2026-09-01","from":"00:00:00","to":"01:00:00","raw_trades":true},
+    {"label":"CRV_STAGE6_EXT","market":"KRW-CRV","date":"2026-09-01","from":"20:35:00","to":"21:40:00","raw_trades":true},
+    {"label":"EGLD_STAGE6_EXT","market":"KRW-EGLD","date":"2026-09-02","from":"13:37:00","to":"14:42:00","raw_trades":true},
+    {"label":"HIVE_STAGE6_EXT","market":"KRW-HIVE","date":"2026-09-03","from":"08:46:00","to":"09:51:00","raw_trades":true},
+    {"label":"ICX_STAGE6_EXT","market":"KRW-ICX","date":"2026-09-01","from":"09:09:00","to":"10:14:00","raw_trades":true},
+    {"label":"INJ_STAGE6_EXT","market":"KRW-INJ","date":"2026-09-02","from":"15:53:00","to":"16:58:00","raw_trades":true},
+    {"label":"IQ_STAGE6_EXT","market":"KRW-IQ","date":"2026-09-01","from":"08:44:00","to":"09:49:00","raw_trades":true},
+    {"label":"MOC_STAGE6_EXT","market":"KRW-MOC","date":"2026-09-02","from":"12:01:00","to":"13:06:00","raw_trades":true},
+    {"label":"SC_STAGE6_EXT","market":"KRW-SC","date":"2026-09-01","from":"08:40:00","to":"09:45:00","raw_trades":true},
+    {"label":"SNT_STAGE6_EXT","market":"KRW-SNT","date":"2026-09-03","from":"08:44:00","to":"09:49:00","raw_trades":true},
+    {"label":"SOPH_STAGE6_EXT","market":"KRW-SOPH","date":"2026-09-02","from":"08:40:00","to":"09:45:00","raw_trades":true},
+    {"label":"T_STAGE6_EXT","market":"KRW-T","date":"2026-09-02","from":"08:44:00","to":"09:49:00","raw_trades":true},
+    {"label":"DRV_STAGE6_EXT","market":"KRW-DRV","date":"2026-09-05","from":"08:40:00","to":"09:45:00","raw_trades":true}
   ]
 }
