@@ -40,6 +40,17 @@ def test_stage6_plus3(tmp_path):
     assert st.stage==6;assert sent and '6차' in sent[-1]
 
 
+def test_stage4_and_stage5_are_log_only(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    m.ST[market]=m.V55State(stage=3,t_sec=1,t_price=90)
+    m.v54.TRADE_EVENTS[market]=deque([
+        (100_000,100,'BID',10),(101_000,102,'BID',10),(102_000,104,'BID',10),
+        (102_100,104,'BID',10),(102_200,104,'BID',10),(102_300,104,'BID',10),(102_400,104,'ASK',10),
+    ])
+    m.evaluate_market(market,102)
+    assert m.ST[market].stage==5;assert sent==[]
+
+
 def test_stage5_is_ttl_exempt_but_has_12h_cap(tmp_path):
     m,_=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
     st=m.V55State(stage=5,t_sec=0,t_price=90,stage5_sec=100,stage5_price=100,stage5_last_trade_sec=100)
