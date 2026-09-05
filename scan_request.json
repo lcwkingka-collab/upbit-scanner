@@ -1,76 +1,100 @@
 {
-  "request_id": "failure_exact_batch_02_20260905",
+  "request_id": "failure_exact_batch_03_20260905",
   "cases": [
     {
-      "label": "TAO_1026",
-      "market": "KRW-TAO",
+      "label": "BONK_1125_1159",
+      "market": "KRW-BONK",
       "date": "2026-09-05",
-      "from": "10:21:00",
-      "to": "10:31:00",
-      "raw_trades": true
-    },
-    {
-      "label": "TAO_1147",
-      "market": "KRW-TAO",
-      "date": "2026-09-05",
-      "from": "11:42:00",
-      "to": "11:52:00",
-      "raw_trades": true
-    },
-    {
-      "label": "BTC_1016_1048",
-      "market": "KRW-BTC",
-      "date": "2026-09-05",
-      "from": "10:11:00",
-      "to": "10:53:00",
-      "raw_trades": true
-    },
-    {
-      "label": "BTC_1145_1214",
-      "market": "KRW-BTC",
-      "date": "2026-09-05",
-      "from": "11:40:00",
-      "to": "12:15:00",
-      "raw_trades": true
-    },
-    {
-      "label": "SOPH_1032",
-      "market": "KRW-SOPH",
-      "date": "2026-09-05",
-      "from": "10:27:00",
-      "to": "10:37:00",
-      "raw_trades": true
-    },
-    {
-      "label": "SOPH_1150_1159",
-      "market": "KRW-SOPH",
-      "date": "2026-09-05",
-      "from": "11:45:00",
+      "from": "11:18:00",
       "to": "12:04:00",
       "raw_trades": true
     },
     {
-      "label": "SC_1152",
-      "market": "KRW-SC",
+      "label": "VANA_1136_1155",
+      "market": "KRW-VANA",
+      "date": "2026-09-05",
+      "from": "11:30:00",
+      "to": "12:00:00",
+      "raw_trades": true
+    },
+    {
+      "label": "NEAR_1032_1057",
+      "market": "KRW-NEAR",
+      "date": "2026-09-05",
+      "from": "10:27:00",
+      "to": "11:02:00",
+      "raw_trades": true
+    },
+    {
+      "label": "NEAR_1119_1155",
+      "market": "KRW-NEAR",
+      "date": "2026-09-05",
+      "from": "11:14:00",
+      "to": "12:00:00",
+      "raw_trades": true
+    },
+    {
+      "label": "TRUST_1152",
+      "market": "KRW-TRUST",
       "date": "2026-09-05",
       "from": "11:47:00",
-      "to": "11:58:00",
+      "to": "11:57:00",
       "raw_trades": true
     },
     {
-      "label": "TRUMP_1016_1031",
-      "market": "KRW-TRUMP",
+      "label": "PROM_1115_1142",
+      "market": "KRW-PROM",
       "date": "2026-09-05",
-      "from": "10:11:00",
-      "to": "10:36:00",
+      "from": "11:07:00",
+      "to": "11:47:00",
       "raw_trades": true
     },
     {
-      "label": "TRUMP_1148",
-      "market": "KRW-TRUMP",
+      "label": "FOLD_1137_1215",
+      "market": "KRW-FOLD",
       "date": "2026-09-05",
-      "from": "11:43:00",
-      "to": "11:53:00",
+      "from": "11:30:00",
+      "to": "12:20:00",
+      "raw_trades": true
+    },
+    {
+      "label": "UNI_1137",
+      "market": "KRW-UNI",
+      "date": "2026-09-05",
+      "from": "11:32:00",
+      "to": "11:42:00",
+      "raw_trades": true
+    },
+    {
+      "label": "APT_1133",
+      "market": "KRW-APT",
+      "date": "2026-09-05",
+      "from": "11:28:00",
+      "to": "11:38:00",
+      "raw_trades": true
+    },
+    {
+      "label": "LPT_1022",
+      "market": "KRW-LPT",
+      "date": "2026-09-05",
+      "from": "10:17:00",
+      "to": "10:27:00",
+      "raw_trades": true
+    },
+    {
+      "label": "LPT_1131_1145",
+      "market": "KRW-LPT",
+      "date": "2026-09-05",
+      "from": "11:25:00",
+      "to": "11:50:00",
+      "raw_trades": true
+    },
+    {
+      "label": "VVV_1130",
+      "market": "KRW-VVV",
+      "date": "2026-09-05",
+      "from": "11:24:00",
+      "to": "11:35:00",
       "raw_trades": true
     }
   ]
