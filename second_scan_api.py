@@ -196,6 +196,8 @@ def fetch_raw_trades(market: str, start: datetime, end: datetime) -> List[dict]:
 def aggregate_trades_by_second(trades: Iterable[dict]) -> Dict[int, dict]:
     agg: Dict[int, dict] = defaultdict(lambda: {
         "trade_count": 0,
+        "bid_count": 0,
+        "ask_count": 0,
         "bid_value_krw": 0.0,
         "ask_value_krw": 0.0,
     })
@@ -213,8 +215,10 @@ def aggregate_trades_by_second(trades: Iterable[dict]) -> Dict[int, dict]:
         a = agg[sec]
         a["trade_count"] += 1
         if side == "BID":
+            a["bid_count"] += 1
             a["bid_value_krw"] += value
         elif side == "ASK":
+            a["ask_count"] += 1
             a["ask_value_krw"] += value
     for a in agg.values():
         total = a["bid_value_krw"] + a["ask_value_krw"]
@@ -275,6 +279,8 @@ def analyze_market(market: str, start: datetime, end: datetime, enrich_trades: b
             "pct_from_prev": pct_from_prev,
             "value_vs_prev10_active_sec_x": value_x,
             "trade_count": t.get("trade_count"),
+            "bid_count": t.get("bid_count"),
+            "ask_count": t.get("ask_count"),
             "bid_value_krw": t.get("bid_value_krw"),
             "ask_value_krw": t.get("ask_value_krw"),
             "bid_ratio": t.get("bid_ratio"),
