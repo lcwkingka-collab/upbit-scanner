@@ -1,5 +1,5 @@
 {
-  "generated_kst": "2026-09-06T00:03:11.544472+09:00",
+  "generated_kst": "2026-09-06T01:40:26.253247+09:00",
   "horizon_minutes": 360,
   "targets_pct": [
     5,
@@ -8,7 +8,7 @@
   ],
   "minimum_samples": 30,
   "mature_examples": 16933,
-  "pending_examples": 2296,
+  "pending_examples": 2583,
   "class_balance": {
     "hit_5": 554,
     "hit_10": 122,
