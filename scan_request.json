@@ -1,0 +1,6 @@
+{
+  "request_id": "failure_batch_01_20260905",
+  "markets": "KRW-QUID,KRW-RENDER,KRW-META2,KRW-TAO,KRW-EDGE,KRW-EURC,KRW-BTC,KRW-SOPH,KRW-SC,KRW-TRUMP",
+  "lookback_days": 1,
+  "raw_trades": "yes"
+}
