@@ -1,0 +1,2 @@
+market,cycle_id,reserve_t_time_kst,t_price,t_value_x,handover_time_kst,stage5_return,first_10pct_candle_kst,session_open,session_high,session_high_pct,observed_price,observed_pct,stage6,classification
+KRW-ZAMA,8,2026-09-06T14:41:54+09:00,70.0,1274000.0,2026-09-06T16:41:19+09:00,5초 체결정체,2026-09-06T18:14:00+09:00,68.3,76.5,12.0059,75.4,10.3953,none,MISSED slow-staircase
