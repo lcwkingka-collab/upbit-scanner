@@ -1,0 +1,4 @@
+candidate,reject_condition,success_kept,success_total,fake_removed,fake_total,delay_sec,status
+A,"value10>=25000000 AND active_seconds10<=7",17,17,7,19,0,candidate
+B,"net_per_trade>=250000 AND move_pct_per_value_m<=0.0125",17,17,6,19,0,candidate
+A_OR_B,"(value10>=25000000 AND active_seconds10<=7) OR (net_per_trade>=250000 AND move_pct_per_value_m<=0.0125)",17,17,9,19,0,best_candidate
