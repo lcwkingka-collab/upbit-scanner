@@ -161,3 +161,14 @@ F03/F15 분기 뒤 일반 lane의 P04(+0.5%/30초) 시점에서 앞 조건을 �
 - Stage 7에 재요구할 조건은 앞 단계의 BID/순매수 반복보다 독립축이 우선이다: `T 나이·reserve handover`, `누적 -4틱 재시도 피로도`, `3초 high-last 반납폭`, `Stage 6 후 가격 유지`.
 - BLEND#2는 T 나이 3시간49분50초, SOPH#21은 -4틱 복귀 3회, IOST#11은 -4틱 복귀 2회 및 high +20틱 대비 last +10틱이었다. 아직 +10% 결과가 확정되지 않아 임계값·혼동행렬은 보류한다.
 - 근거: `evidence/hourly_stage6_cycles_1220_1350_20260906.csv`. 실전 코드 반영 없음.
+
+
+## F17 — 깨끗한 첫 Stage 5에서만 F15 조기선점
+
+- 정의: F15의 가격반응 효율·BID 조건을 만족해도 현재 cycle에서 Stage 4/5→3 복귀가 한 번이라도 먼저 발생했다면 fast lane 조기진입은 허용하지 않는다. 해당 종목은 폐기하지 않고 기존 +3틱 Stage 6 일반 lane을 유지한다.
+- 과거 성공군: 기존 F15 조기선점 6개(DRV·EGLD·HIVE·INJ·IQ·SC)는 원래 F15 평가 Stage 5에서 선행 복귀 0회이므로 6/6 조기선점 유지.
+- 기존 실패군: F15 유입 0/19 유지.
+- 신규 전진표본: 원래 F15을 통과한 SOPH#24·IOST#14·FLOCK#41은 선행 복귀가 각각 1·13·11회라 F17에서 fast lane 0/3. 이들은 일반 Stage 6으로만 진행한다.
+- 현재 상태: leading candidate/shadow. 세 신규 사이클의 strict +10% 결과가 아직 열려 있어 확정 혼동행렬에는 합산하지 않는다.
+- 재시도 횟수 자체를 DROP으로 쓰면 성공 15개 중 3회 이상 복귀한 ANKR·BONK·CRV·HIVE·SNT·T 6개를 손실하므로 금지한다.
+- 근거: evidence/f15_clean_attempt_forward_20260906_1450.csv.
