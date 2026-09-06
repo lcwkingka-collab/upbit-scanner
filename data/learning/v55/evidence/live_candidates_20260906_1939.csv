@@ -1,0 +1,5 @@
+market,cycle_path,price,t_price,day_return_pct,direct_time_kst,direct_value_15m_krw,bid_15m_krw,ask_15m_krw,bid_ask_ratio,trades15,ma15,ma50,ma120,gap50_pct,gap120_pct,cross_d_day,decision,reason
+KRW-TOSHI,6_to_7,0.166,0.163,0.6061,2026-09-06T19:39:14+09:00,14427392,12081105,2346287,5.1490,25,0.171067,0.15712,0.183908,-8.876443,6.982645,N/A,YELLOW_REBID_ONLY,official flow after 19:20 N/A and current value far below prior expansion
+KRW-HBAR,6_to_7,110,110,0.0,2026-09-06T19:39:14+09:00,13382478,11048163,2334315,4.7329,12,107.0,101.132,112.58,-5.802318,4.956475,N/A,YELLOW_MINIMUM,positive flow but low count and prior 15m contraction
+KRW-RENDER,13,2003,2006,0.05,2026-09-06T19:39:14+09:00,22661874,1978074,20683801,0.0956,83,2018.733,1976.96,2341.825,-2.113009,13.796576,N/A,RED_REVOKED,price below T and strong ASK dominance
+KRW-XRP,23,1932,1931,0.2595,2026-09-06T19:39:14+09:00,305794795,148930014,156864781,0.9494,431,1948.533,1669.04,1745.325,-16.745754,-11.643008,N/A,RED_WAIT,latest flow slightly ASK dominant and no Stage4
