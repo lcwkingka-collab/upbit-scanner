@@ -1,31 +1,52 @@
 # V5.5 Current Learning State
 
-Updated: 2026-09-06T21:38:54.390+09:00
+Updated: 2026-09-06T22:42:00+09:00
 
-## Latest verified window
-- Radar source: `data/live/radar_events/20260906/v55_events.jsonl`, 133,806 rows through 2026-09-06 21:20:04 KST.
-- Learning delta: 20:20:06–21:20:04 KST, BTC and stablecoins excluded, 9,985 events across 278 KRW markets.
-- Funnel: Stage 4/5/6/7/8 = 9/8/1/1/1. Stage 5 returned to Stage 3 seven times: F03 2, 5-second idle 4, -4 ticks 1. One Stage 4 failed flow. N01 blocks 0, T02 duplicate blocks 0.
-- Reset/drop/reserve/T handover = 152/97/0/0. Stage 4 rejects 54.
+## Source boundary
 
-## New Stage 8 and separated outcomes
-- **ZAMA#4** (t_sec 1788694525): Stage 6 at 21:15:48, 81.8 KRW; Stage 7 at 82.3; Stage 8 at 21:16:02, signal entry 82.7 KRW; T02 duplicate=false.
-- Stage 6 reference: high 84.8 (+3.67%), low 80.4 (-1.71%), latest 81.2 (-0.73%), +10% not reached.
-- Stage 8 reference: high 84.8 (+2.54%), low 80.4 (-2.78%), latest 81.2 (-1.81%), +10% not reached. Classification remains **in progress**.
-- No `paper_buy_started`, `paper_buy_skipped`, or paper fill event exists after Stage 8. Therefore actual paper execution price is **N/A**; 82.7 is only the Stage 8 signal reference until execution logging is verified.
+- Rules/code: `realtime_radar_v55.py` on `main`, post-`323b2f867281c9bcc09e23466e07351af2ff18c0`.
+- Radar delta: `2026-09-06T21:20:04+09:00` exclusive through `2026-09-06T22:24:17+09:00`.
+- Eligible universe: all Upbit KRW markets excluding KRW-BTC and stablecoins.
+- Delta rows: 7,759. Stage5 16, Stage5→3 15, Stage6 1, Stage7 0, Stage8 0.
+- Latest market evidence: ENS trades through 22:35:44.116 KST; ORCA candles through 22:34 KST; ZAMA trades through 22:33:46.259 KST.
+- `data/latest_complete_cycle.json` remains stale at logical 18:10 KST; no current structural inference is made from it.
 
-## New MISSED
-- **JTO restart-generation #1** (cycle_id 1, t_sec 1788692331): T 611 KRW at 19:58:51, 3.148x; Stage 2 BID 278,497 KRW/ASK 0, one BID fill.
-- It reached the session's first +10% minute at 20:31 and high 629 KRW (+10.16% from 09:00 open 571) without Stage 4–8, then dropped at 20:34:43. This is a slow-staircase MISSED.
-- Cycle IDs restarted and are reused; preserve `market+cycle_id+t_sec` for this generation.
+## Newly verified state
 
-## Filter learning
-- F03 rejected two CHIP#2 Stage 5 attempts, but both are dependent attempts in one cycle. Do not count them as two independent confusion-matrix samples.
-- N01 and T02 received no new blocked samples.
-- Prior matrix reference stays unchanged: base F03/Stage7/Stage8 fake removal 16/19; +N01 18/19; +T02 19/19; expanded N01 success retention 24/24. No closed independent delta sample was added.
-- ZAMA#4 is not yet a success; it remains outside the success cohort. JTO matches the accumulated slow-staircase MISSED pattern.
+### ENS#1 — Stage6 false launch removed before Stage8
 
-## Active conclusion
-- Preserve: `data/learning/v55/evidence/v55_delta_20260906_202006_212004_stage8_jto.csv`, the listed radar slices, JTO/ZAMA 1-minute candles, and ZAMA paper-execution gap.
-- No immediate threshold change. Continue F03/N01/T02 validation and require paper buy/fill events before treating Stage 8 signal price as an executed paper entry.
-- Code and thresholds were not modified or deployed in this learning run.
+- T 8,255 at 21:48:54, rolling-60 ratio 2.906x.
+- Stage5 8,300 at 21:52:49; 3-second rise 0.4843%, T+9 ticks, 40 trades, BID 9.86M KRW / ASK 0.
+- Stage6 8,315 one second later.
+- Confirmation failed: +0.5% was not retained in the confirmation window; returned to Stage3, then dropped/reset at 8,240.
+- Stage6-reference outcome through 22:35:44: high 8,330 (+0.1804%), low 8,240 (-0.9020%), latest 8,290 (-0.3007%), +10% not reached.
+- Stage8 entry/outcome: N/A because Stage7/8 was never reached.
+- Confusion-matrix delta: one additional independent false Stage6 candidate removed by the Stage7 gate; no successful-case loss observed in this delta.
+
+### ORCA#9 precursor — coverage-gap MISSED
+
+- T 1,869 at 21:21:06, 25.96x; Stage2/3 passed, then drop at 21:23:59.
+- Radar events are absent from 21:25:43 to 21:42:25 (1,002 seconds), spanning the first +10% candle at 21:31.
+- Session open 1,760; high 2,099 (+19.2614%). Stage4–8 at the breakout are N/A, not inferred.
+- Post-gap cycles were late: ORCA#5 appeared near 2,027 and rejected; ORCA#7 reached Stage5 at 1,980 then returned by -4 ticks. No Stage6 exists in the available event log.
+- Classification: `coverage_gap_missed`. Preserve `market+cycle_id+t_sec` because the process restart reused cycle IDs.
+
+### ZAMA#4 — ongoing, Stage6 and Stage8 separated
+
+- Stage6 reference 81.8: high 85.2 (+4.1565%), low 80.4 (-1.7115%).
+- Stage8 signal reference 82.7: high +3.022%, low -2.7811%.
+- +10% not reached from either reference. Actual paper fill remains N/A because no paper order/fill event exists.
+
+## Filters and candidates
+
+- F03: 7 rejected attempts across 4 independent cycles (VIRTUAL, RAY, ZAMA, BONK); retained as short-window evidence, not added to the closed matrix yet.
+- N01 blocks: 0. T02 blocks: 0. Reserve/handover: 0.
+- No threshold proposal. No code change or deployment.
+- Data-quality proposal only: persist a scanner `boot_id` plus explicit process start/stop/heartbeat and paper order/fill events, so coverage-gap MISSED and actual Stage8 execution can be audited without inference.
+
+## Learning posture
+
+- Existing success reference group remains 16.
+- Stage6 signal quality and Stage8 executable-entry quality must remain separate.
+- Same-market clustered cycles are stored individually but deduplicated for independent confusion-matrix counts.
+- Long-delay outcome windows remain open; terminal Stage7 rejection is tracked separately from later market-wide price movement.
