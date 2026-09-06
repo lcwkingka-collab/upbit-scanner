@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Independently find 2026-09-04 Upbit KRW +25% daily winners and replay V5.5.
+"""Find 2026-09-04 KST-calendar +25% winners and independently replay V5.5.
 
-The Upbit daily candle is UTC based (09:00 KST to next 09:00 KST).  T is
-searched from the first effective rolling-60-second 2.8x event before the
-first material launch; it is never moved to a later already-pumped segment.
+The legacy Sep 1-3 training set uses the KST calendar day (00:00..24:00),
+not Upbit's exchange daily-candle boundary at 09:00. T is the earliest
+effective pre-launch rolling-60-second 2.8x event, never a later pump segment.
 """
 from __future__ import annotations
 
@@ -61,22 +61,25 @@ def fetch_minutes(market: str, start: datetime, end: datetime) -> list[dict]:
 
 def daily_universe() -> list[dict]:
     markets = [x for x in get("/market/all", {"is_details": "false"}) if str(x.get("market", "")).startswith("KRW-")]
-    target_utc = datetime(2026, 9, 4, tzinfo=UTC)
+    start_kst = datetime(2026, 9, 4, tzinfo=KST)
+    end_kst = start_kst + timedelta(days=1)
     rows = []
     for i, meta in enumerate(markets, 1):
         market = meta["market"]
         try:
-            cs = get("/candles/days", {"market": market, "to": "2026-09-05T00:00:01Z", "count": 3})
-            candle = next((c for c in cs if c.get("candle_date_time_utc", "").startswith("2026-09-04")), None)
-            if not candle: continue
-            op, hi, lo, close = map(float, (candle["opening_price"], candle["high_price"], candle["low_price"], candle["trade_price"]))
+            # 24 aligned one-hour candles exactly cover KST 00:00..24:00.
+            cs = get("/candles/minutes/60", {"market": market, "to": ss.iso_z(end_kst), "count": 30})
+            cs = [c for c in cs if start_kst <= datetime.fromisoformat(c["candle_date_time_utc"]).replace(tzinfo=UTC).astimezone(KST) < end_kst]
+            if not cs: continue
+            cs.sort(key=lambda c: c["candle_date_time_utc"])
+            op=float(cs[0]["opening_price"]);hi=max(float(c["high_price"]) for c in cs);lo=min(float(c["low_price"]) for c in cs);close=float(cs[-1]["trade_price"])
             rows.append({
                 "day": DAY, "market": market, "korean_name": meta.get("korean_name"),
                 "open": op, "high": hi, "low": lo, "close": close,
                 "high_gain_pct": (hi / op - 1) * 100 if op else None,
                 "close_gain_pct": (close / op - 1) * 100 if op else None,
-                "candle_start_kst": "2026-09-04T09:00:00+09:00",
-                "candle_end_kst": "2026-09-05T09:00:00+09:00",
+                "candle_start_kst": "2026-09-04T00:00:00+09:00",
+                "candle_end_kst": "2026-09-05T00:00:00+09:00",
             })
         except Exception as e:
             rows.append({"day": DAY, "market": market, "error": repr(e)})
@@ -97,19 +100,20 @@ def minute_value_x(values: list[float], i: int) -> float:
 def find_prelaunch_t(minutes: list[dict], daily_open: float, daily_high: float) -> dict | None:
     if not minutes: return None
     vals = [float(r.get("candle_acc_trade_price") or 0) for r in minutes]
-    # First point from which a material first leg (+5% from daily open) develops.
+    # First visible material leg and the ultimate daily-high minute.
     launch_i = next((i for i, r in enumerate(minutes) if float(r["high_price"]) >= daily_open * 1.05), len(minutes)-1)
+    high_i = max(range(len(minutes)), key=lambda i: float(minutes[i]["high_price"]))
     candidates = []
     for i, row in enumerate(minutes):
         vx = minute_value_x(vals, i)
         if vx < ENTRY_X: continue
-        # Keep a T only if meaningful forward expansion follows within 60 minutes.
+        # A main-launch T must lead to >=10% expansion within its 240m TTL.
+        # This rejects small morning wiggles before an evening main launch.
         close = float(row["trade_price"])
-        fhi = max(float(x["high_price"]) for x in minutes[i:min(len(minutes), i+61)])
-        if fhi >= close * 1.03:
+        fhi = max(float(x["high_price"]) for x in minutes[i:min(len(minutes), i+241)])
+        if i <= high_i and fhi >= close * 1.10:
             candidates.append((i, vx, fhi))
-    before = [x for x in candidates if x[0] <= launch_i]
-    picked = before[0] if before else (candidates[0] if candidates else None)
+    picked = candidates[0] if candidates else None
     if not picked: return None
     i, vx, fhi = picked; row = minutes[i]
     dt = datetime.fromisoformat(row["candle_date_time_utc"]).replace(tzinfo=UTC)
@@ -117,7 +121,7 @@ def find_prelaunch_t(minutes: list[dict], daily_open: float, daily_high: float) 
         "minute_index": i, "approx_t_utc": dt.isoformat(), "approx_t_kst": dt.astimezone(KST).isoformat(),
         "approx_t_price": float(row["opening_price"]), "minute_value_x": vx,
         "first_5pct_minute_kst": datetime.fromisoformat(minutes[launch_i]["candle_date_time_utc"]).replace(tzinfo=UTC).astimezone(KST).isoformat(),
-        "forward_60m_high": fhi,
+        "forward_240m_high": fhi,
     }
 
 
@@ -227,7 +231,7 @@ def main():
     winners=[r for r in universe if r.get("high_gain_pct",-999)>=25 and r.get("market") not in EXCLUDED and r.get("market","").split("-")[-1] not in STABLE]
     write_csv(OUT/"SEP4_25_SUCCESS_LIST.csv",winners)
     print("WINNERS",json.dumps([(x["market"],round(x["high_gain_pct"],3)) for x in winners],ensure_ascii=False),flush=True)
-    start=datetime(2026,9,4,tzinfo=UTC);end=start+timedelta(days=1)
+    start=datetime(2026,9,4,tzinfo=KST).astimezone(UTC);end=start+timedelta(days=1)
     minute_all=[]; trows=[]; replay=[]
     for n,w in enumerate(winners,1):
         market=w["market"]; mins=fetch_minutes(market,start-timedelta(minutes=11),end)
@@ -248,7 +252,7 @@ def main():
         rr=replay_v55(market,tick,candles,trades,approx);rr.update({"daily_high_gain_pct":w["high_gain_pct"],"daily_open":w["open"],"daily_high":w["high"],"approx_t_kst":tc["approx_t_kst"],"scan_start_kst":scan_start.astimezone(KST).isoformat(),"scan_end_kst":scan_end.astimezone(KST).isoformat()});replay.append(rr)
         print(f"[{n}/{len(winners)}] {market} pass={rr['pass_v55']} T={rr.get('T_kst')} s6={rr.get('stage6_kst')}",flush=True)
     write_csv(OUT/"SEP4_25_FULL_DAY_1MIN.csv",minute_all);write_csv(OUT/"SEP4_T_CANDIDATES.csv",trows);write_csv(OUT/"SEP4_V55_REPLAY.csv",replay)
-    (OUT/"manifest.json").write_text(json.dumps({"generated_at":datetime.now(KST).isoformat(),"method_day":"Upbit UTC daily candle / 09:00 KST boundary","universe":len(universe),"winners":len(winners),"replay_pass":sum(bool(x.get('pass_v55')) for x in replay),"replay":replay},ensure_ascii=False,indent=2),encoding="utf-8")
+    (OUT/"manifest.json").write_text(json.dumps({"generated_at":datetime.now(KST).isoformat(),"method_day":"KST calendar day / 00:00 KST boundary, matching Sep1-3 training set","universe":len(universe),"winners":len(winners),"replay_pass":sum(bool(x.get('pass_v55')) for x in replay),"replay":replay},ensure_ascii=False,indent=2),encoding="utf-8")
 
 
 if __name__=="__main__": main()
