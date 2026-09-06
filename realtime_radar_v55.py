@@ -37,6 +37,8 @@ STAGE7_MAX_WAIT_SEC = 30
 STAGE8_MIN_RISE_PCT = 1.00
 STAGE8_MAX_WAIT_SEC = 5 * 60
 T02_DUPLICATE_SEC = 30 * 60
+LATE_ENTRY_MIN_RETURN_PCT = 20.0
+LATE_ENTRY_MIN_T_AGE_SEC = 30 * 60
 N01_MAX_VALUE_10S_KRW = 4_000_000
 N01_MAX_BID_SHARE = 0.68
 F01_MIN_VALUE_10S_KRW = 25_000_000
@@ -72,6 +74,8 @@ ST: dict[str, V55State] = {}
 RESERVE: dict[str, V55State] = {}
 ENTRY_ARMED: dict[str, bool] = {}
 LAST_STAGE8_SEC: dict[str, int] = {}
+PREV_CLOSE: dict[str, float] = {}
+PREV_CLOSE_KST_DAY = ""
 PAPER: Optional[PaperTrader] = None
 
 
@@ -88,6 +92,45 @@ def paper_result_message(position: Optional[PaperPosition]) -> None:
         f"평균가: {position.average_price:g} | 신호대비 슬리피지: {slip:+.3f}%\n"
         f"미사용 투자금: {position.unspent_budget_krw:,.0f}원\n"
         "실제 주문: 없음(PAPER ONLY)")
+
+
+def refresh_prev_closes(sec: Optional[int] = None, force: bool = False) -> None:
+    """Cache the current KST session open, which equals the prior session close."""
+    global PREV_CLOSE_KST_DAY
+    now_sec = int(sec if sec is not None else time.time())
+    kst_day = datetime.fromtimestamp(now_sec, v54.KST).strftime("%Y%m%d")
+    if not force and PREV_CLOSE_KST_DAY == kst_day and PREV_CLOSE:
+        return
+    loaded: dict[str, float] = {}
+    try:
+        for start in range(0, len(r.MARKETS), 100):
+            markets = r.MARKETS[start:start + 100]
+            if not markets:
+                continue
+            query = urllib.parse.urlencode({"markets": ",".join(markets)})
+            for row in r.http_json(f"{r.UPBIT_REST}/ticker?{query}"):
+                market = str(row.get("market") or "")
+                opening = float(row.get("opening_price") or 0.0)
+                if market and opening > 0:
+                    loaded[market] = opening
+        if loaded:
+            PREV_CLOSE.clear()
+            PREV_CLOSE.update(loaded)
+            PREV_CLOSE_KST_DAY = kst_day
+            print(f"[prior-close] {len(loaded)} markets day={kst_day}", flush=True)
+    except Exception as exc:
+        print(f"[prior-close error] {exc}", flush=True)
+
+
+def late_entry_should_recycle(st: V55State, final_price: float, sec: int,
+                              prior_close: Optional[float]) -> tuple[bool, Optional[float], int]:
+    """Reject only stale signals already >=20% above the prior session close."""
+    t_age_sec = sec - st.t_sec
+    if not prior_close or prior_close <= 0:
+        return False, None, t_age_sec
+    return_pct = (final_price / prior_close - 1.0) * 100.0
+    return (return_pct >= LATE_ENTRY_MIN_RETURN_PCT - 1e-12
+            and t_age_sec >= LATE_ENTRY_MIN_T_AGE_SEC), return_pct, t_age_sec
 
 
 def ticker(market: str) -> str:
@@ -415,6 +458,21 @@ def evaluate_confirmation(market: str, sec: int, st: V55State,
     if st.stage == 7:
         if high is not None and high >= st.stage6_price * (1 + STAGE8_MIN_RISE_PCT / 100) - 1e-12:
             final_price = high
+            late, prior_return_pct, t_age_sec = late_entry_should_recycle(
+                st, final_price, sec, PREV_CLOSE.get(market))
+            if late:
+                log_event(market, "stage8_late_entry_recycle", sec, st,
+                          final_price=final_price,
+                          prior_close=PREV_CLOSE.get(market),
+                          prior_close_return_pct=prior_return_pct,
+                          t_age_sec=t_age_sec,
+                          threshold_return_pct=LATE_ENTRY_MIN_RETURN_PCT,
+                          threshold_t_age_sec=LATE_ENTRY_MIN_T_AGE_SEC)
+                return_after_confirmation(
+                    market, st, sec,
+                    f"후행 8차: 전일종가 대비 {prior_return_pct:+.2f}%/"
+                    f"T {t_age_sec//60}분 경과")
+                return
             st.stage = 8
             previous = LAST_STAGE8_SEC.get(market)
             duplicate = previous is not None and sec - previous < T02_DUPLICATE_SEC
@@ -572,6 +630,7 @@ def evaluate_market(market: str, sec: int) -> None:
 
 def evaluate_once() -> None:
     sec = int(time.time()) - 1
+    refresh_prev_closes(sec)
     if time.time() - r.STARTED_AT < WARMUP_SEC:
         return
     for market in r.MARKETS:
@@ -583,6 +642,7 @@ def main() -> None:
     signal.signal(signal.SIGINT, r.shutdown)
     signal.signal(signal.SIGTERM, r.shutdown)
     r.fetch_markets()
+    refresh_prev_closes(force=True)
     for market in r.MARKETS:
         ST[market] = V55State()
         ENTRY_ARMED[market] = True
@@ -596,14 +656,15 @@ def main() -> None:
           f"4차=3s high+4tick,rise>=0.40%,trades10>=7,T+8tick | "
           f"6차=+3tick | 7차=+0.5%/30s | 8차=+1.0%/5m | "
           f"T02={T02_DUPLICATE_SEC//60}m | F03 absorption | "
-          f"N01<=400만원&BID<68%", flush=True)
+          f"N01<=400만원&BID<68% | 후행8차=전일종가+20%&T30m->3차", flush=True)
     r.telegram("✅ Upbit Radar V5.5 시작\nT 유효기간 240분 · 120분부터 예비 T · BTC/스테이블 제외\n"
                "1~7차는 내부 로그 전용 · 8차(+1.0%)만 Telegram 최종확정\n"
                "6차 후 +0.5% 최대30초→7차 · +1.0% 최대5분→8차\n"
                "같은 종목 30분 내 반복 8차는 T02로 알림 차단\n"
                "F03 매수흡수 감지 시 3차 복귀\n"
                "5차는 TTL 예외(최대 12시간) · -4틱/5초 무체결 시 3차 복귀\n"
-               "N01: 10초 총체결 400만원 이하+BID 68% 미만이면 3차 복귀")
+               "N01: 10초 총체결 400만원 이하+BID 68% 미만이면 3차 복귀\n"
+               "후행 8차: 전일종가 +20% 이상且 T 30분 경과 시 3차 복귀")
     th = threading.Thread(target=r.evaluator_loop, name="v55-evaluator", daemon=True)
     th.start()
     r.websocket_loop()
