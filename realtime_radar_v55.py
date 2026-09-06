@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Optional
 
 import realtime_radar_v54 as v54
+from paper_trader import PaperPosition, PaperTrader
 
 r = v54.r
 VERSION = "V5.5"
@@ -71,6 +72,22 @@ ST: dict[str, V55State] = {}
 RESERVE: dict[str, V55State] = {}
 ENTRY_ARMED: dict[str, bool] = {}
 LAST_STAGE8_SEC: dict[str, int] = {}
+PAPER: Optional[PaperTrader] = None
+
+
+def paper_result_message(position: Optional[PaperPosition]) -> None:
+    if position is None:
+        return
+    slip = ((position.average_price / position.signal_price - 1) * 100
+            if position.signal_price else 0.0)
+    r.telegram(
+        f"🧪 V5.5 모의매수 {position.status}\n"
+        f"종목: {position.market} | 주문시도: {position.attempts}회/2초\n"
+        f"목표 투자금: {position.target_budget_krw:,.0f}원\n"
+        f"체결금액: {position.gross_spent_krw:,.0f}원 | 수수료: {position.fee_krw:,.0f}원\n"
+        f"평균가: {position.average_price:g} | 신호대비 슬리피지: {slip:+.3f}%\n"
+        f"미사용 투자금: {position.unspent_budget_krw:,.0f}원\n"
+        "실제 주문: 없음(PAPER ONLY)")
 
 
 def ticker(market: str) -> str:
@@ -414,6 +431,10 @@ def evaluate_confirmation(market: str, sec: int, st: V55State,
             else:
                 LAST_STAGE8_SEC[market] = sec
                 r.telegram(alert8(market, st, final_price, sec))
+                if PAPER is not None:
+                    started = PAPER.buy_async(market, final_price, paper_result_message)
+                    log_event(market, "paper_buy_started" if started else "paper_buy_skipped",
+                              sec, st, reason=None if started else "position_or_order_already_active")
                 print(f"[8차] {market} FINAL price={final_price}", flush=True)
         elif sec - st.stage6_sec >= STAGE8_MAX_WAIT_SEC:
             return_after_confirmation(market, st, sec, "6차 후 5분 내 +1.0% 미달")
@@ -558,6 +579,7 @@ def evaluate_once() -> None:
 
 
 def main() -> None:
+    global PAPER
     signal.signal(signal.SIGINT, r.shutdown)
     signal.signal(signal.SIGTERM, r.shutdown)
     r.fetch_markets()
@@ -566,6 +588,7 @@ def main() -> None:
         ENTRY_ARMED[market] = True
         v54.TRADE_EVENTS[market] = collections.deque()
     v54.fetch_tick_sizes()
+    PAPER = PaperTrader(r.http_json, r.UPBIT_REST)
     r.add_trade = v54.add_trade_v54
     r.evaluate_once = evaluate_once
     print(f"[{VERSION}] all KRW | T={ENTRY_VALUE_X:.1f}x/{T_TTL_SEC//60}m "
