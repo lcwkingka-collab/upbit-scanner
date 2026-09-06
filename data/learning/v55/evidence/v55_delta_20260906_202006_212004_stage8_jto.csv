@@ -1,0 +1,26 @@
+source,type,timestamp_kst,market,cycle_id,event,stage,t_sec,t_price,t_value_x,price,bid,ask,net,bid_share,trades10,rise_pct,reason,reference_price,high,low,latest,max_return_pct,min_return_pct,plus10_reached,notes
+radar_event,event,2026-09-06T20:29:08+09:00,KRW-CHIP,2,stage5,5,1788692624,79.6,5.919833,80.7,28751130.43,0,28751130.43,1.0,14,0.498132,,,,,,,,,F03 attempt 1
+radar_event,event,2026-09-06T20:29:08+09:00,KRW-CHIP,2,stage5_to_stage3,5,1788692624,79.6,5.919833,,,,,,,,,F03 매수흡수,,,,,,,,same cycle; not independent matrix sample
+radar_event,event,2026-09-06T20:29:11+09:00,KRW-CHIP,2,stage5,5,1788692624,79.6,5.919833,80.9,41900949.29,551220.80,41349728.49,0.987015,23,0.496894,,,,,,,,,F03 attempt 2
+radar_event,event,2026-09-06T20:29:11+09:00,KRW-CHIP,2,stage5_to_stage3,5,1788692624,79.6,5.919833,,,,,,,,,F03 매수흡수,,,,,,,,same cycle; not independent matrix sample
+radar_event,event,2026-09-06T20:33:15+09:00,KRW-CHIP,2,stage5_to_stage3,5,1788692624,79.6,5.919833,,,,,,,,,5초 체결정체,,,,,,,,
+radar_event,event,2026-09-06T20:34:00+09:00,KRW-CHIP,2,stage5_to_stage3,5,1788692624,79.6,5.919833,,,,,,,,,5차 기준 -4틱,,,,,,,,
+upbit_ticker,outcome,2026-09-06T21:35:07.110+09:00,KRW-CHIP,2,outcome,N/A,1788692624,79.6,5.919833,80.5,,,,,,,,80.7,83.9,78.1,80.5,3.9653,-3.2218,false,daily high includes pre-signal; no +10 from Stage5 references
+radar_event,event,2026-09-06T21:11:58+09:00,KRW-VET,2,stage5,5,1788692562,9.54,54.124330,9.63,8270583.00,7150462.49,1120120.50,0.536318,28,0.417101,,,,,,,,,
+radar_event,event,2026-09-06T21:12:30+09:00,KRW-VET,2,stage5_to_stage3,5,1788692562,9.54,54.124330,,,,,,,,,5초 체결정체,,,,,,,,
+radar_event,event,2026-09-06T21:14:26+09:00,KRW-SNT,2,stage4_to_stage3,3,1788692612,9.69,11.680813,,,,,,,,,stage5_flow_fail,,,,,,,,
+radar_event,event,2026-09-06T21:14:47+09:00,KRW-RVN,2,stage5,5,1788694049,3.98,4.997201,4.06,4824368.95,33381.89,4790987.06,0.993128,8,1.246883,,,,,,,,,
+radar_event,event,2026-09-06T21:14:53+09:00,KRW-RVN,2,stage5_to_stage3,5,1788694049,3.98,4.997201,,,,,,,,,5초 체결정체,,,,,,,,
+radar_event,event,2026-09-06T21:15:42+09:00,KRW-ZAMA,4,stage5,5,1788694525,79.6,2.957674,81.5,4830837.35,1404632.95,3426204.40,0.774735,13,0.493218,,,,,,,,,
+radar_event,event,2026-09-06T21:15:48+09:00,KRW-ZAMA,4,stage6,6,1788694525,79.6,2.957674,81.8,,,,,,,,"",81.8,,,,,,,elapsed 6s
+radar_event,event,2026-09-06T21:15:52+09:00,KRW-ZAMA,4,stage7,7,1788694525,79.6,2.957674,82.3,,,,,,,0.611247,,81.8,,,,,,,elapsed 4s from Stage6
+radar_event,event,2026-09-06T21:16:02+09:00,KRW-ZAMA,4,stage8,8,1788694525,79.6,2.957674,82.7,,,,,,,,,82.7,,,,,,,T02 duplicate false; previous Stage8 N/A
+upbit_1m,outcome,2026-09-06T21:36:19.352+09:00,KRW-ZAMA,4,stage6_outcome,6,1788694525,79.6,2.957674,81.2,,,,,,,,,81.8,84.8,80.4,81.2,3.6675,-1.7115,false,Stage6 reference
+upbit_1m,outcome,2026-09-06T21:36:19.352+09:00,KRW-ZAMA,4,stage8_outcome,8,1788694525,79.6,2.957674,81.2,,,,,,,,,82.7,84.8,80.4,81.2,2.5393,-2.7811,false,Stage8 signal reference; paper fill event absent
+radar_event,event,2026-09-06T21:17:22+09:00,KRW-SOPH,8,stage5,5,1788695347,6.78,3.550549,6.88,8238260.00,0,8238260.00,1.0,10,1.027900,,,,,,,,,
+radar_event,event,2026-09-06T21:17:33+09:00,KRW-SOPH,8,stage5_to_stage3,5,1788695347,6.78,3.550549,,,,,,,,,5초 체결정체,,,,,,,,
+radar_event,event,2026-09-06T19:58:51+09:00,KRW-JTO,1,stage1,1,1788692331,611,3.148175,611,,,,,,,,,,,,,,,,restart generation
+radar_event,event,2026-09-06T19:58:52+09:00,KRW-JTO,1,stage2,3,1788692331,611,3.148175,611,278496.60,0,278496.60,,1,,,,,,,,,,restart generation
+upbit_1m,outcome,2026-09-06T20:31:00+09:00,KRW-JTO,1,missed_cross,N/A,1788692331,611,3.148175,628,,,,,,,,,session_open_571,629,,,10.1576,,true,first minute with session +10%; no Stage4-8
+radar_event,event,2026-09-06T20:34:43+09:00,KRW-JTO,1,drop,3,1788692331,611,3.148175,621,,,,,,,,ASK>BID/net-; BID-value/count-down,,,,,,,,20s DROP after missed cross
+upbit_ticker,outcome,2026-09-06T21:36:19.146+09:00,KRW-JTO,1,missed_outcome,N/A,1788692331,611,3.148175,619,,,,,,,,,session_open_571,629,568,619,10.1576,-0.5254,true,cycle_id reused after restart; identify by t_sec
