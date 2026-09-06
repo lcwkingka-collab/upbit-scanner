@@ -26,7 +26,7 @@ Updated: 2026-09-06 KST
 | P07 | 4차 최소 실제 상승률 +0.10% | BTC·미세틱 오탐 대응; 성공군 재검증 필요 | candidate |
 | P08 | T 대비 -1틱 방어 강화 | 성공 손실 가능 | hold |
 | P09 | T 대비 -2틱 훼손 | 기존 강한 DROP 축 | implemented/monitor |
-| P10 | Stage 5 기준 -4틱 또는 5초 체결정체 시 Stage 3 복귀 | V5.5 적용값 | implemented/monitor |
+| P10 | Stage 5 기준 -4틱 또는 5초 체결정체 시 Stage 3 복귀 | V5.5 적용값 | implemented/monitor |\n| P11 | Stage 6 직후 1·3·5·10초 가격·BID 지속성 | 성공 17/17 보존 시 단독 최대 실패 2/19 제거로 분리력 약함 | hold/research |
 
 ## 자금·체결 후보
 
