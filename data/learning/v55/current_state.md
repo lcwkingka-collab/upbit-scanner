@@ -20,6 +20,18 @@ GitHub 기본 브랜치에서 `data/live/radar_events` 디렉터리가 현재 �
 - AERO: 최소폭 +10% 돌파 후 이탈한 가짜발사 후보, 결과 관찰 진행중.
 
 ## 수정 제안 상태
-- 거래조건/임계값 수정: 없음. 이벤트 원본과 혼동행렬 부족.
+- Stage 6 확인 후보(2026-09-06 재현): `Stage 5 +3틱 도달 후 3초 동안 +2틱 이상 유지`, 실패 시 영구탈락하지 않고 Stage 3 복귀.
+  - 첫 시도만 자르면 성공군 15개 중 9개 유지/6개 손실이라 단독 즉사조건으로는 부적합.
+  - Stage 3 복귀와 재시도를 포함한 전체 재현에서는 성공군 15/15가 다시 Stage 6 확인에 도달.
+  - 오늘 확보된 FLOCK/ZRO 5개 실패 사이클 중 FLOCK 3개는 첫 확인에서 제거, ZRO 2개는 통과(실패 제거율 60%).
+  - 최근 10초 BID>ASK/순매수(+)를 Stage 6에서 다시 확인하는 조건은 라이브 실패 5/5가 통과하고 성공군 첫 시도 5개를 손실하여 제거력이 없음.
+  - 성공군 확인 지연은 대부분 수초~수분이나 CHIP은 약 35,801초, MOC 약 1,160초, SNT 약 723초가 발생하므로 수익/진입지연 검증이 추가로 필요.
+- 동일 종목 중복 신호: 포지션 보유 또는 동일 발사 파동 중 재발한 Stage 6는 신규 매수신호와 분리하는 dedupe/position lock 후보. 이는 실패 판별조건이 아니라 중복주문 방지장치로 별도 검증.
+- 거래조건/임계값 확정 변경: 없음. 위 후보는 ZRO를 제거하지 못했고 진입지연 검증이 남아 있음.
 - 데이터 파이프라인: 서버 `v55_events.jsonl`을 GitHub의 `data/live/radar_events/YYYYMMDD/`에 게시할 필요가 있음.
 - 코드 자동 수정/배포: 금지 유지.
+
+## 재현 근거 파일
+- `evidence/stage6_confirmation_first_attempt_20260906.csv`
+- `evidence/stage6_confirmation_first_attempt_summary_20260906.csv`
+- `evidence/stage6_confirmation_reentry_success15_20260906.csv`

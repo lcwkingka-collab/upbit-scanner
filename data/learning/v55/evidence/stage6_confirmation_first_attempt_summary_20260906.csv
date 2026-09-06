@@ -1,0 +1,7 @@
+﻿rule,group,cases,pass,remove,pass_rate
+pass_A,live_failure,5,5,0,1.0
+pass_A,success,15,10,5,0.6666666666666666
+pass_B,live_failure,5,2,3,0.4
+pass_B,success,15,9,6,0.6
+pass_C,live_failure,5,2,3,0.4
+pass_C,success,15,7,8,0.4666666666666667
