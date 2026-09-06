@@ -1,0 +1,40 @@
+name: Sep4 25pct V55 validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scan_sep4_25_v55.py'
+      - '.github/workflows/sep4-25-v55-validation.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sep4-25-v55-validation
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Find Sep 4 daily winners and replay V5.5
+        run: python scan_sep4_25_v55.py
+      - name: Show result files
+        if: always()
+        run: find sep4_25_v55_output -maxdepth 1 -type f -printf '%f %s bytes\n' 2>/dev/null || true
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sep4-25-v55-validation-${{ github.run_number }}
+          path: sep4_25_v55_output/
+          if-no-files-found: warn
+          retention-days: 14
