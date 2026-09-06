@@ -1,0 +1,5 @@
+group,count,cycles,meaning
+A_and_B,4,"FLOCK#2;FLOCK#11;FLOCK#12;LA#10","두 조건이 공통으로 잡는 강한 흡수형"
+A_only,3,"ELSA#10;ELSA#11;BONK#17","큰 거래대금이 적은 활성 초에 몰린 군"
+B_only,2,"FLOCK#8;ARB#10","건당 순매수는 크지만 가격반응이 낮은 군"
+A_or_B,9,"FLOCK#2;FLOCK#8;FLOCK#11;FLOCK#12;ELSA#10;ELSA#11;ARB#10;LA#10;BONK#17","최종 제거 합집합"
