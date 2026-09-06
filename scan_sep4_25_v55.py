@@ -100,6 +100,7 @@ def minute_value_x(values: list[float], i: int) -> float:
 def find_prelaunch_t(minutes: list[dict], daily_open: float, daily_high: float) -> dict | None:
     if not minutes: return None
     vals = [float(r.get("candle_acc_trade_price") or 0) for r in minutes]
+    dts = [datetime.fromisoformat(r["candle_date_time_utc"]).replace(tzinfo=UTC) for r in minutes]
     # First visible material leg and the ultimate daily-high minute.
     launch_i = next((i for i, r in enumerate(minutes) if float(r["high_price"]) >= daily_open * 1.05), len(minutes)-1)
     high_i = max(range(len(minutes)), key=lambda i: float(minutes[i]["high_price"]))
@@ -110,7 +111,9 @@ def find_prelaunch_t(minutes: list[dict], daily_open: float, daily_high: float) 
         # A main-launch T must lead to >=10% expansion within its 240m TTL.
         # This rejects small morning wiggles before an evening main launch.
         close = float(row["trade_price"])
-        fhi = max(float(x["high_price"]) for x in minutes[i:min(len(minutes), i+241)])
+        cutoff = dts[i] + timedelta(minutes=240)
+        forward = [float(minutes[j]["high_price"]) for j in range(i, len(minutes)) if dts[j] <= cutoff]
+        fhi = max(forward) if forward else close
         if i <= high_i and fhi >= close * 1.10:
             candidates.append((i, vx, fhi))
     picked = candidates[0] if candidates else None
@@ -239,7 +242,9 @@ def main():
             dt=datetime.fromisoformat(r["candle_date_time_utc"]).replace(tzinfo=UTC)
             minute_all.append({"day":DAY,"market":market,"timestamp_kst":dt.astimezone(KST).isoformat(),"opening_price":r["opening_price"],"high_price":r["high_price"],"low_price":r["low_price"],"trade_price":r["trade_price"],"value_1m_krw":r["candle_acc_trade_price"],"volume_1m":r["candle_acc_trade_volume"]})
         in_day=[r for r in mins if start<=datetime.fromisoformat(r["candle_date_time_utc"]).replace(tzinfo=UTC)<end]
-        tc=find_prelaunch_t(in_day,float(w["open"]),float(w["high"]))
+        # Include eleven pre-midnight minutes so a 00:xx launch can retain its
+        # genuine pre-day T and warm-up baseline.
+        tc=find_prelaunch_t(mins,float(w["open"]),float(w["high"]))
         if not tc:
             replay.append({"market":market,"pass_v55":False,"reason":"no_prelaunch_2.8x_T"});continue
         trows.append({"market":market,**tc})
