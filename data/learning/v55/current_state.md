@@ -258,3 +258,13 @@ Updated: 2026-09-06 12:35 KST
 - IOST#7 produced 10 Stage5 attempts in this interval and every attempt returned to Stage3. This reinforces the existing retry-exhaustion candidate; it does not authorize a threshold or code change.
 - QTUM#4's earlier KRW 8.56m BID lead dropped at 12:26; replacement QTUM#5 was only KRW 0.217m in one fill, so the prior yellow status is revoked.
 - No new +10% MISSED case was validated. Preserve PUMP#10, SOL#3, IOST#7, ORCA#7 and SOPH#21 event windows for retention/fast-lane shadow evaluation.
+
+
+## 실패제거 후보 조합 재현
+- F03 단독은 성공 17/17을 유지하고 실패 9/19를 즉시 복귀시킨다.
+- F03에 Stage 6 후 1초 고가가 확정가 이상이라는 최소 지속조건을 더해도 성공 17/17·실패 10/19로 추가 제거는 T#2 한 개뿐이다.
+- F03 OR 30초 내 +0.5% 미달은 성공 16/17·실패 12/19 제거다. EGLD를 잃고 F03보다 실패 3개를 추가 제거한다.
+- F03 OR 5분 내 +1% 미달은 성공 16/17·실패 15/19 제거다. EGLD를 잃고 F03보다 실패 6개를 추가 제거하지만 선점 진입에는 지나치게 느리다.
+- 세 조건을 모두 합치면 성공 16/17·실패 16/19 제거이며 남은 실패는 ZRO#4·QUID#2·T#2다.
+- 최저가 선점 목표에서는 F03을 Stage 5 직후 즉시복귀, F15 강한 가격효율군을 Stage 5 조기진입, 그 외를 기존 Stage 6으로 두는 분기형이 우선이다. 30초/5분 조건은 최초진입을 지연시키기보다 모의매매의 추가매수 또는 취소 조건으로 평가한다.
+- 근거: `evidence/candidate_combination_matrix_20260906.csv`. 코드 자동 변경 없음.
