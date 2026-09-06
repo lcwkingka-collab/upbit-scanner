@@ -26,6 +26,26 @@ EXCLUDED = {"KRW-BTC"}
 STABLE = {"USDT", "USDC", "USDG", "EURC"}
 
 
+def krw_tick(price: float) -> float:
+    """Historical KRW price-band tick (do not reuse today's instrument tick)."""
+    if price >= 1_000_000:return 1000.0
+    if price >= 500_000:return 500.0
+    if price >= 100_000:return 100.0
+    if price >= 50_000:return 50.0
+    if price >= 10_000:return 10.0
+    if price >= 5_000:return 5.0
+    if price >= 1_000:return 1.0
+    if price >= 100:return 1.0
+    if price >= 10:return .1
+    if price >= 1:return .01
+    if price >= .1:return .001
+    if price >= .01:return .0001
+    if price >= .001:return .00001
+    if price >= .0001:return .000001
+    if price >= .00001:return .0000001
+    return .00000001
+
+
 def write_csv(path: Path, rows: list[dict]) -> None:
     if not rows:
         path.write_text("", encoding="utf-8")
@@ -267,7 +287,7 @@ def main():
         approx=datetime.fromisoformat(tc["approx_t_utc"])
         highrow=max(in_day,key=lambda x:float(x["high_price"])); highdt=datetime.fromisoformat(highrow["candle_date_time_utc"]).replace(tzinfo=UTC)
         scan_start=max(start,approx-timedelta(minutes=11));scan_end=min(end,max(approx+timedelta(minutes=30),min(highdt+timedelta(minutes=2),approx+timedelta(hours=4))))
-        tick=ss.fetch_tick_size(market)
+        tick=krw_tick(float(tc["approx_t_price"]))
         candles,trades=fetch_replay_window(market,scan_start,scan_end)
         if not tick or not candles: replay.append({"market":market,"pass_v55":False,"reason":"missing_tick_or_seconds"});continue
         rr=replay_v55(market,tick,candles,trades,approx);rr.update({"route":"primary","daily_high_gain_pct":w["high_gain_pct"],"daily_open":w["open"],"daily_high":w["high"],"approx_t_kst":tc["approx_t_kst"],"scan_start_kst":scan_start.astimezone(KST).isoformat(),"scan_end_kst":scan_end.astimezone(KST).isoformat()});replay.append(rr)
