@@ -9,6 +9,7 @@ import os
 import signal
 import threading
 import time
+import urllib.parse
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
@@ -664,7 +665,7 @@ def main() -> None:
                "F03 매수흡수 감지 시 3차 복귀\n"
                "5차는 TTL 예외(최대 12시간) · -4틱/5초 무체결 시 3차 복귀\n"
                "N01: 10초 총체결 400만원 이하+BID 68% 미만이면 3차 복귀\n"
-               "후행 8차: 전일종가 +20% 이상且 T 30분 경과 시 3차 복귀")
+               "후행 8차: 전일종가 +20% 이상이고 T 30분 경과 시 3차 복귀")
     th = threading.Thread(target=r.evaluator_loop, name="v55-evaluator", daemon=True)
     th.start()
     r.websocket_loop()
