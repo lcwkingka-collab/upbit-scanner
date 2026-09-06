@@ -1,6 +1,6 @@
 # V5.5 Current Learning State
 
-Updated: 2026-09-06 10:40 KST
+Updated: 2026-09-06 10:50 KST
 
 ## 운영 원칙
 - 30분 복기 결과를 이 GitHub 공유 학습 저장소에 누적한다.
@@ -60,3 +60,23 @@ Updated: 2026-09-06 10:40 KST
 - `evidence/stage6_confirmation_first_attempt_20260906.csv`
 - `evidence/stage6_confirmation_first_attempt_summary_20260906.csv`
 - `evidence/stage6_confirmation_reentry_success15_20260906.csv`
+
+
+## 10:20~10:50 KST 최신 증분
+- 이벤트 원본은 42,231개, 10:50:04 KST까지 연속 게시됐다. 직전 대비 5,905개가 추가됐으며 Stage 1/2/4/5/6은 61/35/17/10/1건, Stage 5→3은 9건, drop/reset은 27/56건이다.
+- 현재 활성 Stage 5·6은 없다. 신규 Stage 6은 FLOCK#20 한 건이지만 T 88.5원이 이미 당일 시가 71.7원 대비 +23.43%에서 생긴 후행·중복 파동이다. 90.1원에서 6차 확정 후 10:40:54 거래대금 정상화로 reset됐으므로 신규 진입 성공으로 합산하지 않고 결과 대기/중복 신호로 분리한다.
+- 신규 실패 대조군: T#6은 Stage 5 반복 후 -4틱 복귀를 거쳐 drop, LA#11은 Stage 5 후 수급실패 및 drop, MIRA#3·CHIP#9는 Stage 5 후 5초 무체결 복귀했다.
+- 진행중 우선순위: CAP#5 Stage 3(38.65x, 10초 BID 358만원/ASK 51만원·10건, T 가격 방어), QUID#19 Stage 3(10초 BID 1,290만원/ASK 868만원·15건, T+0.64%, drop축 0), GAS#4 Stage 3(T+0.41%, drop축 0). 모두 공식 Stage 5·6은 아니다.
+- 직전 PLUME#2·HBAR#2는 ASK>BID/net-가 발생해 매수 후보에서 해제한다. CVC#2도 BID-value/count-down으로 강등한다.
+
+## 최신 골든크로스 판정
+- 구조 원자료는 여전히 08:57:39 KST라 이벤트와 시각을 분리한다.
+- CAP·QUID: MA15/50/120 이력 부족으로 gap·D-day·실제 교차 N/A.
+- GAS: MA15 1726.73 > MA50 1496.22 및 MA120 1718.63. 교차는 이미 완료된 상태이고 신규 golden_now/D-day는 없다. MA120 우위폭은 0.47%이며 15분 변화 +0.0136%p로 소폭 축소됐다.
+- XRP: MA15가 MA50/120 위지만 slope15 음수, 신규 교차/D-day 없음.
+- MIRA: MA15가 MA50 위 0.92%, MA120 아래 22.24%; D-day 없음.
+- FLOCK: MA15가 MA50 위, MA120 아래 13.38%, MA120 예상 D-4.66이 약 0.054일 단축됐으나 실제 Stage 6은 이미 당일 +23% 이후였다.
+
+## 수정 제안 보강
+- 기계적 Stage 6 유효성과 신규 매수 적합성을 분리해야 한다. T 형성 시점이 이미 당일 +20% 이상인 FLOCK#20은 dedupe/position lock 및 과도한 선행상승 실행 가드의 보존 사례다.
+- 이는 임계값 변경 확정이 아니다. 성공군 16개와 실패군 혼동행렬, 진입지연·수익 손실 검증 전에는 코드/조건을 수정하지 않는다.
