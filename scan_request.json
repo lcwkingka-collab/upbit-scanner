@@ -1,9 +1,183 @@
 {
-  "request_id": "v55_flock_zro_repeat_replay_20260906",
+  "description": "2026-09-06 V5.5 stage6 cycles: T-10m through up to +60m after stage6",
+  "source_log": "data/live/radar_events/20260906/v55_events.jsonl",
+  "cutoff_kst": "2026-09-06T10:50:04+09:00",
   "cases": [
-    {"label":"FLOCK_PRE_FIRST","market":"KRW-FLOCK","date":"2026-09-06","from":"05:10:00","to":"06:09:59","raw_trades":true},
-    {"label":"FLOCK_FIRST_6","market":"KRW-FLOCK","date":"2026-09-06","from":"06:10:00","to":"06:29:59","raw_trades":true},
-    {"label":"ZRO_TWO_6","market":"KRW-ZRO","date":"2026-09-06","from":"06:20:00","to":"07:19:59","raw_trades":true},
-    {"label":"FLOCK_REPEAT_6","market":"KRW-FLOCK","date":"2026-09-06","from":"07:00:00","to":"07:49:59","raw_trades":true}
+    {
+      "label": "V55_FLOCK_C2_061327",
+      "market": "KRW-FLOCK",
+      "date": "2026-09-06",
+      "from": "06:02:51",
+      "to": "07:13:27",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_ZRO_C4_064536",
+      "market": "KRW-ZRO",
+      "date": "2026-09-06",
+      "from": "05:57:55",
+      "to": "07:45:36",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_ZRO_C7_070140",
+      "market": "KRW-ZRO",
+      "date": "2026-09-06",
+      "from": "06:51:33",
+      "to": "08:01:40",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_FLOCK_C7_072638",
+      "market": "KRW-FLOCK",
+      "date": "2026-09-06",
+      "from": "07:15:09",
+      "to": "08:26:38",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_FLOCK_C8_073402",
+      "market": "KRW-FLOCK",
+      "date": "2026-09-06",
+      "from": "07:23:11",
+      "to": "08:34:02",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_FLOCK_C11_083537",
+      "market": "KRW-FLOCK",
+      "date": "2026-09-06",
+      "from": "08:23:58",
+      "to": "09:35:37",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_ELSA_C10_084016",
+      "market": "KRW-ELSA",
+      "date": "2026-09-06",
+      "from": "08:17:29",
+      "to": "09:40:16",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_SOPH_C2_090011",
+      "market": "KRW-SOPH",
+      "date": "2026-09-06",
+      "from": "05:46:34",
+      "to": "10:00:11",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_FLOCK_C12_090043",
+      "market": "KRW-FLOCK",
+      "date": "2026-09-06",
+      "from": "08:50:28",
+      "to": "10:00:43",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_ELSA_C11_090058",
+      "market": "KRW-ELSA",
+      "date": "2026-09-06",
+      "from": "08:49:18",
+      "to": "10:00:58",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_QUID_C2_090158",
+      "market": "KRW-QUID",
+      "date": "2026-09-06",
+      "from": "05:59:20",
+      "to": "10:01:58",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_LA_C8_090254",
+      "market": "KRW-LA",
+      "date": "2026-09-06",
+      "from": "08:51:42",
+      "to": "10:02:54",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_T_C1_090409",
+      "market": "KRW-T",
+      "date": "2026-09-06",
+      "from": "05:48:50",
+      "to": "10:04:09",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_EDGE_C6_090647",
+      "market": "KRW-EDGE",
+      "date": "2026-09-06",
+      "from": "08:26:24",
+      "to": "10:06:47",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_SNT_C3_090750",
+      "market": "KRW-SNT",
+      "date": "2026-09-06",
+      "from": "06:57:14",
+      "to": "10:07:50",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_UP2_C1_090801",
+      "market": "KRW-UP2",
+      "date": "2026-09-06",
+      "from": "05:40:29",
+      "to": "10:08:01",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_T_C2_091934",
+      "market": "KRW-T",
+      "date": "2026-09-06",
+      "from": "09:08:40",
+      "to": "10:19:34",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_QUID_C3_093830",
+      "market": "KRW-QUID",
+      "date": "2026-09-06",
+      "from": "09:23:28",
+      "to": "10:38:30",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_ARB_C10_094801",
+      "market": "KRW-ARB",
+      "date": "2026-09-06",
+      "from": "09:07:17",
+      "to": "10:48:01",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_LA_C10_095119",
+      "market": "KRW-LA",
+      "date": "2026-09-06",
+      "from": "09:30:09",
+      "to": "10:50:04",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_BONK_C17_100647",
+      "market": "KRW-BONK",
+      "date": "2026-09-06",
+      "from": "09:54:51",
+      "to": "10:50:04",
+      "raw_trades": true
+    },
+    {
+      "label": "V55_FLOCK_C20_103842",
+      "market": "KRW-FLOCK",
+      "date": "2026-09-06",
+      "from": "10:28:36",
+      "to": "10:50:04",
+      "raw_trades": true
+    }
   ]
 }
