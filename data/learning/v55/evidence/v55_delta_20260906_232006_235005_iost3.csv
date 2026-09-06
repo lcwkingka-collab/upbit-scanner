@@ -5,4 +5,8 @@ timestamp_kst,market,cycle_id,t_sec,event,price,bid_krw,ask_krw,net_krw,bid_shar
 2026-09-06T23:36:28+09:00,KRW-IOST,3,1788705204,stage4_stage5,0.996,3478147.13,0,3478147.13,100,13,"3s rise=0.403226%; T+13ticks; F03=false; N01=false"
 2026-09-06T23:36:34+09:00,KRW-IOST,3,1788705204,stage5_to_stage3,0.996,,,,,,"5-second no-trade recycle; no Stage6/7/8/Telegram"
 2026-09-06T23:46:02+09:00,KRW-IOST,3,1788705204,stage4_reject,1.01,,,,,5,"3s rise=1.0%; T+27ticks; rejected because trades10<7"
+2026-09-06T23:04:31+09:00,KRW-ARX,1,1788703471,stage1,194,,,,,,"rolling60_ratio=3.252443"
+2026-09-06T23:04:35+09:00,KRW-ARX,1,1788703471,stage2_stage3,195,5216458.04,4068642.30,1147815.73,56.1799,,"BID_count=12; no Stage4"
+2026-09-06T23:37:00+09:00,KRW-ARX,1,1788703471,session_plus10_boundary,198,,,,,,"session_open=180; exactly +10.0%; no Stage4-8"
+2026-09-06T23:40:03+09:00,KRW-ARX,1,1788703471,drop_reset,196,,,,,,"ASK>BID/net-,BID-value/count-down; classification=boundary_MISSED_slow_staircase"
 2026-09-06T23:50:05+09:00,ALL,N/A,N/A,delta_summary,N/A,,,,,,"rows=5571; stage1/2/3=435/237/237; stage4 pass/reject=1/39; stage5=1; stage5_to_stage3=2; stage6/7/8=0/0/0; reset/drop=412/185; F03/N01/T02/late-entry=0"

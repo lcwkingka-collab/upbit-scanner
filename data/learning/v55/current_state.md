@@ -49,6 +49,7 @@ Updated: 2026-09-06T23:54:47+09:00
 - No F03, N01, T02, or late-entry block occurred. No new Stage8 or Telegram final signal occurred.
 - IOST#3: T 0.983/7.1247x; Stage5 0.996 with BID/net +3.478M, BID share 100%, 13 fills, and T+13 ticks. F03/N01 passed, but the stream went idle for five seconds and recycled before Stage6. A later +1.0% attempt had only five fills and Stage4 correctly rejected it.
 - This is one new pre-Stage6 false launch removed by the existing idle/fill-count gates. It does not alter the closed historical matrix.
+- ARX#1 is a boundary MISSED slow staircase: session open 180, high 198 at 23:37 (+10.0% exactly), but its 194 T only reached Stage3 and later dropped at 196; no Stage4–8 occurred. Keep it outside the closed matrix until the next completed-session rule decides whether an exact-touch high counts as success.
 - Event source is current through 23:50:05; all-market ticker is current through 23:53:50. `data/live/latest.json` and MA source remain stale at 22:48:54 and 19:35:47 respectively.
 
 ## Learning and modification posture
