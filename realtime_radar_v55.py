@@ -31,6 +31,8 @@ STAGE6_UP_TICKS = 3
 STAGE6_DOWN_TICKS = 4
 STAGE6_MAX_IDLE_SEC = 5
 STAGE5_MAX_WAIT_SEC = 12 * 60 * 60
+N01_MAX_VALUE_10S_KRW = 4_000_000
+N01_MAX_BID_SHARE = 0.68
 WARMUP_SEC = 11 * 60
 EVENT_LOG_DIR = Path(os.getenv("RADAR_EVENT_DIR", "/home/ubuntu/upbit-scanner/data/live/radar_events"))
 EXCLUDED_MARKETS = {"KRW-BTC"}
@@ -146,6 +148,13 @@ def price_pct_from_t(st: V55State, price: Optional[float]) -> Optional[float]:
 
 def fmt_pct(value: Optional[float]) -> str:
     return "N/A" if value is None else f"{value:+.2f}%"
+
+
+def n01_should_recycle(flow: dict) -> bool:
+    """Recycle low-notional, weak-BID Stage 5 attempts without dropping T."""
+    cur = flow["cur"]
+    total10 = cur["bid"] + cur["ask"]
+    return total10 <= N01_MAX_VALUE_10S_KRW and cur["share"] < N01_MAX_BID_SHARE
 
 
 def launch_metrics(market: str, sec: int, st: V55State, flow: dict) -> Optional[dict]:
@@ -297,6 +306,15 @@ def advance_reserve(market: str, sec: int, price: float, vx: float, flow: dict) 
         st.stage, st.stage5_sec = 5, sec
         st.stage5_price, st.stage5_last_trade_sec = launch["last"], sec
         log_event(market, "reserve_stage5", sec, st, price=launch["last"], **launch)
+        if n01_should_recycle(flow):
+            total10 = cur["bid"] + cur["ask"]
+            log_event(market, "reserve_stage5_to_stage3", sec, st,
+                      reason="N01 10초 400만원 이하+BID 68% 미만",
+                      total10=total10, bid_share=cur["share"])
+            st.stage = 3
+            st.stage5_sec = 0
+            st.stage5_price = None
+            st.stage5_last_trade_sec = 0
 
 
 def evaluate_market(market: str, sec: int) -> None:
@@ -409,6 +427,12 @@ def evaluate_market(market: str, sec: int) -> None:
         log_event(market, "stage5", sec, st, price=launch["last"], current_value_x=vx,
                   bid=cur["bid"], ask=cur["ask"], net=cur["net"],
                   bid_share=cur["share"], **launch)
+        if n01_should_recycle(flow):
+            total10 = cur["bid"] + cur["ask"]
+            return_to_stage3(market, st, sec,
+                             "N01 10초 400만원 이하+BID 68% 미만",
+                             total10=total10, bid_share=cur["share"])
+            return
         print(f"[5차] {market} +3틱 대기", flush=True)
     else:
         st.stage = 3
