@@ -37,7 +37,45 @@ def test_stage6_plus3(tmp_path):
     st=m.V55State(stage=5,t_sec=1,t_price=90,stage5_sec=100,stage5_price=100,stage5_last_trade_sec=100)
     m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque([(101_000,103,'BID',10)])
     m.evaluate_stage5(market,101,st)
-    assert st.stage==6;assert sent and '6차' in sent[-1]
+    assert st.stage==6;assert st.stage6_price==103;assert sent==[]
+
+
+def test_stage7_and_stage8_only_final_telegram(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    st=m.V55State(stage=6,t_sec=1,t_price=90,stage6_sec=100,stage6_price=100)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque([(105_000,100.5,'BID',10)])
+    m.evaluate_confirmation(market,105,st,100.5)
+    assert st.stage==7;assert sent==[]
+    m.v54.TRADE_EVENTS[market].append((106_000,101.1,'BID',10))
+    m.evaluate_confirmation(market,106,st,101.1)
+    assert st.stage==8;assert len(sent)==1;assert '8차 최종' in sent[0]
+
+
+def test_stage7_timeout_recycles_to_stage3(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    st=m.V55State(stage=6,t_sec=1,t_price=90,stage6_sec=100,stage6_price=100)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque()
+    m.evaluate_confirmation(market,130,st,100.4)
+    assert st.stage==3;assert sent==[]
+
+
+def test_stage8_timeout_recycles_to_stage3(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    st=m.V55State(stage=7,t_sec=1,t_price=90,stage6_sec=100,stage6_price=100,
+                   stage7_sec=105,stage7_price=100.5)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque()
+    m.evaluate_confirmation(market,400,st,100.9)
+    assert st.stage==3;assert sent==[]
+
+
+def test_t02_blocks_repeat_stage8_telegram(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    m.LAST_STAGE8_SEC[market]=100
+    st=m.V55State(stage=7,t_sec=1,t_price=90,stage6_sec=200,stage6_price=100,
+                   stage7_sec=205,stage7_price=100.5)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque([(210_000,101,'BID',10)])
+    m.evaluate_confirmation(market,210,st,101)
+    assert st.stage==8;assert sent==[]
 
 
 def test_stage4_and_stage5_are_log_only(tmp_path):
@@ -100,3 +138,17 @@ def test_n01_4m_and_bid68_boundaries(tmp_path):
     assert not m.n01_should_recycle(flow(4_451_600,0.5540))
     assert m.n01_should_recycle(flow(2_758_999,0.6368499))
     assert m.n01_should_recycle(flow(2_924_054,0.6491900))
+
+
+def test_f03_bursty_value_and_absorption_axes(tmp_path):
+    m,_=load_module(tmp_path);market='KRW-X'
+    m.v54.TRADE_EVENTS[market]=deque((100_000+i*100,100,'BID',1) for i in range(7))
+    flow={'cur':{'bid':24_000_000.0,'ask':2_000_000.0,'net':22_000_000.0,
+                 'bid_count':70,'ask_count':30,'share':24/26},
+          'prev':{'bid':0.0,'ask':0.0,'bid_count':0,'ask_count':0}}
+    out=m.f03_absorption_metrics(market,100,flow,{'rise_pct':1.0})
+    assert out['f01'];assert out['f03']
+    flow['cur'].update(bid=3_000_000.0,ask=1_000_000.0,net=2_000_000.0,
+                       bid_count=4,ask_count=1,share=.75)
+    out=m.f03_absorption_metrics(market,100,flow,{'rise_pct':.04})
+    assert out['f02'];assert out['f03']
