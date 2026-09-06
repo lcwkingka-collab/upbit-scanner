@@ -462,10 +462,11 @@ def main() -> None:
     print(f"[{VERSION}] all KRW | T={ENTRY_VALUE_X:.1f}x/{T_TTL_SEC//60}m "
           f"reserve-from={RESERVE_START_SEC//60}m | "
           f"4차=3s high+4tick,rise>=0.40%,trades10>=7,T+8tick | "
-          f"6차=+3tick (-4tick/idle recycle)", flush=True)
+          f"6차=+3tick (-4tick/idle recycle) | N01<=400만원&BID<68%", flush=True)
     r.telegram("✅ Upbit Radar V5.5 시작\nT 유효기간 240분 · 120분부터 예비 T · BTC/스테이블 제외\n"
                "1~5차는 내부 로그 전용 · +3틱 6차만 Telegram 최종확정\n"
-               "5차는 TTL 예외(최대 12시간) · -4틱/5초 무체결 시 3차 복귀")
+               "5차는 TTL 예외(최대 12시간) · -4틱/5초 무체결 시 3차 복귀\n"
+               "N01: 10초 총체결 400만원 이하+BID 68% 미만이면 3차 복귀")
     th = threading.Thread(target=r.evaluator_loop, name="v55-evaluator", daemon=True)
     th.start()
     r.websocket_loop()
