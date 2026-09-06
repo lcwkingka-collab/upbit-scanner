@@ -252,7 +252,14 @@ def replay_v55(market: str, tick: float, candles: dict[int,dict], trades: dict[i
             stage=5;stage5_sec=s;stage5_price=last;last_trade_sec=s
             events.append({"event":"stage5","sec":s,"price":last,"bid":bid,"ask":ask,"bid_share":bid/(bid+ask) if bid+ask else None,"notional10":bid+ask})
         else: stage=3;events.append({"event":"stage4_to_3","sec":s})
-    s1=next((x for x in events if x["event"]=="stage1"),None); s6=next((x for x in events if x["event"]=="stage6"),None)
+    s6=next((x for x in events if x["event"]=="stage6"),None)
+    # Pair Stage 6 with the still-active T, not the first discarded Stage 1
+    # in the wider replay window.
+    s1=None
+    for x in events:
+        if x["event"]=="stage1":s1=x
+        elif x["event"] in {"reset","drop"}:s1=None
+        if x is s6:break
     def stamp(x): return datetime.fromtimestamp(x,KST).isoformat() if x else None
     return {
         "market":market,"tick_size":tick,"pass_v55":bool(s6),"final_stage":stage,"cycles":cycles,
