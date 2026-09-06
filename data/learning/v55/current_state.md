@@ -249,3 +249,12 @@ Updated: 2026-09-06 12:35 KST
 - 따라서 F01만 쓰면 7/19, F02를 추가하면 새로운 실패 2개가 더 제거되어 합집합 9/19가 된다. 반대로 F02만 쓰면 F01 고유 실패 3개를 놓친다.
 - 두 조건은 같은 현상을 일부 공유하지만 F01은 '시간집중', F02는 '자금 대비 가격 무반응'을 추가로 포착하므로 병용 가치가 있다.
 - 근거: `evidence/f03_overlap_20260906.csv`.
+
+## 2026-09-06 12:50 KST retention update
+
+- The 12:20:05–12:50:05 event increment contained 22 Stage5 events across 11 new Stage5 cycles, but no Stage6; active Stage5/6 at cutoff was 0.
+- There were 24 Stage5→Stage3 returns in the interval (including cycles whose Stage5 began before the window): 12 by the −4-tick rule and 12 by 5-second trade inactivity.
+- Absolute Stage5 BID is not sufficient without immediate price retention. PUMP#10 showed KRW 116.98m BID and SOL#3 KRW 1,279.78m all-BID, yet both returned by −4 ticks one second later.
+- IOST#7 produced 10 Stage5 attempts in this interval and every attempt returned to Stage3. This reinforces the existing retry-exhaustion candidate; it does not authorize a threshold or code change.
+- QTUM#4's earlier KRW 8.56m BID lead dropped at 12:26; replacement QTUM#5 was only KRW 0.217m in one fill, so the prior yellow status is revoked.
+- No new +10% MISSED case was validated. Preserve PUMP#10, SOL#3, IOST#7, ORCA#7 and SOPH#21 event windows for retention/fast-lane shadow evaluation.
