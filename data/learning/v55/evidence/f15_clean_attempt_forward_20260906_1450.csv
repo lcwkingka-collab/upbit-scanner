@@ -1,0 +1,13 @@
+dataset,cycle,label,raw_f15,prior_stage_return_count,f15_clean_attempt,route_effect,outcome_max_pct,status
+historical,DRV,success,true,0,true,early_entry,NA,confirmed_success
+historical,EGLD,success,true,0,true,early_entry,NA,confirmed_success
+historical,HIVE,success,true,0,true,early_entry,NA,confirmed_success
+historical,INJ,success,true,0,true,early_entry,NA,confirmed_success
+historical,IQ,success,true,0,true,early_entry,NA,confirmed_success
+historical,SC,success,true,0,true,early_entry,NA,confirmed_success
+forward,SOPH#24,unknown,true,1,false,normal_stage6_only,0.0000,in_progress
+forward,IOST#14,unknown,true,13,false,normal_stage6_only,2.4931,in_progress
+forward,FLOCK#41,unknown,true,11,false,normal_stage6_only,0.0000,in_progress
+forward,PROM#28,unknown,false,0,false,normal_stage6_only,2.2825,in_progress
+forward,FLOCK#39,unknown,false,0,false,normal_stage6_only,5.6995,in_progress
+forward,IOST#17,unknown,false,0,false,normal_stage6_only,5.4131,in_progress
