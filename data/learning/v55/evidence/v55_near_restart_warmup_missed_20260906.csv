@@ -1,0 +1,2 @@
+market,cycle_id,t_sec,t_time_kst,t_price,t_value_x,stage5_time_kst,stage5_price,stage5_net_buy_krw,stage5_bid_share,stage5_trades10,recycle_time_kst,recycle_reason,session_open,first_session_plus10_minute_kst,session_high,session_high_pct,stage6,stage7,stage8,classification
+KRW-NEAR,2,1788699025,2026-09-06T21:50:25+09:00,3191,4.645683,2026-09-06T21:51:01+09:00,3201,4737191,0.838497,10,2026-09-06T21:51:04+09:00,-4tick,2992,2026-09-06T22:39:00+09:00,3300,10.294118,false,false,false,operationally_contaminated_MISSED_restart_warmup

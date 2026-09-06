@@ -1,0 +1,3 @@
+market,cycle_id,t_time_kst,t_price,t_value_x,stage5_time_kst,stage5_price,bid_krw,ask_krw,net_buy_krw,bid_share,trades10,total10_krw,f01,f02,f03,n01,outcome
+KRW-RAY,7,2026-09-06T22:43:16+09:00,1879,3.798735,2026-09-06T22:45:56+09:00,1910,124344938,61779361,62565577,0.668075,172,186124300,false,true,true,false,F03_recycle
+KRW-IOST,1,2026-09-06T22:40:54+09:00,0.971,4.108546,2026-09-06T22:45:57+09:00,0.980,22057826,0,22057826,1.000000,31,22057826,false,false,false,false,5s_idle_recycle
