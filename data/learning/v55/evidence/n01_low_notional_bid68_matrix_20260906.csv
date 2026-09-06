@@ -1,0 +1,5 @@
+test_id,rule,success_kept,success_total,fake_removed,fake_total,residual_fake,action,notes
+N01,"value10 < 5000000 AND bid_ratio < 0.68",17,17,2,19,"FLOCK#2;ZRO#7;FLOCK#7;FLOCK#8;FLOCK#11;ELSA#10;SOPH?;FLOCK#12;ELSA#11;LA#8;EDGE#6;SNT#3;UP2#1;T#2;QUID#3;ARB#10;LA#10;BONK#17","stage3_recycle","N01 newly catches ZRO#4 and QUID#2; rows already filtered by other rules are not double-counted"
+ROUTE_BASE,"F03 + P04 + P05 with existing success-preserving branch",17,17,16,19,"ZRO#4;QUID#2;T#2","mixed","existing validated route"
+ROUTE_PLUS_N01,"ROUTE_BASE + N01",17,17,18,19,"T#2","mixed","N01 removes both low-notional weak-BID residuals"
+ROUTE_PLUS_N01_T02,"ROUTE_BASE + N01 + same-market 30m position lock",17,17,19,19,"","mixed","T#2 blocked as duplicate order after successful T#1; cycle remains logged"
