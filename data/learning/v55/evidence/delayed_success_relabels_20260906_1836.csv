@@ -1,0 +1,6 @@
+market,cycle_id,stage6_time_kst,final_price,first_10pct_candle_kst,delay_lower_bound_sec,max_price,max_return_pct,old_label,new_label,exact_first_second
+KRW-FLOCK,28,2026-09-06T12:13:38+09:00,99.9,2026-09-06T17:39:00+09:00,19522,111,11.1111,confirmed_fake,confirmed_delayed_success,N/A
+KRW-FLOCK,32,2026-09-06T13:01:36+09:00,95.0,2026-09-06T17:38:00+09:00,16584,111,16.8421,in_progress,confirmed_delayed_success,N/A
+KRW-SOPH,22,2026-09-06T13:29:19+09:00,6.74,2026-09-06T18:00:00+09:00,16241,7.42,10.089,in_progress,confirmed_delayed_success,N/A
+KRW-FLOCK,39,2026-09-06T13:55:06+09:00,96.5,2026-09-06T17:38:00+09:00,13374,111,15.0259,in_progress,confirmed_delayed_success,N/A
+KRW-FLOCK,49,2026-09-06T16:46:23+09:00,99.0,2026-09-06T17:39:00+09:00,3157,111,12.1212,in_progress,confirmed_delayed_success,N/A
