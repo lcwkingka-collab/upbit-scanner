@@ -15,7 +15,7 @@ def load_module(tmp_path):
     fake.r=fake_r;fake.KST=timezone(timedelta(hours=9));fake.TRADE_EVENTS={};fake.TICK_SIZE={}
     fake.current_price=lambda _m,_s:100.0
     fake.minute_value_x=lambda _m,_s:(3.0,3.0,1.0)
-    fake.flow10=lambda _m,_s:{'cur':{'bid':200.0,'ask':100.0,'net':100.0,'bid_count':5,'ask_count':2,'share':2/3},'prev':{'bid':100.0,'ask':100.0,'bid_count':2,'ask_count':2}}
+    fake.flow10=lambda _m,_s:{'cur':{'bid':5_000_000.0,'ask':1_000_000.0,'net':4_000_000.0,'bid_count':5,'ask_count':2,'share':5/6},'prev':{'bid':1_000_000.0,'ask':1_000_000.0,'bid_count':2,'ask_count':2}}
     sys.modules['realtime_radar_v54']=fake;sys.modules.pop('realtime_radar_v55',None)
     mod=importlib.import_module('realtime_radar_v55');mod.EVENT_LOG_DIR=tmp_path
     return mod,sent
@@ -85,3 +85,18 @@ def test_old_stage5_hands_over_only_to_stage5_reserve(tmp_path):
 def test_btc_and_stablecoin_excluded(tmp_path):
     m,_=load_module(tmp_path)
     assert m.excluded('KRW-BTC');assert m.excluded('KRW-USDT');assert not m.excluded('KRW-DRV')
+
+
+def test_n01_4m_and_bid68_boundaries(tmp_path):
+    m,_=load_module(tmp_path)
+    def flow(total,bid_share):
+        bid=total*bid_share
+        ask=total-bid
+        return {'cur':{'bid':bid,'ask':ask,'net':bid-ask,'bid_count':10,'ask_count':10,'share':bid_share},
+                'prev':{'bid':0.0,'ask':0.0,'bid_count':0,'ask_count':0}}
+    assert m.n01_should_recycle(flow(4_000_000,0.6799))
+    assert not m.n01_should_recycle(flow(4_000_001,0.55))
+    assert not m.n01_should_recycle(flow(4_000_000,0.68))
+    assert not m.n01_should_recycle(flow(4_451_600,0.5540))
+    assert m.n01_should_recycle(flow(2_758_999,0.6368499))
+    assert m.n01_should_recycle(flow(2_924_054,0.6491900))
