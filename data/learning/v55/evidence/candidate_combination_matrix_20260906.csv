@@ -1,0 +1,10 @@
+combination,success_kept,success_total,success_lost,fake_removed,fake_total,fake_survived,success_keep_pct,fake_remove_pct,added_wait_sec,removed_success
+F01,17,17,0,7,19,12,100.00,36.84,0,
+F02,17,17,0,6,19,13,100.00,31.58,0,
+F03_F01_OR_F02,17,17,0,9,19,10,100.00,47.37,0,
+P04_fail_0.5pct_30s,16,17,1,8,19,11,94.12,42.11,30,KRW-EGLD
+P05_fail_1pct_300s,16,17,1,11,19,8,94.12,57.89,300,KRW-EGLD
+F03_OR_P04fail,16,17,1,12,19,7,94.12,63.16,30,KRW-EGLD
+F03_OR_P05fail,16,17,1,15,19,4,94.12,78.95,300,KRW-EGLD
+F03_OR_P04fail_OR_P05fail,16,17,1,16,19,3,94.12,84.21,300,KRW-EGLD
+F03_plus_1s_nonnegative_high,17,17,0,10,19,9,100.00,52.63,1,
