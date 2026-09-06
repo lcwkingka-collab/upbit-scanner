@@ -1,0 +1,5 @@
+route,success_kept,success_total,success_keep_pct,fake_removed,fake_total,fake_remove_pct,early_stage5_success,early_stage5_fake,normal_stage6_success,normal_stage6_fake,signal_precision_pct
+R0_current_stage6,17,17,100.0,0,19,0.0,0,0,17,19,47.22
+R1_F03_then_stage6,17,17,100.0,9,19,47.37,0,0,17,10,62.96
+R2_F03_fast065_else_stage6,17,17,100.0,9,19,47.37,7,0,10,10,62.96
+R3_F03_fast068_else_stage6,17,17,100.0,9,19,47.37,6,0,11,10,62.96
