@@ -1,6 +1,6 @@
 # V5.5 Current Learning State
 
-Updated: 2026-09-06T23:42:00+09:00
+Updated: 2026-09-06T23:54:47+09:00
 
 ## Latest verified boundary
 
@@ -40,8 +40,16 @@ Updated: 2026-09-06T23:42:00+09:00
 ### Other open state
 
 - ZAMA#4 remains open: Stage6 max/min +7.0905%/-2.0782%; Stage8-signal max/min +5.9250%/-3.1439%; +10% not reached from either reference; actual fill N/A.
-- ZAMA#3 was at Stage5 83.8 at the 23:20:05 source cutoff. Stage6 onward is N/A until the next event upload.
+- ZAMA#3 returned from Stage5 to Stage3 one second after the prior cutoff because price fell four ticks; it never reached Stage6.
 - No newly verified MISSED market in the 278-market session scan.
+
+## 23:20:06–23:50:05 increment
+
+- Eligible event rows 5,571. Stage1/2/3 = 435/237/237; Stage4 pass/reject = 1/39; Stage5 = 1; Stage6/7/8 = 0/0/0; reset/drop = 412/185.
+- No F03, N01, T02, or late-entry block occurred. No new Stage8 or Telegram final signal occurred.
+- IOST#3: T 0.983/7.1247x; Stage5 0.996 with BID/net +3.478M, BID share 100%, 13 fills, and T+13 ticks. F03/N01 passed, but the stream went idle for five seconds and recycled before Stage6. A later +1.0% attempt had only five fills and Stage4 correctly rejected it.
+- This is one new pre-Stage6 false launch removed by the existing idle/fill-count gates. It does not alter the closed historical matrix.
+- Event source is current through 23:50:05; all-market ticker is current through 23:53:50. `data/live/latest.json` and MA source remain stale at 22:48:54 and 19:35:47 respectively.
 
 ## Learning and modification posture
 

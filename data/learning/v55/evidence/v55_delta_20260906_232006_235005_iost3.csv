@@ -1,0 +1,8 @@
+timestamp_kst,market,cycle_id,t_sec,event,price,bid_krw,ask_krw,net_krw,bid_share_pct,trades10,detail
+2026-09-06T23:20:06+09:00,KRW-ZAMA,3,1788704220,stage5_to_stage3,83.4,,,,,,"Stage5 reference 83.8; -4-tick recycle; no Stage6"
+2026-09-06T23:33:24+09:00,KRW-IOST,3,1788705204,stage1,0.983,,,,,,"rolling60_ratio=7.124734"
+2026-09-06T23:33:25+09:00,KRW-IOST,3,1788705204,stage2,0.983,9171659.43,424988.75,8746670.68,95.5714,,"BID_count=1"
+2026-09-06T23:36:28+09:00,KRW-IOST,3,1788705204,stage4_stage5,0.996,3478147.13,0,3478147.13,100,13,"3s rise=0.403226%; T+13ticks; F03=false; N01=false"
+2026-09-06T23:36:34+09:00,KRW-IOST,3,1788705204,stage5_to_stage3,0.996,,,,,,"5-second no-trade recycle; no Stage6/7/8/Telegram"
+2026-09-06T23:46:02+09:00,KRW-IOST,3,1788705204,stage4_reject,1.01,,,,,5,"3s rise=1.0%; T+27ticks; rejected because trades10<7"
+2026-09-06T23:50:05+09:00,ALL,N/A,N/A,delta_summary,N/A,,,,,,"rows=5571; stage1/2/3=435/237/237; stage4 pass/reject=1/39; stage5=1; stage5_to_stage3=2; stage6/7/8=0/0/0; reset/drop=412/185; F03/N01/T02/late-entry=0"
