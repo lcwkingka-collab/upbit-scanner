@@ -128,6 +128,22 @@ def find_prelaunch_t(minutes: list[dict], daily_open: float, daily_high: float) 
     }
 
 
+def find_final_high_t(minutes: list[dict]) -> dict | None:
+    """Earliest 2.8x candidate in the four hours before the absolute day high."""
+    if not minutes: return None
+    vals=[float(r.get("candle_acc_trade_price") or 0) for r in minutes]
+    dts=[datetime.fromisoformat(r["candle_date_time_utc"]).replace(tzinfo=UTC) for r in minutes]
+    high_i=max(range(len(minutes)),key=lambda i:float(minutes[i]["high_price"])); high_dt=dts[high_i]
+    candidates=[]
+    for i,r in enumerate(minutes):
+        vx=minute_value_x(vals,i)
+        if high_dt-timedelta(hours=4)<=dts[i]<=high_dt and vx>=ENTRY_X:
+            candidates.append((i,vx))
+    if not candidates:return None
+    i,vx=candidates[0];r=minutes[i]
+    return {"minute_index":i,"approx_t_utc":dts[i].isoformat(),"approx_t_kst":dts[i].astimezone(KST).isoformat(),"approx_t_price":float(r["opening_price"]),"minute_value_x":vx,"day_high_kst":high_dt.astimezone(KST).isoformat(),"route":"final_high"}
+
+
 def fetch_replay_window(market: str, start: datetime, end: datetime) -> tuple[dict[int,dict], dict[int,list[tuple]]]:
     candles, trades = {}, collections.defaultdict(list)
     cur = start
@@ -254,8 +270,16 @@ def main():
         tick=ss.fetch_tick_size(market)
         candles,trades=fetch_replay_window(market,scan_start,scan_end)
         if not tick or not candles: replay.append({"market":market,"pass_v55":False,"reason":"missing_tick_or_seconds"});continue
-        rr=replay_v55(market,tick,candles,trades,approx);rr.update({"daily_high_gain_pct":w["high_gain_pct"],"daily_open":w["open"],"daily_high":w["high"],"approx_t_kst":tc["approx_t_kst"],"scan_start_kst":scan_start.astimezone(KST).isoformat(),"scan_end_kst":scan_end.astimezone(KST).isoformat()});replay.append(rr)
+        rr=replay_v55(market,tick,candles,trades,approx);rr.update({"route":"primary","daily_high_gain_pct":w["high_gain_pct"],"daily_open":w["open"],"daily_high":w["high"],"approx_t_kst":tc["approx_t_kst"],"scan_start_kst":scan_start.astimezone(KST).isoformat(),"scan_end_kst":scan_end.astimezone(KST).isoformat()});replay.append(rr)
         print(f"[{n}/{len(winners)}] {market} pass={rr['pass_v55']} T={rr.get('T_kst')} s6={rr.get('stage6_kst')}",flush=True)
+        if not rr["pass_v55"]:
+            ft=find_final_high_t(in_day)
+            if ft and ft["approx_t_kst"]!=tc["approx_t_kst"]:
+                trows.append({"market":market,**ft})
+                fa=datetime.fromisoformat(ft["approx_t_utc"]); fs=max(start,fa-timedelta(minutes=11)); fe=min(end,fa+timedelta(hours=4))
+                fc,fx=fetch_replay_window(market,fs,fe)
+                fr=replay_v55(market,tick,fc,fx,fa);fr.update({"route":"final_high","daily_high_gain_pct":w["high_gain_pct"],"daily_open":w["open"],"daily_high":w["high"],"approx_t_kst":ft["approx_t_kst"],"scan_start_kst":fs.astimezone(KST).isoformat(),"scan_end_kst":fe.astimezone(KST).isoformat()});replay.append(fr)
+                print(f"  final-high {market} pass={fr['pass_v55']} T={fr.get('T_kst')} s6={fr.get('stage6_kst')}",flush=True)
     write_csv(OUT/"SEP4_25_FULL_DAY_1MIN.csv",minute_all);write_csv(OUT/"SEP4_T_CANDIDATES.csv",trows);write_csv(OUT/"SEP4_V55_REPLAY.csv",replay)
     (OUT/"manifest.json").write_text(json.dumps({"generated_at":datetime.now(KST).isoformat(),"method_day":"KST calendar day / 00:00 KST boundary, matching Sep1-3 training set","universe":len(universe),"winners":len(winners),"replay_pass":sum(bool(x.get('pass_v55')) for x in replay),"replay":replay},ensure_ascii=False,indent=2),encoding="utf-8")
 
