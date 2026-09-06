@@ -1,0 +1,6 @@
+market,source_time_kst,price,return_1m_pct,value_1m_krw,bid_share_1m,net_buy_1m_krw,trades_1m,value_vs_10m_x,decision,reason
+KRW-PENGU,2026-09-06T19:49:10.843631+09:00,12.1,0.833333,24068450,1.000000,24068450,27,34.883249,WATCH_ONLY,strongest distributed one-minute BID inflow but no verified Stage4-8
+KRW-MON,2026-09-06T19:49:10.843631+09:00,36.2,0.000000,3406637,1.000000,3406637,20,10.551173,WATCH_ONLY,distributed BID but no price expansion and no verified Stage4-8
+KRW-MLK,2026-09-06T19:49:10.843631+09:00,50.0,0.000000,3359852,0.031267,-3149748,12,25.082080,REJECT,ASK dominance and no price expansion
+KRW-ATOM,2026-09-06T19:49:10.843631+09:00,2170,0.000000,16884790,0.000000,-16884790,3,24.785971,REJECT,all ASK and only three fills
+KRW-LIT,2026-09-06T19:49:10.843631+09:00,6385,-0.156372,12776000,0.000000,-12776000,3,8.410595,REJECT,all ASK with negative one-minute return
