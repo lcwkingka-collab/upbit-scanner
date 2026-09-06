@@ -51,6 +51,38 @@ def test_stage7_and_stage8_only_final_telegram(tmp_path):
     assert st.stage==8;assert len(sent)==1;assert '8차 최종' in sent[0]
 
 
+def test_late_extended_stage8_recycles_to_stage3(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    m.PREV_CLOSE[market]=80.0
+    st=m.V55State(stage=7,t_sec=100, t_price=79, stage6_sec=1990,stage6_price=100,
+                   stage7_sec=1994,stage7_price=100.5)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque([(2000_000,101,'BID',10)])
+    m.evaluate_confirmation(market,2000,st,101)
+    assert st.stage==3;assert sent==[]
+    rows=(tmp_path/'19700101'/'v55_events.jsonl').read_text(encoding='utf-8')
+    assert 'stage8_late_entry_recycle' in rows
+
+
+def test_fast_extended_stage8_is_preserved(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    m.PREV_CLOSE[market]=80.0
+    st=m.V55State(stage=7,t_sec=500, t_price=79, stage6_sec=590,stage6_price=100,
+                   stage7_sec=594,stage7_price=100.5)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque([(600_000,101,'BID',10)])
+    m.evaluate_confirmation(market,600,st,101)
+    assert st.stage==8;assert len(sent)==1
+
+
+def test_late_but_below_20pct_stage8_is_preserved(tmp_path):
+    m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
+    m.PREV_CLOSE[market]=85.0
+    st=m.V55State(stage=7,t_sec=100, t_price=84, stage6_sec=1990,stage6_price=100,
+                   stage7_sec=1994,stage7_price=100.5)
+    m.ST[market]=st;m.v54.TRADE_EVENTS[market]=deque([(2000_000,101,'BID',10)])
+    m.evaluate_confirmation(market,2000,st,101)
+    assert st.stage==8;assert len(sent)==1
+
+
 def test_stage7_timeout_recycles_to_stage3(tmp_path):
     m,sent=load_module(tmp_path);market='KRW-X';m.v54.TICK_SIZE[market]=1
     st=m.V55State(stage=6,t_sec=1,t_price=90,stage6_sec=100,stage6_price=100)
