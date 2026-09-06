@@ -1,0 +1,5 @@
+route,success_kept,success_fast_stage5,success_normal_lane,success_lost,fake_removed,fake_survived,success_keep_pct,fake_remove_pct,fake_survivors
+O1_F03_then_current_stage6,17,6,11,0,9,10,100.0,47.37,"ZRO#4;ZRO#7;FLOCK#7;QUID#2;LA#8;EDGE#6;SNT#3;UP2#1;T#2;QUID#3"
+O2_F03_then_F15_bypass_else_P04,17,6,11,0,12,7,100.0,63.16,"ZRO#4;ZRO#7;QUID#2;LA#8;EDGE#6;SNT#3;T#2"
+O3_F03_then_F15_bypass_else_P05,17,6,11,0,15,4,100.0,78.95,"ZRO#4;QUID#2;T#2;QUID#3"
+O4_F03_then_F15_bypass_else_P04_and_P05,17,6,11,0,16,3,100.0,84.21,"ZRO#4;QUID#2;T#2"
